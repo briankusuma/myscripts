@@ -1,0 +1,10 @@
+{
+  "sections": {
+      "addresses": {
+          "type": "customer-addresses"
+      }
+  },
+  "order": [
+    "addresses"
+  ]
+}

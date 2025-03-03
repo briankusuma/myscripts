@@ -1,0 +1,454 @@
+<div class="container collection-cont">
+  {% assign current_collection = collection %} 
+  {% assign sort_by = request.queryParams['sort_by'] %}
+
+  <div class="collection-head">
+    <div class="collection-title">
+      <h1>{{ collection.title }}</h1>
+    </div>
+    <div class="collection-amount">
+      <span class="txt-500 fs-14 cl-black-50 uppercase">({{ collection.products_count }} Products)</span>
+    </div>
+    <div class="collection-filter">
+      <button id="filter-show" class="btn-filter-trigger">
+        Filter
+        <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.5 7.5H10.5" stroke="#111111" stroke-width="0.875" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 11V4" stroke="#292D32" stroke-width="0.875" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <form action="{{ current_collection.url }}" method="get" class="form-sort">
+        <div class="dropdown">
+          <div class="dropdown-trigger btn-filter-trigger">
+            Sort By
+            <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.6199 5.7207L7.81655 9.52404C7.36738 9.9732 6.63238 9.9732 6.18322 9.52404L2.37988 5.7207" stroke="#111111" stroke-width="0.875" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="dropdown-options">
+            <div 
+              class="dropdown-option {% if current_collection.sort_by == nil %}selected{% endif %}" 
+              data-value="">
+              Featured
+            </div>
+            <div 
+              class="dropdown-option {% if current_collection.sort_by == 'best-selling' %}selected{% endif %}" 
+              data-value="best-selling">
+              Best Selling
+            </div>
+            <div 
+              class="dropdown-option {% if current_collection.sort_by == 'title-ascending' %}selected{% endif %}" 
+              data-value="title-ascending">
+              Alphabetically, A-Z
+            </div>
+            <div 
+              class="dropdown-option {% if current_collection.sort_by == 'title-descending' %}selected{% endif %}" 
+              data-value="title-descending">
+              Alphabetically, Z-A
+            </div>
+            <div 
+              class="dropdown-option {% if current_collection.sort_by == 'price-ascending' %}selected{% endif %}" 
+              data-value="price-ascending">
+              Price, Low to High
+            </div>
+            <div 
+              class="dropdown-option {% if current_collection.sort_by == 'price-descending' %}selected{% endif %}" 
+              data-value="price-descending">
+              Price, High to Low
+            </div>
+            <div 
+              class="dropdown-option {% if current_collection.sort_by == 'created-at-descending' %}selected{% endif %}" 
+              data-value="created-at-descending">
+              Date, Newest to Oldest
+            </div>
+            <div 
+              class="dropdown-option {% if current_collection.sort_by == 'created-at-ascending' %}selected{% endif %}" 
+              data-value="created-at-ascending">
+              Date, Oldest to Newest
+            </div>
+          </div>
+          <input type="hidden" name="sort_by" id="sort-by" value="{{ current_collection.sort_by }}">
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="collection-main">
+    {% if sort_by == 'best-selling' %}
+      {% assign products = collection.products | sort: 'best-selling' %}
+    {% elsif sort_by == 'title-ascending' %}
+      {% assign products = collection.products | sort: 'title' %}
+    {% elsif sort_by == 'title-descending' %}
+      {% assign products = collection.products | sort: 'title' | reverse %}
+    {% elsif sort_by == 'price-ascending' %}
+      {% assign products = collection.products | sort: 'price' %}
+    {% elsif sort_by == 'price-descending' %}
+      {% assign products = collection.products | sort: 'price' | reverse %}
+    {% elsif sort_by == 'created-at' %}
+      {% assign products = collection.products | sort: 'created_at' %}
+    {% else %}
+      {% assign products = collection.products %} 
+    {% endif %}
+    
+    {% for product in products %}
+      <div class="collection-product">
+
+        <a href="{{ product.url }}" class="collection-product-link-anchor">
+          <div href="{{ product.url }}" class="collection-product-anchor">
+            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.5 10.5H15.5" stroke="#111111" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10.5 15.5V5.5" stroke="#111111" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Featured Image -->
+        <img 
+          src="{{ product.featured_image | image_url: width: 1080 }}" 
+          alt="{{ product.title }}" 
+          class="featured-image" 
+        />
+
+        <!-- Hover Image -->
+        {% if product.images.size > 1 %}
+          <img 
+          src="{{ product.images[1] | image_url: width: 1080 }}" 
+          alt="{{ product.title }}" 
+          class="hover-image" 
+        />
+        {% endif %}
+
+        <div class="collection-product-details">
+          <div class="collection-product-title">
+            <span class="txt-500 fs-16 cl-black">{{ product.title }}</span>
+            <span class="txt-400 fs-16 cl-black-50">{{ product.price | money }}</span>
+          </div>
+
+         <!-- Variants -->
+          <div class="collection-product-variant">
+            {% for variant in product.variants %}
+              <button 
+                class="variant-button" 
+                data-variant-id="{{ variant.id }}">
+                {{ variant.title }}
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="collection-product-mobile">
+          <span class="txt-500 fs-16 cl-black">{{ product.title }}</span>
+          <span class="txt-400 fs-16 cl-black-50">{{ product.price | money }}</span>
+        </div>
+      </div>  
+      
+    {% endfor %}
+  </div>
+  <div class="collection-popup">
+    <div class="collection-popup-filter">
+      <div class="collection-popup-filter-head">
+        <span class="fs-14 txt-500">Filters</span>
+        <Button id="filter-hide" class="btn-variant">
+          <span>Close</span>
+        </Button>
+      </div>
+      <form class="popup-filter-form">
+
+        {% comment %} <div class="filter-current-wrapper">
+          {%- for filter in collection.filters -%}
+              {%- for filter_value in filter.active_values -%}
+                <p class="fs-14 cl-black-50 underline filter-current">
+                  <a href="{{ filter_value.url_to_remove }}">
+                    {% case filter_value.label %}
+                      {% when 'Extra small (XS)' %}
+                        XS
+                      {% when 'Small (S)' %}
+                        S
+                      {% when 'Medium (M)' %}
+                        M
+                      {% when 'Large (L)' %}
+                        L
+                      {% when 'Extra large (XL)' %}
+                        XL
+                      {% when '32' %}
+                        FR32
+                      {% when '34' %}
+                        FR34
+                      {% when '36' %}
+                        FR36
+                      {% when '38' %}
+                        FR38
+                      {% when '40' %}
+                        FR40
+                      {% when '42' %}
+                        FR42
+                      {% else %}
+                      {{ filter_value.label }}
+                    {% endcase %}
+                  </a>
+                </p>
+              {%- endfor -%}
+          {%- endfor -%}
+        </div> {% endcomment %}
+
+        {%- for filter in collection.filters -%}
+          {% if filter.label == 'Availability' %}
+            <div>
+              <ul>
+                {%- for filter_value in filter.values -%}
+                  {% if filter_value.label == 'In stock' %}
+                    <li class="btn-filter-trigger" style="display: flex">
+  
+                        <label class="switch-avail" for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+  
+                          <span class="fs-14 txt-500">{{ filter.label }}</span>
+  
+                          <div class="switch">
+                            <div class="switch-toggle">
+                              <input type="checkbox"
+                                name="{{ filter_value.param_name }}"
+                                value="{{ filter_value.value }}"
+                                id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                                class="switch switch-cbox"
+                                {% comment %} onclick="this.form.submit();"  {% endcomment %}
+                                {% if filter_value.active -%}checked{%- endif %}
+                                {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                              >
+                            </div>
+                          </div>
+  
+                        </label>
+  
+                    </li>
+                  {% endif %}
+                {%- endfor -%}
+              </ul>
+              
+              <div>
+                <input type="submit" value="Apply" hidden>
+              </div>
+  
+              </div>
+          {% endif %}
+          {% if filter.label != 'Availability' %}
+            <details open>
+              <summary>
+                <div class="filter-variant-head">
+                  <span class="fs-14 txt-500">{{ filter.label }}</span>
+                  <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.6199 9.2793L7.81655 5.47596C7.36738 5.0268 6.63238 5.0268 6.18322 5.47596L2.37988 9.2793" stroke="#111111" stroke-width="0.875" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </summary>
+
+              <div class="filter-variant-list">
+                {%- case filter.type -%}
+                  {%- when 'boolean' -%}
+                    <ul class="filter-variant-list">
+                        <li class="filter-variant-list-item btn-variant">
+                          <label for="Filter-{{ filter.param_name }}-{{ filter.true_value.value }}">
+                          <input type="checkbox"
+                            name="{{ filter.param_name }}"
+                            value="{{ filter.true_value.value }}"
+                            id="Filter-{{ filter.param_name }}"
+                            {% if filter.true_value.active -%}checked{%- endif %}
+                            {% if filter.true_value.count == 0 and filter.true_value.active == false -%}disabled{%- endif -%}
+                          >{{ filter.true_value.label }}</label>
+                        </li>
+                        <li class="filter-variant-list-item btn-variant">
+                          <label for="Filter-{{ filter.param_name }}-{{ filter.false_value.value }}">
+                          <input type="checkbox"
+                            name="{{ filter.param_name }}"
+                            value="{{ filter.false_value.value }}"
+                            id="Filter-{{ filter.param_name }}"
+                            {% if filter.false_value.active -%}checked{%- endif %}
+                            {% if filter.false_value.count == 0 and filter.false_value.active == false -%}disabled{%- endif %}
+                          >{{ filter.false_value.label }}</label>
+                        </li>
+                    </ul>
+
+                  {%- when 'list' -%}
+                    <ul class="filter-variant-list">
+                      {%- for filter_value in filter.values -%}
+                        <li class="filter-variant-list-item btn-variant {% if filter.label == 'Size'%}list-size{% endif %} ">
+                          {% if filter.label == 'Color' %}
+                            <div class="color-indicator" style="background-color: {{ filter_value.label }}"></div>
+                          {% endif %}
+                          <label class="uppercase fs-14 txt-500 {% if filter.label == 'Size'%}size{% endif %}" for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                            <input type="checkbox"
+                            name="{{ filter_value.param_name }}"
+                            value="{{ filter_value.value }}"
+                            id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                            {% if filter_value.active -%}checked{%- endif %}
+                            {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                            >
+                            <span>
+                              <span class="visual-display__child"></span>
+                            </span>
+                            {% case filter_value.label %}
+                              {% when 'Extra small (XS)' %}
+                                XS
+                              {% when 'Small (S)' %}
+                                S
+                              {% when 'Medium (M)' %}
+                                M
+                              {% when 'Large (L)' %}
+                                L
+                              {% when 'Extra large (XL)' %}
+                                XL
+                              {% when '32' %}
+                                FR32
+                              {% when '34' %}
+                                FR34
+                              {% when '36' %}
+                                FR36
+                              {% when '38' %}
+                                FR38
+                              {% when '40' %}
+                                FR40
+                              {% when '42' %}
+                                FR42
+                              {% else %}
+                              {{ filter_value.label }}
+                            {% endcase %}
+                          </label>
+                          <div class="filter-active-indicator">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M12.473 4.80657C12.411 4.74409 12.3373 4.69449 12.256 4.66065C12.1748 4.6268 12.0876 4.60938 11.9996 4.60938C11.9116 4.60938 11.8245 4.6268 11.7433 4.66065C11.662 4.69449 11.5883 4.74409 11.5263 4.80657L6.55964 9.77991L4.47297 7.68657C4.40863 7.62441 4.33267 7.57554 4.24943 7.54274C4.16619 7.50993 4.07731 7.49385 3.98786 7.49539C3.8984 7.49694 3.81013 7.51609 3.72808 7.55176C3.64602 7.58742 3.5718 7.63889 3.50964 7.70324C3.44748 7.76759 3.39861 7.84355 3.3658 7.92679C3.333 8.01002 3.31691 8.09891 3.31846 8.18836C3.32001 8.27781 3.33916 8.36609 3.37482 8.44814C3.41049 8.53019 3.46196 8.60441 3.52631 8.66657L6.08631 11.2266C6.14828 11.2891 6.22202 11.3387 6.30326 11.3725C6.3845 11.4063 6.47163 11.4238 6.55964 11.4238C6.64765 11.4238 6.73479 11.4063 6.81603 11.3725C6.89727 11.3387 6.971 11.2891 7.03297 11.2266L12.473 5.78657C12.5406 5.72415 12.5946 5.64838 12.6316 5.56404C12.6685 5.47971 12.6876 5.38864 12.6876 5.29657C12.6876 5.20451 12.6685 5.11344 12.6316 5.0291C12.5946 4.94477 12.5406 4.869 12.473 4.80657Z" fill="black"/>
+                            </svg>
+                          </div>
+                        </li>
+                      {%- endfor -%}
+                      {% comment %} <div 
+                        id="show-more-btn" 
+                        class="show-more-btn" 
+                        {% if filter.values.size <= 6 %}style="display:none;"
+                        {% endif %}
+                      >
+                        Show More
+                      </div> {% endcomment %}
+                    </ul>
+
+                  {%- when 'price_range' -%}
+                    <div class="filter-group-display__price-range">
+                      <div class="filter-group-display__price-range-from">
+                        <span>{{ cart.currency.symbol }}</span>
+
+                        <input name="{{ filter.min_value.param_name }}"
+                          id="Filter-{{ filter.min_value.param_name }}"
+                          {% if filter.min_value.value -%}
+                            value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                          {%- endif %}
+                          type="number"
+                          placeholder="0"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        >
+
+                        <label for="Filter-{{ filter.min_value.param_name }}">From</label>
+                      </div>
+                      <div class="filter-group-display__price-range-to">
+                        <span>{{ cart.currency.symbol }}</span>
+
+                        <input name="{{ filter.max_value.param_name }}"
+                          id="Filter-{{ filter.max_value.param_name }}"
+                          {% if filter.max_value.value -%}
+                            value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                          {%- endif %}
+                          type="number"
+                          placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        >
+
+                        <label for="Filter-{{ filter.max_value.param_name }}">To</label>
+                      </div>
+                    </div>
+
+                {%- endcase -%}
+              </div>
+            </details>
+          {% endif %}
+          
+        {%- endfor -%}
+
+        <div class="popup-filter-action">
+          <div>
+            <input type="submit" value="Apply Filters" class="button fs-14 underline txt-400">
+          </div>
+          <p class="fs-14 underline"><a href="{{ collection.url }}?sort_by={{ collection.sort_by }}">Clear all</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="sort-mobile">
+  <form action="{{ current_collection.url }}" method="get" class="form-sort form-mobile">
+    <div class="dropdown-mobile">
+      <div class="dropdown-mobile-title">
+        <span class="fs-18 uppercase">Sort By</span>
+        <div id="sort-mobile-hide" class="btn-variant sort-mobile-hide-btn">
+          <span class="fs-14 underline">Close</span>
+        </div>
+      </div>
+      <div class="dropdown-mobile-options">
+        <div 
+          class="dropdown-mobile-option {% if current_collection.sort_by == nil %}selected{% endif %}" 
+          data-value="">
+          Featured
+        </div>
+        <div 
+          class="dropdown-mobile-option {% if current_collection.sort_by == 'best-selling' %}selected{% endif %}" 
+          data-value="best-selling">
+          Best Selling
+        </div>
+        <div 
+          class="dropdown-mobile-option {% if current_collection.sort_by == 'title-ascending' %}selected{% endif %}" 
+          data-value="title-ascending">
+          Alphabetically, A-Z
+        </div>
+        <div 
+          class="dropdown-mobile-option {% if current_collection.sort_by == 'title-descending' %}selected{% endif %}" 
+          data-value="title-descending">
+          Alphabetically, Z-A
+        </div>
+        <div 
+          class="dropdown-mobile-option {% if current_collection.sort_by == 'price-ascending' %}selected{% endif %}" 
+          data-value="price-ascending">
+          Price, Low to High
+        </div>
+        <div 
+          class="dropdown-mobile-option {% if current_collection.sort_by == 'price-descending' %}selected{% endif %}" 
+          data-value="price-descending">
+          Price, High to Low
+        </div>
+        <div 
+          class="dropdown-mobile-option {% if current_collection.sort_by == 'created-at-descending' %}selected{% endif %}" 
+          data-value="created-at-descending">
+          Date, Newest to Oldest
+        </div>
+        <div 
+          class="dropdown-mobile-option {% if current_collection.sort_by == 'created-at-ascending' %}selected{% endif %}" 
+          data-value="created-at-ascending">
+          Date, Oldest to Newest
+        </div>
+      </div>
+      <input type="hidden" name="sort_by" id="sort-by-mobile" value="{{ current_collection.sort_by }}">
+    </div>
+  </form>
+</div>
+
+<script src="{{ "collection.js" |  asset_url }}"></script>
+
+{% schema %}
+  {
+    "name": "Collection Section",
+    "tag": "section",
+    "class": "section collection",
+    "settings": [
+      
+    ],
+    "blocks": [
+    ]
+  }
+{% endschema %}

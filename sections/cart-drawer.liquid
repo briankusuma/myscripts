@@ -1,0 +1,58 @@
+<div class="drawer">
+  <div class="drawer-header">
+    <h2 class="fs-20 txt-400">Your Cart</h2>
+    <button id="close-drawer" class="close-drawer button fs-12 cl-black-60 underline">Close</button>
+  </div>
+  {% if cart.item_count == 0 %}
+    <p>Your Cart is Empty</p>
+  {% else %}
+  
+    {% form 'cart', cart %}
+      <div class="drawer-main">
+        {% for item in cart.items %}
+          <div data-line-item-key="{{ item.key }}" id="drawer-cart-items" class="drawer-cart-items">
+            <img src="{{ item.image |  image_url: width: 480  }}" alt="">
+            <div class="drawer-cart-action">
+              <h3 class="fs-18 txt-500">{{ item.product.title }}</h3>
+              <p class="fs-14 cl-black-60">{{ item.variant.title }}</p>
+              <p class="fs-14 cl-black-60">{{ item.final_line_price | money }}</p>
+              <div class="product-quantity drawer-cart-product-quantity">
+                <button type="button" id="decrease-quantity" class="decrease-quantity">
+                  <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.5 10.5H15.5" stroke="#111111" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <input type="number" id="quantity-input" name="quantity" value="{{ item.quantity }}" min="0">
+                <button type="button" id="increase-quantity" class="increase-quantity">
+                  <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.5 10.5H15.5" stroke="#111111" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.5 15.5V5.5" stroke="#111111" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <a href="{{ item.url_to_remove }}" class="fs-12 txt-400 underline cl-black-60" >remove</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="drawer-footer">
+        <div class="drawer-footer-details">
+          <p class="txt-400 fs-16">Total: <span id="cart-total">{{ cart.total_price | money }}</span></p>
+          <a href="{{ routes.cart_url }}" class="button fs-12 cl-black-60 underline go-to-cart">Go to cart</a>
+        </div>
+        <button type="submit" name="checkout" class="btn-primary">Checkout</button>
+      </div>
+    {% endform %}
+
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "tag": "section",
+  "class": "section cart-drawer",
+  "settings": [
+  ]
+}
+{% endschema %}

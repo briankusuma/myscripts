@@ -1,0 +1,211 @@
+{% if template == 'index' %}
+<div class="container container-full navbar-cont">
+    <div class="navbar-left">
+      <ul class="navbar-menu">
+        {% for link in linklists['main-menu'].links %}
+          <li class="navbar-menu-item txt-400 fs-14 cl-white">
+            <a href="{{ link.url }}" id="nav-{{ link.title |  downcase }}">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+      {% if section.settings.enable_currency %}
+        
+        {% if localization.available_countries.size > 1 %}
+          <localization-form>
+            {% form 'localization' %}
+              <div class="disclosure currency">
+                <button type="button" class="disclosure__button currency-btn" aria-expanded="false" aria-controls="CountryList">
+                  <span class="fs-14">
+                    {{ localization.country.currency.iso_code }}
+                  </span>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.6199 5.2207L7.81655 9.02404C7.36738 9.4732 6.63238 9.4732 6.18322 9.02404L2.37988 5.2207" stroke="#ffffff" stroke-width="0.875" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+        
+                <ul id="CountryList" role="list" class="disclosure__list currency-list" hidden>
+                  {% for country in localization.available_countries %}
+                    <li class="disclosure__item currency-list-item" tabindex="-1">
+                      <a href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                        {{ country.currency.iso_code }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+        
+                <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+              </div>
+            {% endform %}
+          </localization-form>
+        {% endif %}
+
+      {% endif %}
+      
+    </div>
+    <div class="navbar-left-mobile">
+      <button class="nav-menu-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 8V7H20V8H3ZM20 12V13H3V12H20ZM3 17H20V18H3V17Z" fill="#ffffff"/>
+        </svg>
+      </button>
+    </div>
+    <div class="navbar-center">
+      <a href="{{ routes.root_url }}">
+        <img src="https://cdn.shopify.com/s/files/1/0625/6263/1749/files/logo-white.png?v=1731811107" alt="" class="navbar-logo">
+      </a>
+    </div>
+    <div class="navbar-right">
+      <ul class="navbar-action">
+        <li class="navbar-action-item" id="nav-user">
+          {% if customer %}
+            <a href="/account">
+              <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.4997 10.5001C12.8009 10.5001 14.6663 8.6346 14.6663 6.33342C14.6663 4.03223 12.8009 2.16675 10.4997 2.16675C8.19849 2.16675 6.33301 4.03223 6.33301 6.33342C6.33301 8.6346 8.19849 10.5001 10.4997 10.5001Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17.6585 18.8333C17.6585 15.6083 14.4501 13 10.5001 13C6.55013 13 3.3418 15.6083 3.3418 18.8333" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          {% else %}
+            <a href="/account/login">
+              <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.4997 10.5001C12.8009 10.5001 14.6663 8.6346 14.6663 6.33342C14.6663 4.03223 12.8009 2.16675 10.4997 2.16675C8.19849 2.16675 6.33301 4.03223 6.33301 6.33342C6.33301 8.6346 8.19849 10.5001 10.4997 10.5001Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17.6585 18.8333C17.6585 15.6083 14.4501 13 10.5001 13C6.55013 13 3.3418 15.6083 3.3418 18.8333" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          {% endif %}
+        </li>
+        <li class="navbar-action-item" id="nav-search">
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.0837 18.0001C14.4559 18.0001 18.0003 14.4557 18.0003 10.0834C18.0003 5.71116 14.4559 2.16675 10.0837 2.16675C5.7114 2.16675 2.16699 5.71116 2.16699 10.0834C2.16699 14.4557 5.7114 18.0001 10.0837 18.0001Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18.8337 18.8334L17.167 17.1667" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+        <li class="navbar-action-item" id="nav-cart">
+          <a href="/cart">
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.75 6.89167V6.08334C6.75 4.20834 8.25833 2.36667 10.1333 2.19167C12.3667 1.97501 14.25 3.73334 14.25 5.92501V7.07501" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8.00034 18.8334H13.0003C16.3503 18.8334 16.9503 17.4917 17.1253 15.8584L17.7503 10.8584C17.9753 8.82508 17.392 7.16675 13.8337 7.16675H7.16701C3.60868 7.16675 3.02534 8.82508 3.25034 10.8584L3.87534 15.8584C4.05034 17.4917 4.65034 18.8334 8.00034 18.8334Z" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M13.4131 10.4999H13.4206" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7.57908 10.4999H7.58657" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+{% else %}
+<div class="container container-full navbar-cont navbar-white">
+    <div class="navbar-left">
+      <ul class="navbar-menu">
+        <li class="navbar-menu-item txt-400 fs-14 cl-black">
+          <a href="#" id="nav-shop">Shop</a>
+        </li>
+        <li class="navbar-menu-item txt-400 fs-14 cl-black">
+          <a href="/pages/brand">Brand</a>
+        </li>
+        <li class="navbar-menu-item txt-400 fs-14 cl-black">
+          <a href="#">Sale</a>
+        </li>
+      </ul>
+      {% if section.settings.enable_currency %}
+        
+        {% if localization.available_countries.size > 1 %}
+          <localization-form>
+            {% form 'localization' %}
+              <div class="disclosure currency">
+                <button type="button" class="disclosure__button currency-btn" aria-expanded="false" aria-controls="CountryList">
+                  <span class="fs-14 cl-black">
+                    {{ localization.country.currency.iso_code }}
+                  </span>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.6199 5.2207L7.81655 9.02404C7.36738 9.4732 6.63238 9.4732 6.18322 9.02404L2.37988 5.2207" stroke="#111111" stroke-width="0.875" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+        
+                <ul id="CountryList" role="list" class="disclosure__list currency-list" hidden>
+                  {% for country in localization.available_countries %}
+                    <li class="disclosure__item currency-list-item" tabindex="-1">
+                      <a href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                        {{ country.currency.iso_code }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+        
+                <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+              </div>
+            {% endform %}
+          </localization-form>
+        {% endif %}
+
+      {% endif %}
+      
+    </div>
+    <div class="navbar-left-mobile">
+      <button class="nav-menu-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 8V7H20V8H3ZM20 12V13H3V12H20ZM3 17H20V18H3V17Z" fill="#111111"/>
+        </svg>
+      </button>
+    </div>
+    <div class="navbar-center">
+      <a href="{{ routes.root_url }}">
+        <img src="https://cdn.shopify.com/s/files/1/0625/6263/1749/files/logo_black.png?v=1731811107" alt="" class="navbar-logo">
+      </a>
+    </div>
+    <div class="navbar-right">
+      <ul class="navbar-action">
+        <li class="navbar-action-item" id="nav-user">
+          {% if customer %}
+            <a href="/account">
+              <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.4997 10.5001C12.8009 10.5001 14.6663 8.6346 14.6663 6.33342C14.6663 4.03223 12.8009 2.16675 10.4997 2.16675C8.19849 2.16675 6.33301 4.03223 6.33301 6.33342C6.33301 8.6346 8.19849 10.5001 10.4997 10.5001Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17.6585 18.8333C17.6585 15.6083 14.4501 13 10.5001 13C6.55013 13 3.3418 15.6083 3.3418 18.8333" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          {% else %}
+            <a href="/account/login">
+              <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.4997 10.5001C12.8009 10.5001 14.6663 8.6346 14.6663 6.33342C14.6663 4.03223 12.8009 2.16675 10.4997 2.16675C8.19849 2.16675 6.33301 4.03223 6.33301 6.33342C6.33301 8.6346 8.19849 10.5001 10.4997 10.5001Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17.6585 18.8333C17.6585 15.6083 14.4501 13 10.5001 13C6.55013 13 3.3418 15.6083 3.3418 18.8333" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          {% endif %}
+        </li>
+        <li class="navbar-action-item" id="nav-search">
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.0837 18.0001C14.4559 18.0001 18.0003 14.4557 18.0003 10.0834C18.0003 5.71116 14.4559 2.16675 10.0837 2.16675C5.7114 2.16675 2.16699 5.71116 2.16699 10.0834C2.16699 14.4557 5.7114 18.0001 10.0837 18.0001Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18.8337 18.8334L17.167 17.1667" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </li>
+        <li class="navbar-action-item" id="nav-cart">
+          <a href="/cart">
+            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.75 6.89167V6.08334C6.75 4.20834 8.25833 2.36667 10.1333 2.19167C12.3667 1.97501 14.25 3.73334 14.25 5.92501V7.07501" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.00034 18.8334H13.0003C16.3503 18.8334 16.9503 17.4917 17.1253 15.8584L17.7503 10.8584C17.9753 8.82508 17.392 7.16675 13.8337 7.16675H7.16701C3.60868 7.16675 3.02534 8.82508 3.25034 10.8584L3.87534 15.8584C4.05034 17.4917 4.65034 18.8334 8.00034 18.8334Z" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13.4131 10.4999H13.4206" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7.57908 10.4999H7.58657" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+{% endif %}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Navigational Bar",
+    "tag": "section",
+    "class": "navbar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_currency",
+        "label": "Localization Currency",
+        "default": false
+      }
+    ],
+    "blocks": [
+    ]
+  }
+  {% endschema %}

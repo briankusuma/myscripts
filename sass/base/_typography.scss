@@ -1,0 +1,126 @@
+@use "../abstracts" as *;
+
+h1 {
+  font-size: 41px;
+  font-weight: 500;
+  line-height: 120%;
+}
+p {
+  font-size: 12px;
+  line-height: 150%;
+}
+a {
+  color: inherit;
+}
+.txt-400 {
+  font-weight: 400;
+}
+.txt-500 {
+  font-weight: 500;
+}
+.txt-600 {
+  font-weight: 600;
+}
+.txt-700 {
+  font-weight: 700;
+}
+.txt-900 {
+  font-weight: 900;
+}
+.fs-12 {
+  font-size: 12px;
+}
+.fs-14 {
+  font-size: 14px;
+}
+.fs-16 {
+  font-size: 16px;
+}
+.fs-18 {
+  font-size: 18px;
+}
+.fs-20 {
+  font-size: 20px;
+}
+.fs-24 {
+  font-size: 24px;
+}
+.fs-32 {
+  font-size: 32px;
+}
+.fs-40 {
+  font-size: 40px;
+}
+.fs-48 {
+  font-size: 48px;
+}
+.fs-56 {
+  font-size: 56px;
+}
+.fs-64 {
+  font-size: 64px;
+}
+@media (max-width: 480px) {
+  .fs-12 {
+    font-size: 10px;
+  }
+  .fs-14 {
+    font-size: 12px;
+  }
+  .fs-16 {
+    font-size: 14px;
+  }
+  .fs-18 {
+    font-size: 16px;
+  }
+  .fs-20 {
+    font-size: 18px;
+  }
+  .fs-24 {
+    font-size: 20px;
+  }
+  .fs-32 {
+    font-size: 28px;
+  }
+  .fs-40 {
+    font-size: 32px;
+  }
+  .fs-48 {
+    font-size: 40px;
+  }
+  .fs-56 {
+    font-size: 48px;
+  }
+  .fs-64 {
+    font-size: 56px;
+  }
+}
+.cl-white {
+  color: #ffffff;
+
+  &-50 {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  &-60 {
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+.cl-black {
+  color: #111111;
+
+  &-50 {
+    color: rgba(17, 17, 17, 0.5);
+  }
+  &-60 {
+    color: rgba(17, 17, 17, 0.6);
+  }
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.underline {
+  text-decoration: underline;
+}
+.txt-center {
+  text-align: center;
+}

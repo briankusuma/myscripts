@@ -1,0 +1,310 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
+  padding: 16px 24px;
+  color: #ffffff;
+
+  &-cont {
+    @include flex-box(row, space-between, center, 32px );
+    max-width: 100%;
+    position: relative;
+
+    & > * {
+      width: calc(33% - 16px);
+    }
+  }
+  &:has(.navbar-white) {
+    position: sticky;
+    background-color: #ffffff;
+    color: #111111;
+    border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+  }
+  &-left,
+  &-menu {
+    @include flex-box(row, flex-start, center, 32px);
+  }
+  &-right,
+  &-action {
+    @include flex-box(row, flex-end, center, 24px);
+  }
+  &-action-item {
+    cursor: pointer;
+  }
+  &-center {
+    margin: auto;
+    @include flex-box(row, center, center, 0);
+  }
+  &-logo {
+    height: 36px;
+  }
+  &-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+
+    &.show {
+      opacity: 1;
+      pointer-events: auto;
+      transition: all .5s ease;
+    }
+    &.show-transparent {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+  &-left-mobile {
+    display: none;
+
+    .nav-menu-button {
+      border: none;
+      background-color: transparent;
+    }
+  }
+  &-mobile {
+    display: none;
+  }
+}
+@media(max-width: 768px) {
+  .navbar {    
+    &-left {
+      display: none;
+    }
+    &-left-mobile {
+      display: block;
+    }
+    #nav-user {
+      display: none;
+    }
+    &-logo {
+      height: 24px;
+    }
+    &-action {
+      gap: 16px;
+    }
+    &-mobile {
+      background-color: #ffffff;
+      width: 90%;
+      height: 100%;
+      max-width: 640px;
+      @include flex-box(column, flex-start, stretch, 0);
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: all .5s ease;
+
+      &.menu-active {
+        transform: translateX(0%);
+        opacity: 1;
+        transition: all .5s ease;
+      }
+      &-head {
+        @include flex-box(row, space-between, center, 80px);
+        padding: 16px;
+        border-bottom: 1px solid #e3e3e3;
+
+        button {
+          background-color: transparent;
+          border: none;
+        }
+      }
+      &-main {
+        padding: 24px 16px;
+      }
+      &-menu {
+        @include flex-box(column, flex-start, stretch, 0);
+      }
+      &-item {
+        @include flex-box(column, flex-start, flex-start, 0);
+        border-bottom: 1px solid #e3e3e3;
+        padding: 16px 0;
+        font-size: 20px;
+        font-weight: 500;
+      }
+      &-dropdown {
+        @include flex-box(row, space-between, center, 32px);
+        width: 100%;
+      }
+      &-sublist {
+        @include flex-box(column, flex-start, flex-start, 8px);
+        padding-left: 8px;
+        padding-top: 0px;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+
+        &.sublist-show {
+          padding-top: 16px;
+          opacity: 1;
+          height: 100%;
+        }
+      }
+      &-subitem {
+        font-size: 14px;
+      }
+    }
+  }
+}
+@media(max-width: 480px) {
+  .navbar {
+    padding: 16px;
+  }
+}
+
+.dropdown-left {
+  padding: 48px 24px;
+  @include flex-box(column, center, center, 32px);
+  background-color: #ffffff;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  transition: all .5s ease;
+  
+  &.dropdown-transparent {
+    background-color: transparent;
+
+    .dropdown-left-list {
+      .dropdown-left-item {
+        color: white;
+      }
+    }
+  }
+  &.dropdown-active {
+    top: 0;
+    left: 0;
+    transition: all .5s ease;
+    z-index: 3;
+  }
+
+  &-title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+    color: #111111;
+
+  }
+  &-list {
+    @include flex-box(column, center, center, 16px);
+  }
+  &-item {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+    color: #111111;
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+}
+// @media(max-width: 768px) {
+//   .dropdown-left {
+//     display: none;
+//   }
+// }
+
+.dropdown-right {
+  width: 460px;
+  padding: 16px 16px 48px;
+  background-color: #ffffff;
+  color: #111111;
+  position: absolute;
+  top: 72px;
+  right: -100%;
+  transition: all .5s ease;
+  @include flex-box(column, flex-start, stretch, 32px);
+
+  &.dropdown-active {
+    right: 0;
+    transition: all .5s ease;
+    z-index: 3;
+  }
+  .nav-search-wrapper {
+    position: relative;
+    @include flex-box(row, flex-start, center, 8px);
+    height: 44px;
+    width: 100%;
+    border: 1px solid #e3e3e3;
+
+    input {
+      height: 100%;
+      width: 100%;
+      padding: 14px;
+      padding-right: 0;
+      border: none;
+
+      &:active,
+      &:focus {
+        border: none;
+        outline: none;
+      }
+    }
+    .btn-nav-cancel {
+      padding: 4px 8px;
+      margin-right: 8px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
+  &-main {
+    @include flex-box(row, space-between, flex-start, 32px);
+  }
+  &-list {
+    @include flex-box(column, flex-start, flex-start, 16px);
+    
+    &-wrapper {
+      @include flex-box(column, flex-start, flex-start, 16px);
+      width: calc(50% - 16px);
+    }
+    &-title {
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 120%;
+    }
+    &-item {
+      @include flex-box(row, flex-start, center, 8px);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 120%;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+@media(max-width: 640px) {
+  .dropdown-right {
+    width: 100%
+  }
+}
+
+.announcement-bar {
+  position: relative;
+  z-index: 99999;
+  
+  &-cont {
+    max-width: 100%;
+    padding: 10px 24px;
+    background-color: #111111;
+    @include flex-box(row, center, center, 0px);
+  }
+}

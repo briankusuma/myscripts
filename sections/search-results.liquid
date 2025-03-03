@@ -1,0 +1,81 @@
+<div class="container collection-cont">
+  <div class="collection-head">
+    <div class="collection-title">
+      <h1>Search<h1>
+    </div>
+    <div class="collection-amount">
+      {% assign product_results = search.results | where: "object_type", "product" %}
+      <span class="txt-500 fs-14 cl-black-50 uppercase">({{ product_results.size }} Products)</span>
+    </div>
+    <div class="collection-amount">
+      <span class="txt-500 fs-14 cl-black-50 uppercase">Results for: </span>
+      <span class="txt-500 fs-14 cl-black-50 uppercase">{{ search.terms }}</span>
+    </div>
+  </div>
+  <div class="collection-main">
+    {% for product in search.results %}
+      {% if product.object_type == 'product' %}
+
+      <div class="collection-product">
+        <a href="{{ product.url }}" class="collection-product-anchor">
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.5 10.5H15.5" stroke="#111111" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10.5 15.5V5.5" stroke="#111111" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+          
+          <!-- Featured Image -->
+        <img 
+        src="{{ product.featured_image | image_url: width: 320 }}" 
+        alt="{{ product.title }}" 
+        class="featured-image" 
+        />
+        <!-- Hover Image -->
+        {% if product.images.size > 1 %}
+        <img 
+          src="{{ product.images[1] | image_url: width: 320 }}" 
+          alt="{{ product.title }}" 
+          class="hover-image" 
+        />
+        {% endif %}
+
+        <div class="collection-product-details">
+          <div class="collection-product-title">
+            <span class="txt-500 fs-16 cl-black">{{ product.title }}</span>
+            <span class="txt-400 fs-16 cl-black-50">{{ product.price | money }}</span>
+          </div>
+
+         <!-- Variants -->
+          <div class="collection-product-variant">
+            {% for variant in product.variants %}
+              <button 
+                class="variant-button" 
+                data-variant-id="{{ variant.id }}">
+                {{ variant.title }}
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+
+<script src="{{ "collection.js" |  asset_url }}"></script>
+
+
+{% schema %}
+  {
+    "name": "Search Section",
+    "tag": "section",
+    "class": "section search",
+    "settings": [
+      
+    ],
+    "blocks": [
+    ]
+  }
+{% endschema %}

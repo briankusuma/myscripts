@@ -1,0 +1,120 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.cart {
+  width: 100%;
+  &-cont {
+    @include flex-box(column, flex-start, stretch, 32px);
+    width: 100%;
+  }
+  &-content {
+    @include flex-box(row, space-between, flex-start, 32px);
+    width: 100%;
+
+    p, span {
+      width: fit-content;
+    }
+  }
+  &-main {
+    @include flex-box(column, flex-start, stretch, 24px);
+    width: 100%;
+  }
+  &-block {
+    @include flex-box(row, flex-start, center, 0px);
+
+    &.head {
+
+      & div {
+        padding: 16px;
+      }
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    &-title {
+      width: 55%;
+      @include flex-box(row, flex-start, center, 16px);
+
+      img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+      }
+    }
+    &-quantity {
+      width: 35%;
+      @include flex-box(column, flex-start, center, 8px);
+      
+    }
+    &-total {
+      width: 10%;
+      @include flex-box(column, flex-start, center, 8px);
+    }
+    &-details {
+      @include flex-box(column, flex-start, flex-start, 16px);
+    }
+  }
+  &-summary {
+    width: 40%;
+    max-width: 460px;
+    flex-shrink: 0;
+    padding: 24px;
+    border: 1px solid #e3e3e3;
+    @include flex-box(column, flex-start, stretch, 24px);
+
+    &-head {
+      padding-bottom: 24px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+    &-main {
+      @include flex-box(column, flex-start, stretch, 24px);
+    }
+    &-item {
+      @include flex-box(row, space-between, flex-start, 32px);
+    }
+  }
+}
+@media(max-width: 1024px) {
+  .cart {
+    &-content {
+      flex-direction: column;
+    }
+    &-summary {
+      width: 100%;
+      max-width: none;
+    }
+  }
+}
+@media(max-width: 640px) {
+  .cart {
+    &-block {
+      justify-content: space-between;
+
+      &.head {
+        display: none;
+      }
+      &-total {
+        display: none;
+      }
+      &-title {
+        width: 100%;
+
+        img {
+          height: 150px;
+          width: 150px;
+        } 
+      }
+    }
+  }
+}
+@media(max-width: 480px) {
+  .cart {
+    &-block-title {
+      img {
+        height: 100px;
+        width: 100px;
+      } 
+    }
+  }
+}

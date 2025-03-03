@@ -1,0 +1,53 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "brand-hero": {
+      "type": "brand-hero",
+      "settings": {}
+    },
+    "brand-img-full": {
+      "type": "brand-img-full",
+      "settings": {
+        "select_image": "shopify://shop_images/about_1.webp"
+      }
+    },
+    "body-copy": {
+      "type": "section-body-copy",
+      "settings": {}
+    },
+    "brand-img-two": {
+      "type": "brand-img-two",
+      "settings": {
+        "select_image": "shopify://shop_images/about_2.webp",
+        "select_image_two": "shopify://shop_images/about_2_2.webp"
+      }
+    },
+    "body-copy-two": {
+      "type": "section-body-copy",
+      "settings": {}
+    },
+    "section-blocks": {
+      "type": "section-blocks",
+      "settings": {
+        "select_image": "shopify://shop_images/about_3.webp",
+        "select_image_two": "shopify://shop_images/about_4.webp"
+      }
+    }
+  },
+  "order": [
+    "brand-hero",
+    "brand-img-full",
+    "body-copy",
+    "brand-img-two",
+    "body-copy-two",
+    "section-blocks"
+  ]
+}

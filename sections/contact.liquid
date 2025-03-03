@@ -1,0 +1,114 @@
+<div class="container contact-cont">
+  <div class="contact-head">
+    <h1 class="txt-500 fs-64 cl-black uppercase">
+      {{ section.settings.page_title }}
+    </h1>
+  </div>
+  <div class="contact-main">
+    <div class="contact-main-details">
+      <div class="contact-address">
+        <span class="txt-400 fs-14 cl-black-50">
+          {{ section.settings.page_subtitle }}
+        </span>
+        <span class="txt-500 fs-18 cl-black">
+          {{ section.settings.address }}
+        </span>
+      </div>
+      <ul class="contact-list">
+        <li class="contact-list-item">
+          <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.70829 12.7501C9.76887 12.7501 12.25 10.269 12.25 7.20842C12.25 4.14784 9.76887 1.66675 6.70829 1.66675C3.64771 1.66675 1.16663 4.14784 1.16663 7.20842C1.16663 10.269 3.64771 12.7501 6.70829 12.7501Z" stroke="#111111" stroke-width="0.875" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.8333 13.3334L11.6666 12.1667" stroke="#111111" stroke-width="0.875" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="txt-400 fs-14 cl-black underline">
+            {{ section.settings.email }}
+          </span>
+        </li>
+        <li class="contact-list-item">
+          <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.70829 12.7501C9.76887 12.7501 12.25 10.269 12.25 7.20842C12.25 4.14784 9.76887 1.66675 6.70829 1.66675C3.64771 1.66675 1.16663 4.14784 1.16663 7.20842C1.16663 10.269 3.64771 12.7501 6.70829 12.7501Z" stroke="#111111" stroke-width="0.875" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.8333 13.3334L11.6666 12.1667" stroke="#111111" stroke-width="0.875" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="txt-400 fs-14 cl-black underline">
+            {{ section.settings.phone }}
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="contact-main-form">
+      {% form 'contact', class: 'contact-form' %}
+        <div class="contact-form-input-wrapper">
+          <input 
+            type="text" 
+            id="contact-name" 
+            name="contact[name]" 
+            placeholder="Full Name" 
+            required
+          >
+          <input 
+            type="email" 
+            id="contact-email" 
+            name="contact[email]" 
+            placeholder="E-mail" 
+            required
+          >
+          <input 
+            type="text" 
+            id="contact-subject" 
+            name="contact[subject]" 
+            placeholder="Subject"
+          >
+          <textarea 
+            id="contact-body" 
+            name="contact[body]" 
+            placeholder="Message" 
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="btn-primary uppercase">Send Message</button>
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Contact Section",
+    "tag": "section",
+    "class": "section contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "page_title",
+        "label": "Page Title",
+        "default": "Contact"
+      },
+      {
+        "type": "text",
+        "id": "page_subtitle",
+        "label": "Page Subtitle",
+        "default": "Creativity"
+      },
+      {
+        "type": "textarea",
+        "id": "address",
+        "label": "Address",
+        "default": "Office #1403 <br>DAMAC Business Tower, Marasi Drive <br>Business Bay, Dubai <br>United Arab Emirates <br>"
+      },
+      {
+        "type": "text",
+        "id": "email",
+        "label": "Email",
+        "default": "contact@auto-nomie.com"
+      },
+      {
+        "type": "text",
+        "id": "phone",
+        "label": "Phone Number",
+        "default": "+971 54 281 6619"
+      }
+    ],
+    "blocks": [
+    ]
+  }
+{% endschema %}

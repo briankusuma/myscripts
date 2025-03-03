@@ -1,0 +1,70 @@
+<div id="login-cont" class="container membership-cont form-active">
+  <div class="membership-head">
+    <h1 class="txt-500 fs-20 uppercase">Login</h1>
+    <span class="txt-400 fs-14 cl-black-50">Enter your email and password to login:</span>
+  </div>
+  <div class="membership-form">
+    {% form 'customer_login' %}
+
+      {{ form.errors | default_errors }}
+      
+      <div class="input-wrapper">
+        <label for="customer_email">Email Address</label>
+        <input type="email" name="customer[email]" placeholder="E-mail" required/>
+      </div>
+      
+      <div class="input-wrapper">
+        <label for="customer_password">Password</label>
+        <input type="password" name="customer[password]" placeholder="Password" required/>
+        <span id="btn-recover" class="txt-400 fs-14 cl-black underline txt-center form-recover-pw">Forgot your password?</span>
+      </div>
+      
+      <input type="submit" value="Login" class="btn-primary btn-form-submit uppercase"/>
+      
+    {% endform %}
+
+    <span class="txt-400 fs-14 cl-black-50 txt-center">
+      Don't have an account? 
+      <a href="{{ routes.account_register_url }}" class="cl-black underline">Sign up</a>
+    </span>
+  </div>
+</div>
+<div id="recover-cont" class="container membership-cont">
+  <div class="membership-head">
+    <h1 class="txt-500 fs-20 uppercase">Recover Password</h1>
+    <span class="txt-400 fs-14 cl-black-50">Enter your email to recover your password:</span>
+  </div>
+  <div class="membership-form">
+    {% form 'recover_customer_password' %}
+
+      {{ form.errors | default_errors }}
+      
+      <div class="input-wrapper">
+        <label for="customer_email">Email Address</label>
+        <input type="email" name="email" placeholder="E-mail" required/>
+      </div>
+      
+      <input type="submit" value="Recover" class="btn-primary btn-form-submit uppercase"/>
+      
+      {% endform %}
+
+    <span class="txt-400 fs-14 cl-black-50 txt-center">
+      Remember your password? 
+      <a href="{{ routes.account_login_url }}" class="cl-black underline">Back to login</a>
+    </span>
+  </div>
+</div>
+
+<script src="{{ 'membership.js' |  asset_url }}"></script>
+
+{% schema %}
+  {
+    "name": "Login Section",
+    "tag": "section",
+    "class": "section membership",
+    "settings": [
+    ],
+    "blocks": [
+    ]
+  }
+{% endschema %}
