@@ -1,0 +1,14 @@
+{
+    "sections": {
+        "home-hero": {
+            "type": "home-hero"
+        },
+        // "product-page": {
+        //     "type": "product-page"
+        // },
+    },
+    "order": [
+    "home-hero",
+    // "product-page"
+]
+}

@@ -1,0 +1,35 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+
+.section {
+  width: 100%;
+  padding: 160px 24px;
+
+  &-full {
+    padding: 0 24px;
+    @include flex-box(row, center, center, 0px);
+
+    .container {
+      padding: 140px 120px;
+
+      &.no-padding {
+        padding: 0;
+      }
+    }
+  }
+}
+@media(max-width: 768px) {
+  .section {
+    padding: 72px 16px;
+  }
+}
+.container {
+  width: 100%;
+  max-width: 1392px;
+  margin: auto;
+
+  &-full {
+    max-width: 100%;
+  }
+}
