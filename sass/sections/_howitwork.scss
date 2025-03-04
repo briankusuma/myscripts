@@ -5,6 +5,8 @@
 
 .howitwork{
     .container{
+        padding-top: 80px!important;
+        padding-bottom: 80px!important;
         .howitwork-content{
             &_text{
                 @include flex-box(column, start, flex-start, 16px);
