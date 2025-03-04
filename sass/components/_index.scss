@@ -2,14 +2,32 @@
 @use "../base" as *;
 
 .btn-primary {
-  padding: 14px;
-  background-color: #111111;
-  color: #ffffff;
-  font-size: 14px;
-  cursor: pointer;
+  border-radius: 40px;
+  background: #ED1C24;
+  color: white;
+  font-size: 16px;
 }
+.is-small{
+  display: flex;
+  padding: 16px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.is-big{
+  display: flex;
+  padding: 20px 28px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
 .button {
   border: none;
-  background-color: transparent;
   cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  &:hover{
+    transform: translate(0, -4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
+  }
 }

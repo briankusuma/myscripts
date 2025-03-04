@@ -1,0 +1,79 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.product-page{
+    .container{
+        .product-content{
+            &_wrapper{
+                &-card{
+                    @include flex-box(row, start, center, 16px);
+                    .card-product{
+                            @include flex-box(row, start, center, 0px);
+                            border-radius: 28px;
+                            background: #F7F7F7;
+                            display: flex;
+                            padding: 20px 0px 20px 48px;
+                            align-items: center;
+                            gap: 4px;
+                            transition: All 0.3s ease;
+                            &:hover{
+                                background: #FAF1F2;
+                            }
+                        &_image{
+                            width: 100%;
+                            max-width: 300px;
+                            // height: 321px;
+                        }
+                        &_text{
+                            @include flex-box(column, start, flex-start, 24px);
+                            &-title{
+                                color: rgba(39, 66, 80, 0.60);
+                                font-family: Poppins;
+                                font-size: 18px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 110%; /* 22px */
+                                letter-spacing: -0.2px;
+                                max-width: 219px;
+                                span{
+                                    color: #274250;
+                                }
+                            }
+                        }
+                    }
+                }
+                &-small{
+                    margin-top: 16px;
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    grid-template-rows: 1fr;
+                    grid-column-gap: 16px;
+                    grid-row-gap: 16px;
+                
+                    .card-product-small{
+                        @include flex-box(column, center, center, 14px);
+                        border-radius: 28px;
+                        border: 1px solid #E6E6E6;
+                        background: #FFF;
+                        padding: 20px 38px 30px 38px;
+                        &_text-title{
+                            color: #274250;
+                            text-align: center;
+                            font-family: Poppins;
+                            font-size: 20px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 110%; /* 22px */
+                            letter-spacing: -0.2px;
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+}
+
+
