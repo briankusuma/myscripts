@@ -6,9 +6,13 @@
         "product-page": {
             "type": "product-page"
         },
+        "howitwork": {
+            "type": "howitwork"
+        },
     },
     "order": [
     "home-hero",
-    "product-page"
+    "product-page",
+    "howitwork"
 ]
 }

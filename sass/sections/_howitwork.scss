@@ -1,0 +1,87 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.howitwork{
+    .container{
+        .howitwork-content{
+            &_text{
+                @include flex-box(column, start, flex-start, 16px);
+                &_bedge{
+                    border-radius: 40px;
+                    background: #FAF1F2;
+                    padding: 8px 12px;
+                    color: #ED1C24;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%; /* 14px */
+                    letter-spacing: -0.14px;
+                }
+                &_title{
+                    color: #274250;
+                    font-family: Poppins;
+                    font-size: 40px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 120%; /* 48px */
+                    letter-spacing: -0.4px;
+                }
+            }
+            &_info-card{
+                margin-top: 64px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: 1fr;
+                grid-column-gap: 16px;
+                grid-row-gap: 16px;
+                .howitwork_info-items{
+                    position: relative;
+                    display: flex;
+                    width: 389px;
+                    height: 500px;
+                    padding: 32px;
+                    align-items: flex-start;
+                    gap: 8px;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    border-radius: 32px;
+                    background: linear-gradient(180deg, rgba(0, 0, 0, 0.50) -10.16%, rgba(0, 0, 0, 0.10) 42.3%, rgba(0, 0, 0, 0.50) 109.06%), url(<path-to-image>) lightgray -222.733px 0px / 192.501% 100% no-repeat;
+                    h2{
+                        color: #FFF;
+                        font-family: Poppins;
+                        font-size: 24px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 120%; /* 28.8px */
+                        letter-spacing: -0.24px;
+                        z-index: 1;
+                    }
+                    p{
+                        color: rgba(255, 255, 255, 0.80);
+                        font-family: Poppins;
+                        font-size: 18px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        letter-spacing: -0.18px;
+                        z-index: 1;
+                    }
+                    img{
+                        position: absolute;
+                        z-index: 1;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+
