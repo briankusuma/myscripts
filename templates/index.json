@@ -9,10 +9,14 @@
         "howitwork": {
             "type": "howitwork"
         },
+        "clinicaly": {
+            "type": "clinicaly"
+        },
     },
     "order": [
     "home-hero",
     "product-page",
-    "howitwork"
+    "howitwork",
+    "clinicaly"
 ]
 }

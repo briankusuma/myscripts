@@ -42,7 +42,8 @@
                 .howitwork_info-items{
                     position: relative;
                     display: flex;
-                    width: 389px;
+                    width: 100%;
+                    max-width: 389px;
                     height: 500px;
                     padding: 32px;
                     align-items: flex-start;
