@@ -1,15 +1,27 @@
 <div class="container">
     <div class="begin-content">
         <div class="begin-content_text">
-            <span class="begin-content_text_bedge">{{ section.settings.heading }}</span>
-            <h1 class="begin-content_text_title">{{ section.settings.title }}</h1>
+            <span class="begin-content_text_bedge">
+                {% if section.settings.heading != blank %}
+                    {{ section.settings.heading }}
+                {% else %}
+                    How it works
+                {% endif %}
+                </span>
+            <h1 class="begin-content_text_title">
+                {% if section.settings.title != blank %}
+                    {{ section.settings.title }}
+                {% else %}
+                    Begin your weight loss journey
+                {% endif %}
+            </h1>
         </div>
         <div class="begin-content_info-card">
         {% if section.blocks != blank %}
             {% for block in section.blocks %}
             <div class="begin_info-items">
                 <div class="begin_bedge">{{ block.settings.badge }}</div>
-                <img class="begin-card_image" id="image_begin" src="{{ block.settings.image | image_url: 'medium' }}" alt="{{ block.settings.image_alt }}" width="250" height="250">
+                <img class="begin-card_image" src="{{ block.settings.image | image_url: 'medium' }}" alt="{{ block.settings.image_alt }}" width="250" height="250">
                 <h2>{{ block.settings.card_title }}</h2>
                 <p>{{ block.settings.card_price }}</p>
                 <div class="begin_button-wrapper">
@@ -26,7 +38,7 @@
 
             <div class="begin_info-items">
                 <div class="begin_bedge">Most Effective</div>
-                <img class="begin-card_image" id="image_begin" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
+                <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
                 <h2>Compounded Tirzepatide</h2>
                 <p>Starting $265/mo</p>
                 <div class="begin_button-wrapper">
@@ -40,7 +52,7 @@
             </div>
             <div class="begin_info-items">
                 <div class="begin_bedge">Most Effective</div>
-                <img class="begin-card_image" id="image_begin" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
+                <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
                 <h2>Compounded Tirzepatide</h2>
                 <p>Starting $265/mo</p>
                 <div class="begin_button-wrapper">
@@ -54,7 +66,7 @@
             </div>
             <div class="begin_info-items">
                 <div class="begin_bedge">Most Effective</div>
-                <img class="begin-card_image" id="image_begin" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
+                <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
                 <h2>Compounded Tirzepatide</h2>
                 <p>Starting $265/mo</p>
                 <div class="begin_button-wrapper">
@@ -68,6 +80,7 @@
             </div>
 
         {% endif %}
+
         </div>
     </div>
 </div>

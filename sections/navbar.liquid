@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="navbar_layout">
+        <div class="navbar_brand">
+            <img class="logo-brand" src="{{ 'Logo-myscripts.svg' | asset_url }}" alt="Icon" width="150" height="30">
+        </div>
+        <div class="navbar_menus">
+            <div class="navbar_menus-left">
+                <a href="">Explore</a>
+                <a href="">About Us</a>
+                <a href="">How it Works</a>
+                <a href="">Help Center</a>
+            </div>
+
+            <div class="navbar_menus-right">
+                <a href="">Contact</a>
+                <button class="button btn-outline is-small">Sign in</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Navbar Section",
+    "tag": "section",
+    "class": "navbar section-full"
+}
+{% endschema %}

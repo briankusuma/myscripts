@@ -1,5 +1,8 @@
 {
     "sections": {
+        "navbar": {
+            "type": "navbar"
+        },
         "home-hero": {
             "type": "home-hero"
         },
@@ -15,12 +18,21 @@
         "begin": {
             "type": "begin"
         },
+        "cta": {
+            "type": "cta"
+        },
+        "footer": {
+            "type": "footer"
+        },
     },
     "order": [
-    "home-hero",
-    "product-page",
-    "howitwork",
-    "clinicaly",
-    "begin"
+        "navbar",
+        "home-hero",
+        "product-page",
+        "howitwork",
+        "clinicaly",
+        "begin",
+        "cta",
+        "footer"
 ]
 }

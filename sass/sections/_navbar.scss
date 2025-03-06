@@ -1,0 +1,54 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.navbar{
+    .container{
+        padding-block: 16px;
+        .navbar_layout{
+            @include flex-box(row, space-between, center, 16px);
+            .navbar_brand{
+                width: auto;
+                @include flex-box(row, center, center, 1px);
+            }
+            .navbar_menus{
+                @include flex-box(row, space-between, center, 16px);
+                width: 100%;
+                &-left{
+                    @include flex-box(row, space-between, center, 32px);
+                    a{
+                        color: #2E4653;
+                        font-family: Poppins;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 100%; /* 14px */
+                        letter-spacing: -0.14px;
+                    }
+                }
+                &-right{
+                    @include flex-box(row, space-between, center, 16px);
+                    a{
+                        color: #2E4653;
+                        font-family: Poppins;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 100%; /* 14px */
+                        letter-spacing: -0.14px;
+                    }
+                    button{
+                        color: #2E4653;
+                        font-family: Poppins;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 100%; /* 14px */
+                        letter-spacing: -0.14px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,48 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.cta{
+    .container{
+        padding-top: 120px!important;
+        padding-bottom: 80px!important;
+        padding-inline: 32px!important;
+        .cta-content{
+            position: relative;
+            @include flex-box(row, space-between, center, 16px);
+            border-radius: 48px;
+            padding-inline: 80px;
+            background: linear-gradient(180deg, #111D23 0%, #223C4A 100%);
+            // background: url('background-clinicaly.png') center/cover no-repeat; 
+            &_text{
+                &-title{
+                    color: #FFF;
+                    font-family: Poppins;
+                    font-size: 40px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 120%; /* 48px */
+                    letter-spacing: -0.4px;
+                    max-width: 405px;
+                    span{
+                        color: rgba(255, 255, 255, 0.60);
+                    }
+                }
+                &-dsc{
+                    color: rgba(255, 255, 255, 0.60);
+                    font-family: Poppins;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 140%; /* 22.4px */
+                    letter-spacing: -0.16px;
+                    margin: 24px 0 32px 0;
+                }
+            }
+            &_image{
+                @include flex-box(column, center, flex-end, 0px);
+            }
+        }
+    }
+}
