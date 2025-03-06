@@ -5,7 +5,7 @@
             <h1 class="begin-content_text_title">{{ section.settings.title }}</h1>
         </div>
         <div class="begin-content_info-card">
-
+        {% if section.blocks != blank %}
             {% for block in section.blocks %}
             <div class="begin_info-items">
                 <div class="begin_bedge">{{ block.settings.badge }}</div>
@@ -22,7 +22,52 @@
                 </div>
             </div>
             {% endfor %}
+        {% else %}
 
+            <div class="begin_info-items">
+                <div class="begin_bedge">Most Effective</div>
+                <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
+                <h2>Compounded Tirzepatide</h2>
+                <p>Starting $265/mo</p>
+                <div class="begin_button-wrapper">
+                    <button class="button btn-black is-small is-fullwidth">
+                        Get Started
+                    </button>
+                    <button class="button btn-outline is-small is-fullwidth">
+                        Learn more
+                    </button>
+                </div>
+            </div>
+            <div class="begin_info-items">
+                <div class="begin_bedge">Most Effective</div>
+                <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
+                <h2>Compounded Tirzepatide</h2>
+                <p>Starting $265/mo</p>
+                <div class="begin_button-wrapper">
+                    <button class="button btn-black is-small is-fullwidth">
+                        Get Started
+                    </button>
+                    <button class="button btn-outline is-small is-fullwidth">
+                        Learn more
+                    </button>
+                </div>
+            </div>
+            <div class="begin_info-items">
+                <div class="begin_bedge">Most Effective</div>
+                <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
+                <h2>Compounded Tirzepatide</h2>
+                <p>Starting $265/mo</p>
+                <div class="begin_button-wrapper">
+                    <button class="button btn-black is-small is-fullwidth">
+                        Get Started
+                    </button>
+                    <button class="button btn-outline is-small is-fullwidth">
+                        Learn more
+                    </button>
+                </div>
+            </div>
+
+        {% endif %}
         </div>
     </div>
 </div>
