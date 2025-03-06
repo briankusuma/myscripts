@@ -12,11 +12,15 @@
         "clinicaly": {
             "type": "clinicaly"
         },
+        "begin": {
+            "type": "begin"
+        },
     },
     "order": [
     "home-hero",
     "product-page",
     "howitwork",
-    "clinicaly"
+    "clinicaly",
+    "begin"
 ]
 }

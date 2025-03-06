@@ -14,6 +14,14 @@
   font-size: 16px;
 }
 
+.btn-outline{
+  border-radius: 40px;
+  border: 1px solid rgba(17, 17, 17, 0.20)!important;
+  background: #FFF;
+  color: black;
+  font-size: 16px;
+}
+
 .is-small{
   display: flex;
   padding: 16px 24px;
@@ -27,6 +35,9 @@
   justify-content: center;
   align-items: center;
   gap: 4px;
+}
+.is-fullwidth{
+  width: 100%;
 }
 
 .button {
