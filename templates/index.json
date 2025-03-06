@@ -1,26 +1,43 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections": {
-        "home-hero": {
-            "type": "home-hero"
-        },
-        "product-page": {
-            "type": "product-page"
-        },
-        "howitwork": {
-            "type": "howitwork"
-        },
-        "clinicaly": {
-            "type": "clinicaly"
-        },
-        "begin": {
-            "type": "begin"
-        },
+  "sections": {
+    "home-hero": {
+      "type": "home-hero",
+      "settings": {}
     },
-    "order": [
+    "product-page": {
+      "type": "product-page",
+      "settings": {}
+    },
+    "howitwork": {
+      "type": "howitwork",
+      "settings": {}
+    },
+    "clinicaly": {
+      "type": "clinicaly",
+      "settings": {}
+    },
+    "begin_mPcaMj": {
+      "type": "begin",
+      "settings": {
+        "heading": "How it works",
+        "title": "Begin your weight loss journey"
+      }
+    }
+  },
+  "order": [
     "home-hero",
     "product-page",
     "howitwork",
     "clinicaly",
-    "begin"
-]
+    "begin_mPcaMj"
+  ]
 }
