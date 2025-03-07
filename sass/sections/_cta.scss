@@ -42,6 +42,7 @@
             }
             &_image{
                 @include flex-box(column, center, flex-end, 0px);
+                margin-top: -120px;
             }
         }
     }
