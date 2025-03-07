@@ -1,0 +1,42 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.testimoni{
+    .container{
+        padding-top: 120px!important;
+        padding-bottom: 80px!important;
+        padding-inline: 120px!important;
+        .testimoni-content{
+            @include flex-box(column, center, center, 64px);
+            &_title{
+                @include flex-box(column, center, center, 16px);
+                &-bedge{
+                    color: #ED1C24;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%; /* 14px */
+                    letter-spacing: -0.14px;
+                    border-radius: 40px;
+                    background: #FAF1F2;
+                    padding: 8px 12px;
+                }
+                &-text{
+                    color: #274250;
+                    font-family: Poppins;
+                    font-size: 40px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 120%; /* 48px */
+                    letter-spacing: -0.4px;
+                    max-width: 500px;
+                }
+            }
+
+
+        }
+    }
+}

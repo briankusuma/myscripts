@@ -1,0 +1,132 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.faq{
+    .container{
+        padding-top: 120px!important;
+        padding-bottom: 80px!important;
+        padding-inline: 120px!important;
+        .faq-content{
+            @include flex-box(column, start, flex-start, 24px);
+            &_title{
+                &-text{
+                    color: #274250;
+                    font-family: Poppins;
+                    font-size: 40px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 120%; /* 48px */
+                    letter-spacing: -0.4px;
+                    max-width: 309px;
+                }
+            }
+            &_accordion-wrapper{
+                @include flex-box(row, space-between, flex, 24px);
+                width: 100%;
+                .faq-container {
+                    max-width: 795px;
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    flex-direction: column;
+                    .faq-item {
+                        border: 1px solid #ddd;
+                        border-radius: 12px;
+                        margin-bottom: 10px;
+                        display: flex;
+                        flex-direction: column;
+            
+                        .faq-question {
+                            color: #2E4F5F;
+                            font-family: Poppins;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 140%;
+                            letter-spacing: -0.16px;
+                            width: 100%;
+                            padding: 15px;
+                            background: #fff;
+                            border: none;
+                            border-radius: 12px;
+                            text-align: left;
+                            cursor: pointer;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            transition: background 0.3s ease;
+                            .faq-icon {
+                                width: 24px;
+                                height: 24px;
+                                .faq-icon-open{
+                                    display: block;
+                                }
+                                .faq-icon-close{
+                                    display: none;
+                                }
+                            }
+                        }
+                        .faq-answer {
+                            padding: 0 15px 0px 15px;
+                            transition: max-height 0.3s ease, padding 0.3s ease;
+                            overflow: hidden;
+                            height: 0px;
+                            p {
+                                margin: 10px 0;
+                                color: #2E4F5F;
+                                font-family: Poppins;
+                                font-size: 15px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 140%;
+                                letter-spacing: -0.16px;
+                            }
+                        }
+                        }
+                    .active {
+                        .faq-question {
+                            .faq-icon {
+                                .faq-icon-open{
+                                    display: none;
+                                }
+                                .faq-icon-close{
+                                    display: block;
+                                }
+                            }
+                        }
+                        .faq-answer {
+                            height: auto;
+                            padding: 0 15px 15px 15px;
+                        }
+                    }
+                }
+                &-card{
+                    @include flex-box(column, space-between, flex-start, 120px);
+                    flex: 1;
+                    .faq-content_stillhave{
+                        @include flex-box(column, space-between, center, 24px);
+                        width: 100%;
+                        max-width: 389px;
+                        height: 100%;
+                        padding: 80px 40px 40px 40px;
+                        border-radius: 28px;
+                        background: #FAF1F2;
+                        h2{
+                            color: #274250;
+                            text-align: center;
+                            font-family: Poppins;
+                            font-size: 32px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 100%; /* 32px */
+                            letter-spacing: -0.32px;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}

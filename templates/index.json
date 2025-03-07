@@ -27,6 +27,12 @@
         "begin": {
             "type": "begin"
         },
+        "testimoni": {
+            "type": "testimoni"
+        },
+        "faq": {
+            "type": "faq"
+        },
         "cta": {
             "type": "cta"
         },
@@ -41,6 +47,8 @@
         "howitwork",
         "clinicaly",
         "begin",
+        "testimoni",
+        "faq",
         "cta",
         "footer"
 ]
