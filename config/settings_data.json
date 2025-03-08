@@ -8,7 +8,16 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {},
+  "current": {
+    "content_for_index": [],
+    "blocks": {
+      "5269207691391943459": {
+        "type": "shopify://apps/gtm-data-layer/blocks/gropulse-gtm/ec1066b4-8b00-4630-a216-c88f51204a28",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  },
   "presets": {
     "Default": {}
   }
