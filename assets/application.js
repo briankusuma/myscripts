@@ -1,4 +1,5 @@
 // Put your application javascript here
+
 console.log("hallo log")
 document.addEventListener("DOMContentLoaded", () => {
     const faqItems = document.querySelectorAll(".faq-item");
