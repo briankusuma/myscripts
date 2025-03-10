@@ -35,8 +35,59 @@
                     max-width: 500px;
                 }
             }
+            &_slider{
+                @include flex-box(row, space-between, center, 16px);
+                .card-testimoni{
+                    @include flex-box(column, start, flex-start, 40px);
+                    border-radius: 16px;
+                    border: 1px solid #E6E6E6;
+                    background: #FFF;
+                    padding: 48px;
+                    max-width: 491px;
+                    &_text{
+                        color: #111;
+                        font-family: Poppins;
+                        font-size: 26px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 120%; /* 31.2px */
+                        letter-spacing: -0.26px;
+                    }
+                    &_name{
+                        @include flex-box(row, space-between, center, 8px);
+                        &-foto{
+                            width: 48px;
+                            height: 48px;
+                            border-radius: 100%;
+                        }
+                        &-wrapper{
+                            @include flex-box(column, space-between, flex-start, 4px);
+                            &-text{
+                                color: #49608B;
+                                font-family: Poppins;
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 120%; /* 19.2px */
+                                letter-spacing: -0.16px;
+                            }
+                            &-profesion{
+                                color: rgba(17, 17, 17, 0.50);
+                                text-align: center;
+                                font-family: Poppins;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                                letter-spacing: -0.14px;
+                            }
+                        }
+                    }
+                }
+            }
 
 
         }
+
     }
 }
