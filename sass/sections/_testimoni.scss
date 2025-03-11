@@ -37,57 +37,108 @@
             }
             &_slider{
                 @include flex-box(row, space-between, center, 16px);
-                .card-testimoni{
-                    @include flex-box(column, start, flex-start, 40px);
-                    border-radius: 16px;
-                    border: 1px solid #E6E6E6;
-                    background: #FFF;
-                    padding: 48px;
-                    max-width: 491px;
-                    &_text{
-                        color: #111;
-                        font-family: Poppins;
-                        font-size: 26px;
-                        font-style: normal;
-                        font-weight: 400;
-                        line-height: 120%; /* 31.2px */
-                        letter-spacing: -0.26px;
-                    }
-                    &_name{
-                        @include flex-box(row, space-between, center, 8px);
-                        &-foto{
-                            width: 48px;
-                            height: 48px;
-                            border-radius: 100%;
+                .review-slider{
+                    .card-testimoni{
+                        @include flex-box(column, start, flex-start, 40px);
+                        border-radius: 16px;
+                        border: 1px solid #E6E6E6;
+                        background: #FFF;
+                        padding: 48px;
+                        max-width: 491px;
+                        margin-inline: 8px;
+                        &_text{
+                            color: #111;
+                            font-family: Poppins;
+                            font-size: 26px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 120%; /* 31.2px */
+                            letter-spacing: -0.26px;
                         }
-                        &-wrapper{
-                            @include flex-box(column, space-between, flex-start, 4px);
-                            &-text{
-                                color: #49608B;
-                                font-family: Poppins;
-                                font-size: 16px;
-                                font-style: normal;
-                                font-weight: 500;
-                                line-height: 120%; /* 19.2px */
-                                letter-spacing: -0.16px;
+                        &_name{
+                            @include flex-box(row, space-between, center, 8px);
+                            &-foto{
+                                width: 48px;
+                                height: 48px;
+                                border-radius: 100%;
                             }
-                            &-profesion{
-                                color: rgba(17, 17, 17, 0.50);
-                                text-align: center;
-                                font-family: Poppins;
-                                font-size: 14px;
-                                font-style: normal;
-                                font-weight: 400;
-                                line-height: normal;
-                                letter-spacing: -0.14px;
+                            &-wrapper{
+                                @include flex-box(column, space-between, flex-start, 4px);
+                                &-text{
+                                    color: #49608B;
+                                    font-family: Poppins;
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    line-height: 120%; /* 19.2px */
+                                    letter-spacing: -0.16px;
+                                }
+                                &-profesion{
+                                    color: rgba(17, 17, 17, 0.50);
+                                    text-align: center;
+                                    font-family: Poppins;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: normal;
+                                    letter-spacing: -0.14px;
+                                }
                             }
                         }
                     }
                 }
+
             }
-
-
         }
 
     }
 }
+
+    .slick-dots {
+        display: flex !important;
+        justify-content: center;
+        margin-top: 64px;
+        position: relative;
+    }
+    .slick-dots li {
+        position: relative;
+        width: 12px;
+        height: 12px;
+        background-color: rgba(237, 28, 36, 0.1);
+        border-radius: 100px;
+        transition: all 0.3s ease;
+        list-style: none;
+        margin: 0 5px;
+        }
+    .slick-dots li.slick-active {
+        width: 56px;
+        height: 12px;
+        background-color: rgba(237, 28, 36, 0.1);
+        border-radius: 25px;
+        margin: 0 4px;
+        }
+    .slick-dots li.slick-active::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: #ed1c24;
+        border-radius: 25px;
+        transition: width var(--progress-duration) linear;
+        transform-origin: left;
+        }
+    .slick-dots li.slick-active.active-progress::after {
+        width: 100%;
+        }
+    .slick-dots li button{
+        color: transparent;
+        opacity: 0;
+        }
+    .slick-dots li button:before {
+        color: transparent;
+        }
+    .slick-dots li.slick-active button:before {
+        color: transparent;
+        }
