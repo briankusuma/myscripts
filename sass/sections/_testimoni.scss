@@ -4,6 +4,7 @@
 @use "../layout" as *;
 
 .testimoni{
+    @include flex-box(column, center, center, 64px);
     .container{
         padding-top: 120px!important;
         padding-bottom: 80px!important;
