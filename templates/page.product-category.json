@@ -9,8 +9,8 @@
  */
  {
     "sections": {
-        "product-category-hero": {
-            "type": "product-category-hero"
+        "category-hero": {
+            "type": "category-hero"
         },
         "category-tab": {
             "type": "category-tab"
@@ -29,7 +29,7 @@
         }
     },
     "order": [
-        "product-category-hero",
+        "category-hero",
         "category-tab",
         "banner-achieving",
         "testimoni",
