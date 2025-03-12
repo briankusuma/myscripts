@@ -8,10 +8,12 @@
         padding-top: 120px!important;
         padding-bottom: 80px!important;
         padding-inline: 32px!important;
+        overflow: hidden;
         .clinicaly-content{
             position: relative;
-            @include flex-box(row, space-between, flex-end, 24px);
-            padding: 60px 78px;
+            @include flex-box(row, space-between, flex-end, 0px);
+            // padding: 60px 78px;
+            padding-inline: 78px;
             border-radius: 48px;
             // background: linear-gradient(180deg, #111D23 0%, #223C4A 100%);
             background: url('background-clinicaly.png') center/cover no-repeat; 
@@ -23,6 +25,7 @@
             }
             &_text{
                 z-index: 1;
+                padding-block: 60px;
                 &-bedge{
                     border-radius: 40px;
                     background: rgba(255, 255, 255, 0.20);
@@ -156,34 +159,12 @@
                 }
             }
             &_cta{
-                z-index: 1;
-                @include flex-box(column, space-between, flex-end, 24px);
-                height: 569px;
-                &-head{
-                    @include flex-box(row, flex-start, center, 24px);
-                }
-                .cta-head_text{
-                    @include flex-box(column, flex-start, flex-start, 8px);
-                    color: white;
-                    &-title{
-                        color: #FFF;
-                        font-family: Poppins;
-                        font-size: 16px;
-                        font-style: normal;
-                        font-weight: 500;
-                        line-height: 140%; /* 22.4px */
-                        letter-spacing: -0.16px;
-                    }
-                    &-dsc{
-                        color: rgba(255, 255, 255, 0.80);
-                        font-family: Poppins;
-                        font-size: 14px;
-                        font-style: normal;
-                        font-weight: 400;
-                        line-height: 110%; /* 15.4px */
-                        letter-spacing: -0.14px;
-                        max-width: 140px;
-                    }
+                @include flex-box(row, space-between, flex-end, 0px);
+                position: relative;
+                &-img{
+                    position: absolute;
+                    right: -220px;
+                    bottom: 0;
                 }
             }
         }

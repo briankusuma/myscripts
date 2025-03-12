@@ -1,20 +1,14 @@
 <div class="container">
     <div class="begin-content">
         <div class="begin-content_text">
-            <span class="begin-content_text_bedge"
-            data-aos="fade-up"
-            data-aos-anchor-placement="bottom-bottom"
-            data-aos-delay="100">
+            <span class="begin-content_text_bedge">
                 {% if section.settings.heading != blank %}
                     {{ section.settings.heading }}
                 {% else %}
                     How it works
                 {% endif %}
                 </span>
-            <h1 class="begin-content_text_title"
-            data-aos="fade-up"
-            data-aos-anchor-placement="bottom-bottom"
-            data-aos-delay="200">
+            <h1 class="begin-content_text_title">
                 {% if section.settings.title != blank %}
                     {{ section.settings.title }}
                 {% else %}
@@ -25,10 +19,7 @@
         <div class="begin-content_info-card">
         {% if section.blocks != blank %}
             {% for block in section.blocks %}
-            <div class="begin_info-items"
-            data-aos="fade-up"
-            data-aos-anchor-placement="bottom-bottom"
-            data-aos-delay="300">
+            <div class="begin_info-items">
                 <div class="begin_bedge">{{ block.settings.badge }}</div>
                 <img class="begin-card_image" src="{{ block.settings.image | image_url: 'medium' }}" alt="{{ block.settings.image_alt }}" width="250" height="250">
                 <h2>{{ block.settings.card_title }}</h2>
@@ -45,10 +36,7 @@
             {% endfor %}
         {% else %}
 
-            <div class="begin_info-items"
-            data-aos="fade-up"
-            data-aos-anchor-placement="bottom-bottom"
-            data-aos-delay="300">
+            <div class="begin_info-items">
                 <div class="begin_bedge">Most Effective</div>
                 <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
                 <h2>Compounded Tirzepatide</h2>
@@ -62,10 +50,7 @@
                     </button>
                 </div>
             </div>
-            <div class="begin_info-items"
-            data-aos="fade-up"
-            data-aos-anchor-placement="bottom-bottom"
-            data-aos-delay="400">
+            <div class="begin_info-items">
                 <div class="begin_bedge">Most Effective</div>
                 <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
                 <h2>Compounded Tirzepatide</h2>
@@ -79,10 +64,7 @@
                     </button>
                 </div>
             </div>
-            <div class="begin_info-items"
-            data-aos="fade-up"
-            data-aos-anchor-placement="bottom-bottom"
-            data-aos-delay="500">
+            <div class="begin_info-items">
                 <div class="begin_bedge">Most Effective</div>
                 <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
                 <h2>Compounded Tirzepatide</h2>
