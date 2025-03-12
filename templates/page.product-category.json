@@ -1,0 +1,55 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+    "sections": {
+        "navbar": {
+            "type": "navbar"
+        },
+        "home-hero": {
+            "type": "home-hero"
+        },
+        "product-page": {
+            "type": "product-page"
+        },
+        "howitwork": {
+            "type": "howitwork"
+        },
+        "clinicaly": {
+            "type": "clinicaly"
+        },
+        "begin": {
+            "type": "begin"
+        },
+        "testimoni": {
+            "type": "testimoni"
+        },
+        "faq": {
+            "type": "faq"
+        },
+        "cta": {
+            "type": "cta"
+        },
+        "footer": {
+            "type": "footer"
+        },
+    },
+    "order": [
+        "navbar",
+        "home-hero",
+        "product-page",
+        "howitwork",
+        "clinicaly",
+        "begin",
+        "testimoni",
+        "faq",
+        "cta",
+        "footer"
+]
+}
