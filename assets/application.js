@@ -1,5 +1,5 @@
 // Put your application javascript here
-// console.log("hallo log")
+console.log("hallo from aplication js")
 // document.addEventListener("DOMContentLoaded", () => {
 //     const faqItems = document.querySelectorAll(".faq-item");
 //     console.log("hallo log")
@@ -42,6 +42,21 @@
 
 // });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".tab-btn");
+    const contents = document.querySelectorAll(".tab-content");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+
+            buttons.forEach(btn => btn.classList.remove("active"));
+            contents.forEach(content => content.classList.remove("active"));
+
+            button.classList.add("active");
+            document.getElementById(button.dataset.tab).classList.add("active");
+        });
+    });
+});
 
 
 

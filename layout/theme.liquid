@@ -16,13 +16,18 @@
     {{ content_for_header }}
     <!-- Header hook for plugins -->
     {{ 'main.css' | asset_url | stylesheet_tag }}
-    {% comment %} {{ 'application.js' | asset_url | script_tag }} {% endcomment %}
+    {{ 'application.js' | asset_url | script_tag }}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   </head>
   <body>
+    {% section 'navbar' %}
+
     <main role="main">
       {{ content_for_layout }}
     </main>
+
+    {% section 'footer' %}
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
@@ -59,17 +64,14 @@
       });
       </script>
       <script>
-      console.log("hallo log")
       document.addEventListener("DOMContentLoaded", () => {
           const faqItems = document.querySelectorAll(".faq-item");
-          console.log("hallo log")
           faqItems.forEach((item) => {
               const button = item.querySelector(".faq-question");
               button.addEventListener("click", () => {
                   faqItems.forEach((otherItem) => {
                       if (otherItem !== item) {
                           otherItem.classList.remove("active");
-                          console.log("hallo log")
                       }
                   });
                   item.classList.toggle("active");

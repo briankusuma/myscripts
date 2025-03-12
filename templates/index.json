@@ -9,9 +9,6 @@
  */
 {
     "sections": {
-        "navbar": {
-            "type": "navbar"
-        },
         "home-hero": {
             "type": "home-hero"
         },
@@ -35,13 +32,9 @@
         },
         "cta": {
             "type": "cta"
-        },
-        "footer": {
-            "type": "footer"
-        },
+        }
     },
     "order": [
-        "navbar",
         "home-hero",
         "product-page",
         "howitwork",
@@ -49,7 +42,6 @@
         "begin",
         "testimoni",
         "faq",
-        "cta",
-        "footer"
+        "cta"
 ]
 }

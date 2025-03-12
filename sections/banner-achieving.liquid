@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="clinicaly-content">
+        {% comment %} <img class="image-clinicaly" src="{{ 'clinicaly-image.png' | asset_url }}" alt="Icon" width="1376" height="814"> {% endcomment %}
+        <div class="clinicaly-content_text">
+            <h2 class="clinicaly-content_text-title">Achieving your weight loss goal is simpler than you might expect</h2>
+            <span class="clinicaly-content_text-lose">Lose up to 15% of your bodyweight</span>
+            <p class="clinicaly-content_text-dsc">People lost an average of 12% (up to 15%) bodyweight in a year clinical study of Wegovy®. *</p>
+        </div>
+        <div class="clinicaly-content_cta">
+            <div class="clinicaly-content_text-weightcal">
+                <div class="card">
+                    <div class="card-weight_head">
+                        <div class="title">Your current weight</div>
+                        <div class="weight">252 <span class="unit">lbs</span></div>
+                    </div>
+
+                    <div class="slider-container">
+                        <input type="range" min="0" max="100" value="40" step="5" class="slider">
+                    </div>
+
+                    <div class="card-weight_head">
+                        <div class="title">Weight you could lose</div>
+                        <div class="weight">50 <span class="unit">lbs</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "banner achieving Section",
+    "tag": "section",
+    "class": "banner-achieving section-full"
+}
+{% endschema %}

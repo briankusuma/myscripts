@@ -9,23 +9,14 @@
  */
  {
     "sections": {
-        "navbar": {
-            "type": "navbar"
+        "product-category-hero": {
+            "type": "product-category-hero"
         },
-        "home-hero": {
-            "type": "home-hero"
+        "category-tab": {
+            "type": "category-tab"
         },
-        "product-page": {
-            "type": "product-page"
-        },
-        "howitwork": {
-            "type": "howitwork"
-        },
-        "clinicaly": {
-            "type": "clinicaly"
-        },
-        "begin": {
-            "type": "begin"
+        "banner-achieving": {
+            "type": "banner-achieving"
         },
         "testimoni": {
             "type": "testimoni"
@@ -35,21 +26,14 @@
         },
         "cta": {
             "type": "cta"
-        },
-        "footer": {
-            "type": "footer"
-        },
+        }
     },
     "order": [
-        "navbar",
-        "home-hero",
-        "product-page",
-        "howitwork",
-        "clinicaly",
-        "begin",
+        "product-category-hero",
+        "category-tab",
+        "banner-achieving",
         "testimoni",
         "faq",
-        "cta",
-        "footer"
+        "cta"
 ]
 }

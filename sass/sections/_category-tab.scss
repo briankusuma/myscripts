@@ -1,0 +1,70 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.category-tab{
+    .container{
+        padding-top: 80px!important;
+        padding-bottom: 80px!important;
+        padding-inline: 32px!important;
+        overflow: hidden;
+        .category-tab-content{
+            position: relative;
+            @include flex-box(column, space-between, center, 64px);
+            // padding: 60px 60px;
+            .category-tab_head{
+                @include flex-box(row, space-between, center, 8px);
+            }
+            .category-tab_body{
+                .tab-content{
+                    // @include flex-box(column, space-between, center, 64px);
+                    &-title{
+                        color: #274250;
+                        font-family: Poppins;
+                        font-size: 40px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 120%; /* 48px */
+                        letter-spacing: -0.4px;
+                    }
+                    &-card{
+                        @include flex-box(row, center, center, 8px);
+                        // margin-top: 64px;
+                        max-width: 1200px;
+                        width: 1200px;
+                        flex-wrap: wrap;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.tab-btn{
+    border-radius: 40px;
+    background: transparent;
+    padding: 20px 24px;
+    border: none;
+    color: #274250;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 18px */
+    letter-spacing: -0.18px;
+    cursor: pointer;
+}
+.tab-btn.active{
+    background: #FAF1F2;
+    color: #ED1C24;
+}
+.tab-content.active{
+    display: flex!important;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+}
+.tab-content{
+    display: none;
+}
