@@ -68,3 +68,13 @@
 .tab-content{
     display: none;
 }
+.tab-btn.show{
+    background: #FAF1F2;
+    color: #ED1C24;
+}
+.tab-content.show{
+    display: flex!important;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+}

@@ -3,3 +3,7 @@
 @use "layout";
 @use "sections";
 @use "vendors";
+
+html {
+    scroll-behavior: smooth;
+}
