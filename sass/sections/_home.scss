@@ -70,3 +70,23 @@
   }
 }
 
+@media(max-width: 768px) {
+  .hero-homepage{
+    .container{
+      padding-top: 32px;
+    }
+  }
+  .home-display_title{
+    font-size: 36px!important;
+  }
+  .home-content_wrapper-image,
+  .home-content_wrapper-card{
+    width: 100%;
+  }
+  .home-content_wrapper {
+    gap: 40px!important;
+  }
+  .home-content_wrapper{
+    flex-direction: column!important;
+  }
+}

@@ -130,3 +130,13 @@
         }
     }
 }
+@media(max-width: 768px) {
+    .faq{
+        .container{
+            padding-inline: 20px!important;
+        }
+    }
+    .faq-content_accordion-wrapper{
+        flex-direction: column!important;
+    }
+}

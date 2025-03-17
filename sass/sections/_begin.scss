@@ -99,4 +99,10 @@
     }
 }
 
+@media(max-width: 768px) {
+    .begin-content_info-card{
+        flex-direction: column!important;
+    }
+}
+
 

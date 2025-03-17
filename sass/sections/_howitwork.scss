@@ -86,5 +86,8 @@
         }
     }
 }
-
-
+@media(max-width: 768px) {
+    .howitwork-content_info-card{
+        grid-template-columns: repeat(1, 1fr)!important;
+    }
+}

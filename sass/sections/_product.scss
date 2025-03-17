@@ -15,9 +15,9 @@
                             @include flex-box(row, start, center, 0px);
                             border-radius: 28px;
                             background: #F7F7F7;
-                            display: flex;
+                            // display: flex;
                             padding: 20px 0px 20px 48px;
-                            align-items: center;
+                            // align-items: center;
                             gap: 4px;
                             transition: All 0.3s ease;
                             &:hover{
@@ -80,5 +80,30 @@
         }
     }
 }
+@media(max-width: 768px) {
+    .product-content_wrapper-card,
+    .card-product{
+        flex-direction: column!important;
+        width: 100%;
+        padding: 48px 10px 20px 10px!important;
+    }
+    .card-product_text{
+        justify-content: center!important;
+        align-items: center!important;
+    }
+    .card-product_text-title{
+        text-align: center!important;
+    }
+    .product-content_wrapper-small{
+        grid-template-columns: repeat(2, 1fr)!important;
+        
+    }
+    .card-product-small_image{
+        width: 116px!important;
+        height: 116px!important;
+    }
+    .card-product-small{
+        padding: 10px 28px 20px 28px!important;
+    }
 
-
+}

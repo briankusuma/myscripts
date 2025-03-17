@@ -1,0 +1,99 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.boost{
+    .container{
+        padding-block: 80px;
+        .boost-content{
+            &_wrapper{
+                @include flex-box(row, space-between, center, 8px);
+                &-text{
+                @include flex-box(column, start, flex-start, 24px);
+                max-width: 491px;
+                .boost-display{
+                    &_title{
+                        color: #274250;
+                        font-family: Poppins;
+                        font-size: 40px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 120%; /* 48px */
+                        letter-spacing: -0.4px;
+                    }
+                    &_paragraft{
+                        color: rgba(17, 17, 17, 0.80);
+                        font-family: Poppins;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        letter-spacing: -0.16px;
+                    }
+                    &_benefit{
+                        @include flex-box(column, start, flex-start, 16px);
+                        .boost_items-benefit{
+                            @include flex-box(row, start, center, 12px);
+                            h4{
+                                color: rgba(17, 17, 17, 0.80);
+                                text-align: center;
+                                font-family: Poppins;
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                                letter-spacing: -0.16px;
+                            }
+                        }
+                    }
+                }
+                .tag_detail{
+                    color: #FFF;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%; /* 14px */
+                    letter-spacing: -0.14px;
+                    border-radius: 40px;
+                    background: #26D743;
+                    padding: 8px 12px;
+                }
+                }
+                &-image{
+                @include flex-box(column, start, flex-start, 16px);
+                .boost-content_wrapper-card{
+                    @include flex-box(row, start, center, 12px);
+                    border-radius: 16px;
+                    border: 1px solid rgba(237, 28, 36, 0.12);
+                    background: #FFF;
+                    backdrop-filter: blur(8px);
+                    padding: 24px 32px;
+
+                    .card-boost_text{
+                    max-width: 180px;
+                    width: 100%;
+                    color: #111;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 300;
+                    line-height: 140%;
+                    letter-spacing: -0.14px;
+                    span{
+                        font-weight: 500;
+                    }
+                    }
+                }
+                }
+            }
+        }
+    }
+}
+

@@ -10,6 +10,15 @@
  */
  {
     "sections": {
+        "hero-detail":{
+            "type": "hero-detail"
+        },
+        "transform":{
+            "type": "transform"
+        },
+        "boost":{
+            "type": "boost"
+        },
         "testimoni": {
             "type": "testimoni"
         },
@@ -21,6 +30,9 @@
         }
     },
     "order": [
+        "hero-detail",
+        "transform",
+        "boost",
         "testimoni",
         "faq",
         "cta"

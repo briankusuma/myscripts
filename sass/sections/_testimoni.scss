@@ -143,3 +143,21 @@
     .slick-dots li.slick-active button:before {
         color: transparent;
         }
+
+
+@media(max-width: 768px) {
+    .testimoni{
+        .container{
+            padding-inline: 16px!important;
+        }
+    }
+    .testimoni-content_title-text{
+        text-align: center!important;
+    }
+    .card-testimoni{
+        max-width: 380px!important;
+    }
+    .testimoni-content{
+        overflow: hidden;
+    }
+}

@@ -170,3 +170,31 @@
         }
     }
 }
+@media(max-width: 768px) {
+    .clinicaly{
+        .container{
+            padding-inline: 16px!important;
+        }
+    }
+    .clinicaly-content_cta-img{
+        position: relative!important;
+        right: 0px!important;
+        width: 400px!important;
+        height: 400px!important;
+    }
+    .clinicaly-content{
+        flex-direction: column!important;
+        padding: 0px!important;
+    }
+    .clinicaly-content_text-weightcal{
+        .card{
+            width: 100%!important;
+        }
+    }
+    .clinicaly-content_text-weightcal{
+        margin-top: 40px!important;
+    }
+    .clinicaly-content_text {
+        padding: 48px 20px 0px 20px!important;
+    }
+}

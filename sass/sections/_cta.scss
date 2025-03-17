@@ -47,3 +47,24 @@
         }
     }
 }
+@media(max-width: 768px) {
+    .cta{
+        .container{
+            padding-inline: 10px!important;
+            padding-top: 40px !important;
+        }
+    }
+    .cta-content{
+        flex-direction: column!important;
+        padding: 30px 20px 0px 20px!important;
+        overflow: hidden;
+    }
+    .cta-content_image{
+        margin-top: 0px!important;
+        .cta-content_images{
+            width: 340px!important;
+            height: 310px!important;
+
+        }
+    }
+}

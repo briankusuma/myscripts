@@ -1,0 +1,76 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.transform{
+    .container{
+        padding-block: 80px;
+        .transform-content{
+            @include flex-box(column, center, center, 64px);
+            &_title{
+                color: #274250;
+                text-align: center;
+                font-family: Poppins;
+                font-size: 40px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 120%; /* 48px */
+                letter-spacing: -0.4px;
+            }
+            &_card{
+                @include flex-box(row, center, center, 16px);
+                &-item{
+                    @include flex-box(column, center, center, 40px);
+                    border-radius: 28px;
+                    background: #F7F7F7;
+                    max-width: 389px;
+                    padding: 64px 40px 40px 40px;
+                }
+                .card-tranform{
+                    &_img{
+                        width: 200px;
+                        border-radius: 28px;
+                    }
+                    &_text{
+                        @include flex-box(column, center, center, 2px);
+                        &-title{
+                            color: #274250;
+                            text-align: center;
+                            font-family: Poppins;
+                            font-size: 24px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 100%; /* 24px */
+                            letter-spacing: -0.24px;
+                        }
+                        &-dsc{
+                            color: rgba(39, 66, 80, 0.70);
+                            text-align: center;
+                            font-family: Poppins;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                            letter-spacing: -0.16px;
+                        }
+                    }
+                }
+                
+            }
+            &_button{
+                @include flex-box(column, center, center, 24px);
+                p{
+                    color: rgba(39, 66, 80, 0.80);
+                    text-align: center;
+                    font-family: Poppins;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 140%; /* 25.2px */
+                    letter-spacing: -0.18px;
+                }
+            }
+        }
+    }
+}

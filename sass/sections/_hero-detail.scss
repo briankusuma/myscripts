@@ -1,0 +1,99 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.hero-detail{
+    background: linear-gradient(180deg, rgba(250, 241, 242, 0.00) 0%, #FAF1F2 100%), #FFF;
+    .container{
+        padding-top: 80px;
+        .detail-content{
+            &_wrapper{
+                @include flex-box(row, space-between, center, 8px);
+                &-text{
+                @include flex-box(column, start, flex-start, 24px);
+                .detail-display{
+                    &_title{
+                        color: #274250;
+                        font-family: Poppins;
+                        font-size: 64px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 110%; /* 70.4px */
+                        letter-spacing: -0.64px;
+                    span{
+                        color: rgba(39, 66, 80, 0.60);
+                    }
+                    }
+                    &_paragraft{
+                        color: rgba(39, 66, 80, 0.80);
+                        font-family: Poppins;
+                        font-size: 18px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 140%; /* 25.2px */
+                        letter-spacing: -0.18px;
+                    }
+                    &_benefit{
+                        @include flex-box(column, start, flex-start, 16px);
+                        .list_items-benefit{
+                            @include flex-box(row, start, center, 12px);
+                            h4{
+                                color: #111;
+                                font-family: Poppins;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 140%; /* 19.6px */
+                                letter-spacing: -0.14px;
+                                span{
+                                    font-weight: 300;
+                                }
+                            }
+                        }
+                    }
+                }
+                .tag_detail{
+                    color: #FFF;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%; /* 14px */
+                    letter-spacing: -0.14px;
+                    border-radius: 40px;
+                    background: #26D743;
+                    padding: 8px 12px;
+                }
+                }
+                &-image{
+                @include flex-box(column, start, flex-start, 16px);
+                .detail-content_wrapper-card{
+                    @include flex-box(row, start, center, 12px);
+                    border-radius: 16px;
+                    border: 1px solid rgba(237, 28, 36, 0.12);
+                    background: #FFF;
+                    backdrop-filter: blur(8px);
+                    padding: 24px 32px;
+
+                    .card-detail_text{
+                    max-width: 180px;
+                    width: 100%;
+                    color: #111;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 300;
+                    line-height: 140%;
+                    letter-spacing: -0.14px;
+                    span{
+                        font-weight: 500;
+                    }
+                    }
+                }
+                }
+            }
+        }
+    }
+}
+
