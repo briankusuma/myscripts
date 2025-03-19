@@ -23,9 +23,6 @@
         },
         "faq": {
             "type": "faq"
-        },
-        "cta": {
-            "type": "cta"
         }
     },
     "order": [
@@ -33,7 +30,6 @@
         "category-tab",
         "banner-achieving",
         "testimoni",
-        "faq",
-        "cta"
+        "faq"
 ]
 }

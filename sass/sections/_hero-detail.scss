@@ -96,4 +96,29 @@
         }
     }
 }
-
+@media(max-width: 768px) {
+    .hero-detail{
+        .container{
+            padding-top: 32px!important;
+        }
+        .begin-card_image{
+            width: 100%!important;
+            height: auto!important;
+        }
+        .detail-content_wrapper{
+            flex-direction: column!important;
+        }
+        .detail-display_title{
+            font-size: 36px!important;
+        }
+        .detail-display_button-wrapper{
+            display: contents;
+            button{
+                width: 100%;
+            }
+        }
+        .transform-content_card{
+            flex-direction: column!important;
+        }
+    }
+}

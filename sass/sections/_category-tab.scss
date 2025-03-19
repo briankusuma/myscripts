@@ -17,6 +17,7 @@
                 @include flex-box(row, space-between, center, 8px);
             }
             .category-tab_body{
+                width: 100%;
                 .tab-content{
                     // @include flex-box(column, space-between, center, 64px);
                     &-title{
@@ -77,4 +78,24 @@
     flex-direction: column;
     align-items: center;
     gap: 64px;
+}
+
+@media(max-width: 768px) {
+    .tab-content-title{
+        font-size: 28px!important;
+        text-align: center;
+    }
+    .category-tab_head{
+        width: 100%;
+        overflow: scroll;
+        padding-bottom: 20px;
+        button{
+            width: 100%;
+            min-width: 150px;
+        }
+    }
+    .tab-content-card{
+        flex-direction: column!important;
+    }
+
 }

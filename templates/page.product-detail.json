@@ -24,9 +24,6 @@
         },
         "faq": {
             "type": "faq"
-        },
-        "cta": {
-            "type": "cta"
         }
     },
     "order": [
@@ -34,7 +31,6 @@
         "transform",
         "boost",
         "testimoni",
-        "faq",
-        "cta"
+        "faq"
 ]
 }

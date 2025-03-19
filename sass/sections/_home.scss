@@ -89,4 +89,10 @@
   .home-content_wrapper{
     flex-direction: column!important;
   }
+  .home-display_button-wrapper{
+    display: contents;
+    button{
+      width: 100%!important;
+    }
+  }
 }

@@ -159,3 +159,27 @@
         }
     }
 }
+@media(max-width: 768px) {
+    .banner-achieving{
+        .container{
+            padding-inline: 16px!important ;
+        }
+        .clinicaly-content_text-title{
+            text-align: center;
+            font-size: 28px!important;
+        }
+        .clinicaly-content_text-lose{
+            font-size: 20px;
+            text-align: center;
+        }
+        .clinicaly-content_text-dsc{
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .clinicaly-content_text-weightcal{
+            padding: 20px!important;
+            margin-top: 0px !important;
+        }
+    }
+}

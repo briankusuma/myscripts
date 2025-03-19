@@ -74,3 +74,24 @@
         }
     }
 }
+
+@media(max-width: 768px) {
+    .transform{
+        .container{
+            padding-top: 80px!important;
+        }
+        .transform-content_card{
+            flex-direction: column!important;
+        }
+        .transform-content_title{
+            font-size: 28px!important;
+            max-width: 300px;
+        }
+        .transform-content_button{
+            button{
+                width: 100%;
+            }
+        }
+    }
+
+}

@@ -1,49 +1,66 @@
-    @use "../abstracts" as *;
-    @use "../base" as *;
-    @use "../components" as *;
-    @use "../layout" as *;
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
 
-    .category-hero{
-        background: linear-gradient(180deg, rgba(250, 241, 242, 0.00) 0%, #FAF1F2 100%), #FFF;
-        .container{
-            padding-top: 100px;
-            .product-category-content{
-                &_wrapper{
-                @include flex-box(row, center, center, 8px);
-                &-text{
-                    @include flex-box(column, center, center, 24px);
-                    .product-category-display{
-                    &_title{
-                        color: rgba(39, 66, 80, 0.60);
-                        font-family: Poppins;
-                        font-size: 64px;
-                        font-style: normal;
-                        font-weight: 600;
-                        line-height: 110%; /* 96.8px */
-                        letter-spacing: -0.88px;
-                        text-align: center;
-                        span{
-                            color: #274250;
-                        }
-                    }
-                    &_paragraft{
-                        color: rgba(39, 66, 80, 0.80);
-                        font-family: Poppins;
-                        font-size: 18px;
-                        font-style: normal;
-                        font-weight: 400;
-                        line-height: 140%; /* 25.2px */
-                        letter-spacing: -0.18px;
-                        width: 100%;
-                        text-align: center;
-                    }
+.category-hero{
+    background: linear-gradient(180deg, rgba(250, 241, 242, 0.00) 0%, #FAF1F2 100%), #FFF;
+    .container{
+        padding-top: 100px;
+        .product-category-content{
+            &_wrapper{
+            @include flex-box(row, center, center, 8px);
+            &-text{
+                @include flex-box(column, center, center, 24px);
+                .product-category-display{
+                &_title{
+                    color: rgba(39, 66, 80, 0.60);
+                    font-family: Poppins;
+                    font-size: 64px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 110%; /* 96.8px */
+                    letter-spacing: -0.88px;
+                    text-align: center;
+                    span{
+                        color: #274250;
                     }
                 }
-                &-image{
-                    @include flex-box(column, start, flex-start, 16px);
+                &_paragraft{
+                    color: rgba(39, 66, 80, 0.80);
+                    font-family: Poppins;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 140%; /* 25.2px */
+                    letter-spacing: -0.18px;
+                    width: 100%;
+                    text-align: center;
                 }
                 }
             }
+            &-image{
+                @include flex-box(column, start, flex-start, 16px);
+            }
+            }
         }
-        }
+    }
+    }
 
+@media(max-width: 768px) {
+    .product-category-display_title{
+        font-size: 36px!important;
+    }
+    .product-category-display_paragraft{
+        font-size: 16px!important;
+    }
+    .category-hero .container {
+        padding-top: 40px;
+    }
+    .product-category-display_button-wrapper{
+        display: contents;
+        button{
+            width: 100%!important;
+        }
+    }
+}

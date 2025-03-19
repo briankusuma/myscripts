@@ -96,4 +96,31 @@
         }
     }
 }
+@media(max-width: 768px) {
+    .boost{
+        .container{
+            padding-top: 80px!important;
+        }
+        .boost-content_wrapper{
+            flex-direction: column!important;
+            gap: 40px!important;
+        }
+        .boost-display_button-wrapper{
+            display: contents;
+            button{
+                width: 100%;
+            }
+        }
+        .begin-card_image{
+            width: 100%!important;
+            height: auto!important;
+        }
+        .boost_items-benefit{
+            h4{
+                text-align: left!important;
+            }
+        }
+    }
+
+}
 
