@@ -1,0 +1,26 @@
+{
+  "sections": {
+      "product-main": {
+          "type": "product-main"
+      },
+      "transform":{
+        "type": "transform"
+    },
+    "boost":{
+        "type": "boost"
+    },
+    "testimoni": {
+        "type": "testimoni"
+    },
+    "faq": {
+        "type": "faq"
+    }
+  },
+  "order": [
+    "product-main",
+    "transform",
+    "boost",
+    "testimoni",
+    "faq"
+  ]
+}

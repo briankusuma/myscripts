@@ -117,8 +117,73 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// filter collection
+
+document.addEventListener("DOMContentLoaded", function() {
+    const titles = document.querySelectorAll(".collection-title");
+    const products = document.querySelectorAll(".begin_info-items, .tab-content-title");
 
 
+    // Set default collection (Anti-Aging)
+    let defaultCollection = document.querySelector(".collection-title.active");
+    let selectedCollection = defaultCollection ? defaultCollection.getAttribute("data-collection") : null;
+
+    function filterProducts(collection) {
+      products.forEach(product => {
+        product.style.display = product.getAttribute("data-collection") === collection ? "flex" : "none";
+      });
+
+      // Update active class
+      titles.forEach(title => title.classList.remove("active"));
+      document.querySelector(`.collection-title[data-collection='${collection}']`).classList.add("active");
+    }
+
+    // Tampilkan default collection
+    if (selectedCollection) {
+      filterProducts(selectedCollection);
+    }
+
+    // Event listener untuk klik koleksi
+    titles.forEach(title => {
+      title.addEventListener("click", function() {
+        let selectedCollection = this.getAttribute("data-collection");
+        filterProducts(selectedCollection);
+      });
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Menangani klik pada link filter
+    const filterLinks = document.querySelectorAll('.collection-filter-link');
+    
+    filterLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            
+            const collectionName = link.getAttribute('data-collection');
+            
+            // Update URL untuk menambahkan query parameter collection
+            const url = new URL(window.location.href);
+            url.searchParams.set('collection', collectionName); // Set query parameter
+            window.location.href = url.toString(); // Arahkan ke URL baru
+        });
+    });
+
+    // Menampilkan produk berdasarkan koleksi yang dipilih
+    const urlParams = new URLSearchParams(window.location.search);
+    const collectionFilter = urlParams.get('collection');
+    
+    if (collectionFilter) {
+        const products = document.querySelectorAll('.product-item'); // pastikan produk diberi kelas .product-item
+        
+        products.forEach(product => {
+            const productCollection = product.getAttribute('data-collection');
+            if (productCollection !== collectionFilter) {
+                product.style.display = 'none'; // Sembunyikan produk yang tidak cocok
+            }
+        });
+    }
+});
 
 
 

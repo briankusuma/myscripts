@@ -1,0 +1,50 @@
+<section class="colect-list section-full">
+
+
+
+<div class="container">
+
+{% paginate collection.products by 2 %}
+  <div class="collections-titles">
+    {% comment %} {% for product in collection.products %}
+        {% unless collection.handle == 'frontpage' %}
+        <a class="collection-title">
+            {{ collection.title | escape }}
+        </a>
+        {% endunless %}
+    {% endfor %} {% endcomment %}
+    <a href="" class="collection-title active">{{ collection.title | escape }}</a>
+    {% comment %} <a href="" class="collection-title"></a>
+    <a href="" class="collection-title"></a>
+    <a href="" class="collection-title"></a> {% endcomment %}
+    </div>
+
+  <h2 class="tab-content-title"> 
+    {{ collection.description | escape }}
+  </h2>
+<div class="collections-products">
+  {% for product in collection.products %}
+    <div class="begin_info-items">
+      <div class="begin_bedge">{{ product.type }}</div>
+      <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
+      <h2>{{ product.title }}</h2>
+      <p>Starting {{ product.price | money }}/mo</p>
+      <div class="begin_button-wrapper">
+        <button class="button btn-black is-small is-fullwidth">
+          Get Started
+        </button>
+        <a class="button btn-outline is-small is-fullwidth" href="{{ product.url | within: collection }}">
+          Learn more
+        </a>
+      </div>
+    </div>
+  {% else %}
+    <p>no matches</p>
+  {% endfor %}
+  {% if paginate.pages > 1 %}{{ paginate | default_pagination }}{% endif %}
+</div>
+
+{% endpaginate %}
+
+</div>
+</section>

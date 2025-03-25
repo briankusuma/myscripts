@@ -1,0 +1,61 @@
+<!-- Row untuk Judul Koleksi -->
+<div class="container">
+    <div class="collections-titles">
+    {% for collection in collections %}
+        {% unless collection.handle == 'frontpage' %}
+        <a class="collection-title {% if collection.title == "Anti-Aging" %}active{% endif %}" 
+            data-collection="{{ collection.handle }}">
+            {{ collection.title | escape }}
+        </a>
+        {% endunless %}
+    {% endfor %}
+    </div>
+
+    <div class="collections-titles">
+        {% for collection in collections %}
+            {% unless collection.handle == 'frontpage' %}
+            <h2 class="tab-content-title" data-collection="{{ collection.handle }}"
+                style="display: {% if is_default %}block{% else %}none{% endif %};"> 
+                {{ collection.description | escape }}
+            </h2>
+            {% endunless %}
+        {% endfor %}
+        </div>  
+    <!-- Row untuk Card Produk -->
+    <div class="collections-products">
+
+    {% for collection in collections %}
+        {% unless collection.handle == 'frontpage' %}
+        {% assign is_default = false %}
+        {% if collection.title == "Anti-Aging" %}
+            {% assign is_default = true %}
+        {% endif %}
+        {% for product in collection.products limit:5 %}
+            <div class="begin_info-items" 
+                data-collection="{{ collection.handle }}" 
+                style="display: {% if is_default %}block{% else %}none{% endif %};">
+                <div class="begin_bedge">{{ product.type }}</div>
+                <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'medium' }}" 
+                    alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
+                <h2>{{ product.title }}</h2>
+                <p>Starting {{ product.price | money }}/mo</p>
+                <div class="begin_button-wrapper">
+                    <button class="button btn-black is-small is-fullwidth">Get Started</button>
+                    <a class="button btn-outline is-small is-fullwidth" 
+                    href="{{ product.url | within: collection }}">Learn more</a>
+                </div>
+            </div>
+        {% endfor %}
+        {% endunless %}
+    {% endfor %}
+    </div>
+
+</div>
+{% schema %}
+    {
+        "name": "collect Section",
+        "tag": "section",
+        "class": "collect section-full"
+    }
+{% endschema %}
+

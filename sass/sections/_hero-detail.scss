@@ -120,5 +120,11 @@
         .transform-content_card{
             flex-direction: column!important;
         }
+        .detail-content_wrapper-image{
+            img{
+                width: 100%!important;
+                height: auto!important;
+            }
+        }
     }
 }

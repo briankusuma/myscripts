@@ -52,6 +52,7 @@
     img{
         width: 250px;
         height: 250px;
+        margin-inline: auto;
     }
     .begin_button-wrapper{
         @include flex-box(row, center, center, 8px);
