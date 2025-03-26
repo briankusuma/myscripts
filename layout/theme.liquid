@@ -16,7 +16,7 @@
     {{ content_for_header }}
     <!-- Header hook for plugins -->
     {{ 'main.css' | asset_url | stylesheet_tag }}
-    {{ 'application.js' | asset_url | script_tag }}
+    {% comment %} {{ 'application.js' | asset_url | script_tag }} {% endcomment %}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   </head>
   <body>
@@ -31,7 +31,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script src="/assets/application.js" defer></script>
+    {% comment %} <script src="/assets/application.js" defer></script> {% endcomment %}
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         AOS.init({
@@ -72,9 +72,6 @@
                     slidesToScroll: 1
                   }
                 }
-                // You can unslick at a given breakpoint now by adding:
-                // settings: "unslick"
-                // instead of a settings object
               ]
           });
 
@@ -90,7 +87,7 @@
           $("#review-slider").slick("slickGoTo", 0, true);
 
       });
-      </script>
+    </script>
       <script>
       document.addEventListener("DOMContentLoaded", () => {
           const faqItems = document.querySelectorAll(".faq-item");
@@ -119,64 +116,64 @@
     });
     
 
-      document.addEventListener("DOMContentLoaded", () => {
-      const buttons = document.querySelectorAll(".tab-btn");
-      const contents = document.querySelectorAll(".tab-content");
+  document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".tab-btn");
+  const contents = document.querySelectorAll(".tab-content");
 
-      function openTab(tabName) {
-          // Hapus class 'active' dari semua tombol dan konten
-          buttons.forEach(btn => btn.classList.remove("active"));
-          contents.forEach(content => content.classList.remove("active"));
+  function openTab(tabName) {
+      // Hapus class 'active' dari semua tombol dan konten
+      buttons.forEach(btn => btn.classList.remove("active"));
+      contents.forEach(content => content.classList.remove("active"));
 
-          // Cari tombol dan konten yang sesuai dengan 'tabName'
-          const activeButton = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
-          const activeContent = document.getElementById(tabName);
+      // Cari tombol dan konten yang sesuai dengan 'tabName'
+      const activeButton = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+      const activeContent = document.getElementById(tabName);
 
-          if (activeButton && activeContent) {
-              activeButton.classList.add("active");
-              activeContent.classList.add("active");
-          }
+      if (activeButton && activeContent) {
+          activeButton.classList.add("active");
+          activeContent.classList.add("active");
       }
+  }
 
-      // Cek URL untuk parameter 'tab'
-      const urlParams = new URLSearchParams(window.location.search);
-      const tabFromURL = urlParams.get("tab");
+  // Cek URL untuk parameter 'tab'
+  const urlParams = new URLSearchParams(window.location.search);
+  const tabFromURL = urlParams.get("tab");
 
-      // Jika ada parameter 'tab' di URL, buka tab sesuai parameter
+  // Jika ada parameter 'tab' di URL, buka tab sesuai parameter
+  if (tabFromURL) {
+      openTab(tabFromURL);
+  } else {
+      // Jika tidak ada parameter 'tab' di URL, aktifkan tab pertama
+      if (buttons.length > 0) {
+          const defaultTab = buttons[0].dataset.tab;  // Ambil tab pertama
+          openTab(defaultTab);  // Aktifkan tab pertama dan kontennya
+      }
+  }
+
+  // Tambahkan event listener untuk setiap tombol tab
+  buttons.forEach(button => {
+      button.addEventListener("click", () => {
+          const tabName = button.dataset.tab;
+          openTab(tabName);
+
+          // Update URL tanpa reload halaman
+          const newUrl = new URL(window.location);
+          newUrl.searchParams.set("tab", tabName);
+          window.history.pushState({}, "", newUrl);
+      });
+  });
+
+  // Menangani navigasi browser (back/forward)
+  window.addEventListener("popstate", () => {
+      const tabFromURL = new URLSearchParams(window.location.search).get("tab");
       if (tabFromURL) {
           openTab(tabFromURL);
       } else {
-          // Jika tidak ada parameter 'tab' di URL, aktifkan tab pertama
-          if (buttons.length > 0) {
-              const defaultTab = buttons[0].dataset.tab;  // Ambil tab pertama
-              openTab(defaultTab);  // Aktifkan tab pertama dan kontennya
-          }
+          // Jika tidak ada parameter 'tab', aktifkan tab pertama
+          openTab(buttons[0].dataset.tab);
       }
-
-      // Tambahkan event listener untuk setiap tombol tab
-      buttons.forEach(button => {
-          button.addEventListener("click", () => {
-              const tabName = button.dataset.tab;
-              openTab(tabName);
-
-              // Update URL tanpa reload halaman
-              const newUrl = new URL(window.location);
-              newUrl.searchParams.set("tab", tabName);
-              window.history.pushState({}, "", newUrl);
-          });
-      });
-
-      // Menangani navigasi browser (back/forward)
-      window.addEventListener("popstate", () => {
-          const tabFromURL = new URLSearchParams(window.location.search).get("tab");
-          if (tabFromURL) {
-              openTab(tabFromURL);
-          } else {
-              // Jika tidak ada parameter 'tab', aktifkan tab pertama
-              openTab(buttons[0].dataset.tab);
-          }
-      });
   });
+});
 
   // filter collection
 
