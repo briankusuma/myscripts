@@ -1,10 +1,26 @@
 {
   "sections": {
+    "category-hero": {
+      "type": "category-hero"
+  },
       "collection": {
           "type": "collection"
-      }
+      },
+      "banner-achieving": {
+        "type": "banner-achieving"
+    },
+    "testimoni": {
+        "type": "testimoni"
+    },
+    "faq": {
+        "type": "faq"
+    }
   },
   "order": [
-    "collection"
+    "category-hero",
+    "collection",
+    "banner-achieving",
+    "testimoni",
+    "faq"
   ]
 }
