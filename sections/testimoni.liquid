@@ -1,5 +1,5 @@
 
-<div class="container">
+{% comment %} <div class="container">
     <div class="testimoni-content">
         <div class="testimoni-content_title">
             <span class="testimoni-content_title-bedge">Testimonial</span>
@@ -65,6 +65,145 @@
     "presets": [
         {
             "name": "testimoni section"
+        }
+    ]
+}
+{% endschema %} {% endcomment %}
+
+
+<div class="container">
+    <div class="testimoni-content">
+        <div class="testimoni-content_title">
+            <span class="testimoni-content_title-bedge">{{ section.settings.badge_text }}</span>
+            <h1 class="testimoni-content_title-text">{{ section.settings.title }}</h1>
+        </div>
+        <div class="testimoni-content_slider">
+            <div class="review-slider" id="review-slider">
+            {% if section.blocks != blank %}
+                {% for block in section.blocks %}
+                <div class="card-testimoni">
+                    <p class="card-testimoni_text">"{{ block.settings.testimonial_text }}"</p>
+                    <div class="card-testimoni_name">
+                        <img class="card-testimoni_name-foto" src="{{ block.settings.image | img_url: '48x48' }}" alt="{{ block.settings.name }}" width="48" height="48">
+                        <div class="card-testimoni_name-wrapper">
+                            <span class="card-testimoni_name-wrapper-text">{{ block.settings.name }}</span>
+                            <span class="card-testimoni_name-wrapper-profesion">{{ block.settings.profession }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+
+                <div class="card-testimoni">
+                    <p class="card-testimoni_text">"Love having the ability to buy NAD and glutathione online. This isn't something you can ask for at your PCP office."</p>
+                    <div class="card-testimoni_name">
+                        <img class="card-testimoni_name-foto" src="{{ 'testimoni-card-fotos.png' | asset_url }}" alt="Fotos" width="48" height="48">
+                        <div class="card-testimoni_name-wrapper">
+                            <span class="card-testimoni_name-wrapper-text">
+                                Jenny Ortega
+                            </span>
+                            <span class="card-testimoni_name-wrapper-profesion">
+                                Founder at Altair.co
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-testimoni">
+                    <p class="card-testimoni_text">"Love having the ability to buy NAD and glutathione online. This isn't something you can ask for at your PCP office."</p>
+                    <div class="card-testimoni_name">
+                        <img class="card-testimoni_name-foto" src="{{ 'testimoni-card-fotos.png' | asset_url }}" alt="Fotos" width="48" height="48">
+                        <div class="card-testimoni_name-wrapper">
+                            <span class="card-testimoni_name-wrapper-text">
+                                Jenny Ortega
+                            </span>
+                            <span class="card-testimoni_name-wrapper-profesion">
+                                Founder at Altair.co
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-testimoni">
+                    <p class="card-testimoni_text">"Love having the ability to buy NAD and glutathione online. This isn't something you can ask for at your PCP office."</p>
+                    <div class="card-testimoni_name">
+                        <img class="card-testimoni_name-foto" src="{{ 'testimoni-card-fotos.png' | asset_url }}" alt="Fotos" width="48" height="48">
+                        <div class="card-testimoni_name-wrapper">
+                            <span class="card-testimoni_name-wrapper-text">
+                                Jenny Ortega
+                            </span>
+                            <span class="card-testimoni_name-wrapper-profesion">
+                                Founder at Altair.co
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Testimoni Section",
+    "tag": "section",
+    "class": "testimoni section-full",
+    "settings": [
+        {
+            "type": "text",
+            "id": "badge_text",
+            "label": "Badge Text",
+            "default": "Testimonial"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Section Title",
+            "default": "What they said about us"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "testimonial",
+            "name": "Testimonial",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "testimonial_text",
+                    "label": "Testimonial Text",
+                    "default": "Love having the ability to buy NAD and glutathione online. This isn't something you can ask for at your PCP office."
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Profile Image"
+                },
+                {
+                    "type": "text",
+                    "id": "name",
+                    "label": "Name",
+                    "default": "Jenny Ortega"
+                },
+                {
+                    "type": "text",
+                    "id": "profession",
+                    "label": "Profession",
+                    "default": "Founder at Altair.co"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Testimoni Section",
+            "category": "Text",
+            "blocks": [
+                {
+                    "type": "testimonial"
+                }
+            ]
         }
     ]
 }
