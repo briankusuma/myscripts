@@ -16,72 +16,33 @@
                 {% endif %}
             </h1>
         </div>
+
         <div class="begin-content_info-card">
-        {% if section.blocks != blank %}
-            {% for block in section.blocks %}
-            <div class="begin_info-items">
-                <div class="begin_bedge">{{ block.settings.badge }}</div>
-                <img class="begin-card_image" src="{{ block.settings.image | image_url: 'medium' }}" alt="{{ block.settings.image_alt }}" width="250" height="250">
-                <h2>{{ block.settings.card_title }}</h2>
-                <p>{{ block.settings.card_price }}</p>
-                <div class="begin_button-wrapper">
-                    <button class="button btn-black is-small is-fullwidth">
-                        {{ block.settings.button_text }}
-                    </button>
-                    <a class="button btn-outline is-small is-fullwidth">
-                        Learn more
-                    </a>
+            {% assign collections_to_show = "weight-loss,anti-aging,peptides" | split: "," %}
+        
+            {% for collection_handle in collections_to_show %}
+            {% assign collection = collections[collection_handle] %}
+            
+            {% if collection %}
+                <div class="begin_info-items">
+                {% assign product = collection.products.first %}
+                
+                <div class="begin_bedge">{{ product.type }}</div>
+                    <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'medium' }}" 
+                        alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
+                    <h2>{{ product.title }}</h2>
+                    <p>Starting {{ product.price | money }}/mo</p>
+                    <div class="begin_button-wrapper">
+                        <button class="button btn-black is-small is-fullwidth">Get Started</button>
+                        <a class="button btn-outline is-small is-fullwidth" 
+                        href="{{ product.url | within: collection }}">Learn more</a>
                 </div>
-            </div>
+
+                </div>
+            {% endif %}
             {% endfor %}
-        {% else %}
-
-            <div class="begin_info-items">
-                <div class="begin_bedge">Most Effective</div>
-                <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
-                <h2>Compounded Tirzepatide</h2>
-                <p>Starting $265/mo</p>
-                <div class="begin_button-wrapper">
-                    <button class="button btn-black is-small is-fullwidth">
-                        Get Started
-                    </button>
-                    <button class="button btn-outline is-small is-fullwidth">
-                        Learn more
-                    </button>
-                </div>
-            </div>
-            <div class="begin_info-items">
-                <div class="begin_bedge">Most Effective</div>
-                <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
-                <h2>Compounded Tirzepatide</h2>
-                <p>Starting $265/mo</p>
-                <div class="begin_button-wrapper">
-                    <button class="button btn-black is-small is-fullwidth">
-                        Get Started
-                    </button>
-                    <button class="button btn-outline is-small is-fullwidth">
-                        Learn more
-                    </button>
-                </div>
-            </div>
-            <div class="begin_info-items">
-                <div class="begin_bedge">Most Effective</div>
-                <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="250" height="250">
-                <h2>Compounded Tirzepatide</h2>
-                <p>Starting $265/mo</p>
-                <div class="begin_button-wrapper">
-                    <button class="button btn-black is-small is-fullwidth">
-                        Get Started
-                    </button>
-                    <button class="button btn-outline is-small is-fullwidth">
-                        Learn more
-                    </button>
-                </div>
-            </div>
-
-        {% endif %}
-
         </div>
+        
     </div>
 </div>
 
@@ -102,55 +63,6 @@
             "label": "Main Title",
             "id": "title",
             "default": "Begin your weight loss journey"
-        }
-    ],
-    "blocks": [
-        {
-            "type": "info_card",
-            "name": "Info Card",
-            "settings": [
-                {
-                    "type": "text",
-                    "label": "Badge Text",
-                    "id": "badge",
-                    "default": "Most Effective"
-                },
-                {
-                    "type": "image_picker",
-                    "label": "Card Image",
-                    "id": "image",
-                },
-                {
-                    "type": "text",
-                    "label": "Image Alt Text",
-                    "id": "image_alt",
-                    "default": "Icon"
-                },
-                {
-                    "type": "text",
-                    "label": "Card Title",
-                    "id": "card_title",
-                    "default": "Compounded Tirzepatide"
-                },
-                {
-                    "type": "text",
-                    "label": "Card Price",
-                    "id": "card_price",
-                    "default": "Starting $265/mo"
-                },
-                {
-                    "type": "text",
-                    "label": "Button Text",
-                    "id": "button_text",
-                    "default": "Get Started"
-                }
-            ]
-        }
-    ],
-    "max_blocks": 3,
-    "presets": [
-        {
-            "name": "News section"
         }
     ]
 }
