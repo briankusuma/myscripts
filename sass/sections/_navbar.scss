@@ -11,6 +11,9 @@
             .navbar_brand{
                 width: auto;
                 @include flex-box(row, center, center, 1px);
+                a{
+                    margin-top: 0.55rem;
+                }
             }
             .navbar_menus{
                 @include flex-box(row, space-between, center, 16px);
