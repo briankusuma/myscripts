@@ -25,7 +25,7 @@
     {% for product in collection.products %}
       <div class="begin_info-items">
         <div class="begin_bedge">{{ product.type }}</div>
-        <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
+        <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
         <h2>{{ product.title }}</h2>
         <p>Starting {{ product.price | money }}/mo</p>
         <div class="begin_button-wrapper">
