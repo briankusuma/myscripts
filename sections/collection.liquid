@@ -23,15 +23,15 @@
         </div>
         
     <!-- Row untuk Card Produk -->
-    <div class="collections-products">
-
+    <div class="collections-products collections-products_layout">
     {% for collection in collections %}
         {% unless collection.handle == 'frontpage' %}
         {% assign is_default = false %}
         {% if collection.title == "Anti-Aging" %}
             {% assign is_default = true %}
         {% endif %}
-        {% for product in collection.products limit:5 %}
+
+        {% for product in collection.products limit:6 %}
             <div class="begin_info-items" 
                 data-collection="{{ collection.handle }}" 
                 style="display: {% if is_default %}block{% else %}none{% endif %};">
@@ -47,6 +47,7 @@
                 </div>
             </div>
         {% endfor %}
+
         {% endunless %}
     {% endfor %}
     </div>

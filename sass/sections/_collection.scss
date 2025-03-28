@@ -79,6 +79,7 @@ margin-bottom: 64px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    justify-content: center;
     gap: 16px;
     width: 100%;
     &_layout{
@@ -87,5 +88,32 @@ margin-bottom: 64px;
         flex-direction: row;
         gap: 16px;
         width: 100%;
+        justify-content: center;
+    }
+    &_paginate{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 64px;
+        .page.current{
+            color: #ED1C24;
+            font-family: Poppins;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%; /* 18px */
+            letter-spacing: -0.18px;
+        }
+        .page{
+            color: black;
+            font-family: Poppins;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%; /* 18px */
+            letter-spacing: -0.18px;
+        }
     }
 }
