@@ -1,10 +1,14 @@
 {
     "sections": {
+        "header-return": {
+            "type": "header-return"
+        },
         "return-policy": {
             "type": "return-policy"
         }
     },
     "order": [
-        "return-policy"
+        "header-return",
+        "return-policy",
 ]
 }
