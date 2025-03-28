@@ -1,0 +1,10 @@
+{
+    "sections": {
+        "shippingDeliveryPolicy": {
+            "type": "shippingDeliveryPolicy"
+        }
+    },
+    "order": [
+        "shippingDeliveryPolicy"
+]
+}

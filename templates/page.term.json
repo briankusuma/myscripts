@@ -1,0 +1,10 @@
+{
+    "sections": {
+        "termAndCondition": {
+            "type": "termAndCondition"
+        }
+    },
+    "order": [
+        "termAndCondition"
+]
+}
