@@ -1,10 +1,14 @@
 {
     "sections": {
+        "header-term": {
+            "type": "header-term"
+        },
         "termAndCondition": {
             "type": "termAndCondition"
         }
     },
     "order": [
+        "header-term",
         "termAndCondition"
 ]
 }

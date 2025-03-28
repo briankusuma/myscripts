@@ -1,10 +1,14 @@
 {
     "sections": {
+        "header-shipping": {
+            "type": "header-shipping"
+        },
         "shippingDeliveryPolicy": {
             "type": "shippingDeliveryPolicy"
         }
     },
     "order": [
+        "header-shipping",
         "shippingDeliveryPolicy"
 ]
 }

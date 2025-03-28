@@ -1,10 +1,14 @@
 {
     "sections": {
+        "header-policy": {
+            "type": "header-policy"
+        },
         "privacy-policy": {
             "type": "privacy-policy"
         }
     },
     "order": [
+        "header-policy",
         "privacy-policy"
 ]
 }
