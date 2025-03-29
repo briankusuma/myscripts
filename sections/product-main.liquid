@@ -102,11 +102,20 @@
         <div class="detail-content_wrapper-image">
             {% for image in product.images %}
             {% comment %} <img class="begin-card_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="500" height="500"> {% endcomment %}
-            <img src="{{ featured_image | img_url: 'master' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg" width="500" height="500">
+            <img src="{{ featured_image | img_url: 'master' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg" >
             {% endfor %}
         </div>
     </div>
 </div>
+
+<style>
+  #ProductPhotoImg {
+    max-width: 500px; /* Constrain width to fit original container */
+    height: auto;     /* Maintain aspect ratio */
+    display: block;   /* Optional: Remove potential extra space below */
+    margin: 0 auto;   /* Optional: Center if container allows */
+  }
+</style>
 
 {% schema %}
     {

@@ -87,7 +87,6 @@
                         <img class="card-testimoni_name-foto" src="{{ block.settings.image | img_url: '48x48' }}" alt="{{ block.settings.name }}" width="48" height="48">
                         <div class="card-testimoni_name-wrapper">
                             <span class="card-testimoni_name-wrapper-text">{{ block.settings.name }}</span>
-                            <span class="card-testimoni_name-wrapper-profesion">{{ block.settings.profession }}</span>
                         </div>
                     </div>
                 </div>
@@ -95,45 +94,72 @@
             {% else %}
 
                 <div class="card-testimoni">
-                    <p class="card-testimoni_text">"Love having the ability to buy NAD and glutathione online. This isn't something you can ask for at your PCP office."</p>
+                    <p class="card-testimoni_text">"Finally, a healthcare service that makes sense! The online consultation was quick, the provider was knowledgeable, and getting my specific medication delivered was effortless. It saved me so much time and hassle."</p>
                     <div class="card-testimoni_name">
                         <img class="card-testimoni_name-foto" src="{{ 'testimoni-card-fotos.png' | asset_url }}" alt="Fotos" width="48" height="48">
                         <div class="card-testimoni_name-wrapper">
                             <span class="card-testimoni_name-wrapper-text">
-                                Jenny Ortega
-                            </span>
-                            <span class="card-testimoni_name-wrapper-profesion">
-                                Founder at Altair.co
+                                Sarah
                             </span>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-testimoni">
-                    <p class="card-testimoni_text">"Love having the ability to buy NAD and glutathione online. This isn't something you can ask for at your PCP office."</p>
+                    <p class="card-testimoni_text">"I was skeptical about online consultations, but it was incredibly convenient. The doctor was thorough, and my prescription arrived faster than going to a local pharmacy. Highly recommend!"</p>
                     <div class="card-testimoni_name">
                         <img class="card-testimoni_name-foto" src="{{ 'testimoni-card-fotos.png' | asset_url }}" alt="Fotos" width="48" height="48">
                         <div class="card-testimoni_name-wrapper">
                             <span class="card-testimoni_name-wrapper-text">
-                                Jenny Ortega
-                            </span>
-                            <span class="card-testimoni_name-wrapper-profesion">
-                                Founder at Altair.co
+                                Michael
                             </span>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-testimoni">
-                    <p class="card-testimoni_text">"Love having the ability to buy NAD and glutathione online. This isn't something you can ask for at your PCP office."</p>
+                    <p class="card-testimoni_text">"Managing my recurring prescriptions used to be a chore. This service streamlined everything. Easy refills, discreet packaging, and I didn't even have to leave my house. A real time-saver."</p>
                     <div class="card-testimoni_name">
                         <img class="card-testimoni_name-foto" src="{{ 'testimoni-card-fotos.png' | asset_url }}" alt="Fotos" width="48" height="48">
                         <div class="card-testimoni_name-wrapper">
                             <span class="card-testimoni_name-wrapper-text">
-                                Jenny Ortega
+                                Emily
                             </span>
-                            <span class="card-testimoni_name-wrapper-profesion">
-                                Founder at Altair.co
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-testimoni">
+                    <p class="card-testimoni_text">"The process was surprisingly simple. Filled out a form, had a quick online chat, and my medication was approved. So much better than waiting for appointments."</p>
+                    <div class="card-testimoni_name">
+                        <img class="card-testimoni_name-foto" src="{{ 'testimoni-card-fotos.png' | asset_url }}" alt="Fotos" width="48" height="48">
+                        <div class="card-testimoni_name-wrapper">
+                            <span class="card-testimoni_name-wrapper-text">
+                                David
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-testimoni">
+                    <p class="card-testimoni_text">"Discreet delivery was important to me, and they delivered perfectly. Plain packaging, arrived quickly. Couldn't ask for a smoother experience."</p>
+                    <div class="card-testimoni_name">
+                        <img class="card-testimoni_name-foto" src="{{ 'testimoni-card-fotos.png' | asset_url }}" alt="Fotos" width="48" height="48">
+                        <div class="card-testimoni_name-wrapper">
+                            <span class="card-testimoni_name-wrapper-text">
+                                Jessica
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-testimoni">
+                    <p class="card-testimoni_text">"Excellent support throughout the process. Any questions I had were answered promptly by their team. Felt very well taken care of."</p>
+                    <div class="card-testimoni_name">
+                        <img class="card-testimoni_name-foto" src="{{ 'testimoni-card-fotos.png' | asset_url }}" alt="Fotos" width="48" height="48">
+                        <div class="card-testimoni_name-wrapper">
+                            <span class="card-testimoni_name-wrapper-text">
+                                Chris
                             </span>
                         </div>
                     </div>
@@ -144,6 +170,21 @@
         </div>
     </div>
 </div>
+
+<style>
+  /* Ensure testimonial cards have consistent height and alignment */
+  .review-slider .card-testimoni {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Encourage card to fill slider item height */
+    justify-content: space-between; /* Space out text and author info */
+  }
+
+  .review-slider .card-testimoni_text {
+    flex-grow: 1; /* Allow text block to take available vertical space */
+    margin-bottom: 1rem; /* Add some space above the author */
+  }
+</style>
 
 {% schema %}
 {
@@ -173,7 +214,7 @@
                     "type": "text",
                     "id": "testimonial_text",
                     "label": "Testimonial Text",
-                    "default": "Love having the ability to buy NAD and glutathione online. This isn't something you can ask for at your PCP office."
+                    "default": "Finally, a healthcare service that makes sense! The online consultation was quick, the provider was knowledgeable, and getting my specific medication delivered was effortless. It saved me so much time and hassle."
                 },
                 {
                     "type": "image_picker",
