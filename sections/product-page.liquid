@@ -24,48 +24,78 @@
                 <img class="card-product_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="32" height="320">
             </div>
         </div>
-        <div class="product-content_wrapper-small">
-            
-            {% comment %} <a href="/pages/product-category?tab=AntiAging+tab2#category"> {% endcomment %}
-            <a href="/collections/Anti-aging" data-collection="peptides" >
-                <div class="card-product-small">
-                    <img class="card-product-small_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="196" height="196">
-                    <div class="card-product-small_text">
-                        <h2 class="card-product-small_text-title">Anti-aging</h2>
-                    </div>
-                </div>
-            </a>
 
-            {% comment %} <a href="/pages/product-category?tab=Weightloss+tab1#category"> {% endcomment %}
-            <a href="/collections/Weight-loss" data-collection="peptides" >
-                <div class="card-product-small">
-                    <img class="card-product-small_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="196" height="196">
-                    <div class="card-product-small_text">
-                        <h2 class="card-product-small_text-title">Weight loss</h2>
-                    </div>
-                </div>
-            </a>
-            {% comment %} <a href="/pages/product-category?tab=Peptides+tab3#category"> {% endcomment %}
-            <a href="/collections/peptides" data-collection="peptides" >
-                <div class="card-product-small">
-                    <img class="card-product-small_image" src="{{ 'pippet-small.png' | asset_url }}" alt="Icon" width="196" height="196">
-                    <div class="card-product-small_text">
-                        <h2 class="card-product-small_text-title">Peptides</h2>
-                    </div>
-                </div>
-            </a>
 
-            {% comment %} <a href="/pages/product-category?tab=Supplements+tab4#category"> {% endcomment %}
-            <a href="/collections/Supplements" data-collection="Supplements" >
-                <div class="card-product-small">
-                    <img class="card-product-small_image" src="{{ 'tirzepatide-small.png' | asset_url }}" alt="Icon" width="196" height="196">
-                    <div class="card-product-small_text">
-                        <h2 class="card-product-small_text-title">Supplement</h2>
+        <div class="product-slider_small">
+            <div class="button-slider_next">
+                <button class="icon-button_slider next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M7.05844 10.4422L13.3084 16.6922C13.3665 16.7502 13.4354 16.7963 13.5113 16.8277C13.5872 16.8592 13.6685 16.8753 13.7506 16.8753C13.8328 16.8753 13.9141 16.8592 13.9899 16.8277C14.0658 16.7963 14.1347 16.7502 14.1928 16.6922C14.2509 16.6341 14.2969 16.5652 14.3284 16.4893C14.3598 16.4134 14.376 16.3321 14.376 16.25C14.376 16.1679 14.3598 16.0865 14.3284 16.0107C14.2969 15.9348 14.2509 15.8659 14.1928 15.8078L8.38422 9.99998L14.1928 4.19217C14.3101 4.07489 14.376 3.91583 14.376 3.74998C14.376 3.58413 14.3101 3.42507 14.1928 3.30779C14.0755 3.19052 13.9165 3.12463 13.7506 3.12463C13.5848 3.12463 13.4257 3.19052 13.3084 3.30779L7.05844 9.55779C7.00033 9.61584 6.95423 9.68477 6.92278 9.76064C6.89133 9.83652 6.87514 9.91785 6.87514 9.99998C6.87514 10.0821 6.89133 10.1634 6.92278 10.2393C6.95423 10.3152 7.00033 10.3841 7.05844 10.4422Z" fill="#111111"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="slider-product-page" id="slider-product-page">
+                {% for collection in collections %}
+                    <a href="{{ collection.url }}" data-collection="{{ collection.title }}">
+                        <div class="card-product-small">
+                            {% if collection.image %}
+                                <img src="{{ collection.image | img_url: 'large' }}" alt="{{ collection.title }}" width="196" height="196">
+                            {% endif %}
+                            <div class="card-product-small_text">
+                                <h2 class="card-product-small_text-title">{{ collection.title }}</h2>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+                
+{% comment %}                     
+                <a href="/collections/Anti-aging" data-collection="Anti-aging" >
+                    <div class="card-product-small">
+                        <img class="card-product-small_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="196" height="196">
+                        <div class="card-product-small_text">
+                            <h2 class="card-product-small_text-title">Anti-aging</h2>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+    
+                <a href="/collections/Weight-loss" data-collection="Weight-loss" >
+                    <div class="card-product-small">
+                        <img class="card-product-small_image" src="{{ 'vaccine-bottle1.png' | asset_url }}" alt="Icon" width="196" height="196">
+                        <div class="card-product-small_text">
+                            <h2 class="card-product-small_text-title">Weight loss</h2>
+                        </div>
+                    </div>
+                </a>
+    
+                <a href="/collections/peptides" data-collection="peptides" >
+                    <div class="card-product-small">
+                        <img class="card-product-small_image" src="{{ 'pippet-small.png' | asset_url }}" alt="Icon" width="196" height="196">
+                        <div class="card-product-small_text">
+                            <h2 class="card-product-small_text-title">Peptides</h2>
+                        </div>
+                    </div>
+                </a>
+    
+                <a href="/collections/Supplements" data-collection="Supplements" >
+                    <div class="card-product-small">
+                        <img class="card-product-small_image" src="{{ 'tirzepatide-small.png' | asset_url }}" alt="Icon" width="196" height="196">
+                        <div class="card-product-small_text">
+                            <h2 class="card-product-small_text-title">Supplement</h2>
+                        </div>
+                    </div>
+                </a> 
+{% endcomment %}
 
+            </div>
+            <div class="button-slider_prev">
+                <button class="icon-button_slider prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M14.1925 10.4422L7.94254 16.6922C7.88447 16.7502 7.81553 16.7963 7.73966 16.8277C7.66379 16.8592 7.58247 16.8753 7.50035 16.8753C7.41823 16.8753 7.33691 16.8592 7.26104 16.8277C7.18517 16.7963 7.11623 16.7502 7.05816 16.6922C7.00009 16.6341 6.95403 16.5652 6.9226 16.4893C6.89117 16.4134 6.875 16.3321 6.875 16.25C6.875 16.1679 6.89117 16.0865 6.9226 16.0107C6.95403 15.9348 7.00009 15.8659 7.05816 15.8078L12.8668 9.99998L7.05816 4.19217C6.94088 4.07489 6.875 3.91583 6.875 3.74998C6.875 3.58413 6.94088 3.42507 7.05816 3.30779C7.17544 3.19052 7.3345 3.12463 7.50035 3.12463C7.6662 3.12463 7.82526 3.19052 7.94254 3.30779L14.1925 9.55779C14.2506 9.61584 14.2967 9.68477 14.3282 9.76064C14.3597 9.83652 14.3758 9.91785 14.3758 9.99998C14.3758 10.0821 14.3597 10.1634 14.3282 10.2393C14.2967 10.3152 14.2506 10.3841 14.1925 10.4422Z" fill="#111111"/>
+                    </svg>
+                </button>
+            </div>
         </div>
+
     </div>
 </div>
 

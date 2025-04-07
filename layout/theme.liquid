@@ -89,6 +89,25 @@
           });
           $("#review-slider").slick("slickGoTo", 0, true);
 
+          $("#slider-product-page").slick({
+              arrows: false,
+              dots: false,
+              variableWidth: true,
+              autoplay: true,
+              autoplaySpeed: 2000,
+          });
+          
+          // Tombol Next
+          $(".button-slider_next .next").click(function () {
+            $("#slider-product-page").slick("slickNext");
+          });
+
+          // Tombol Prev
+          $(".button-slider_prev .prev").click(function () {
+            $("#slider-product-page").slick("slickPrev");
+          });
+
+
       });
     </script>
       <script>
