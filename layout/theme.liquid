@@ -95,8 +95,16 @@
               variableWidth: true,
               autoplay: true,
               autoplaySpeed: 2000,
+              responsive: [
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    centerMode: true
+                  }
+                }
+              ]
           });
-          
+
           // Tombol Next
           $(".button-slider_next .next").click(function () {
             $("#slider-product-page").slick("slickNext");

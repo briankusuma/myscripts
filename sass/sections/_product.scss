@@ -161,5 +161,18 @@
     .card-product-small{
         padding: 10px 28px 20px 28px!important;
     }
+    .button-slider{
+        &_next{
+            left: 0px;
+            position: absolute;
+            z-index: 1;
+            
+        }
+        &_prev{
+            right: 0px;
+            position: absolute;
+            z-index: 1;
+        }
+    }
 
 }
