@@ -163,13 +163,13 @@
     }
     .button-slider{
         &_next{
-            left: 0px;
+            left: 0px!important;
             position: absolute;
             z-index: 1;
             
         }
         &_prev{
-            right: 0px;
+            right: 0px!important;
             position: absolute;
             z-index: 1;
         }
