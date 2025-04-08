@@ -1,13 +1,15 @@
 <div class="container">
     <div class="product-category-content_wrapper">
         <div class="product-category-content_wrapper-text">
+
             <h1 class="product-category-display_title">
-                Treatments,
+                {{ section.settings.heading_line | default: "Treatments," }}
                 <br>
-                <span>Proven by Research</span>
+                <span>{{ section.settings.heading_span | default: "Proven by Research" }}</span>
             </h1>
+
             <p class="product-category-display_paragraft">
-                Get customized online solutions to help you live a longer, healthier life.
+            {{ section.settings.paragraph | default: "Get customized online solutions to help you live a longer, healthier life." }}
             </p>
         <div class="product-category-display_button-wrapper">
             <button class="button btn-primary is-big">Get Sarted
@@ -24,6 +26,26 @@
 {
     "name": "Category hero Section",
     "tag": "section",
-    "class": "category-hero section-full"
+    "class": "category-hero section-full",
+    "settings": [
+        {
+        "type": "text",
+        "id": "heading_line",
+        "label": "Heading Line",
+        "default": "Treatments,"
+        },
+        {
+        "type": "text",
+        "id": "heading_span",
+        "label": "Heading Highlight (in span)",
+        "default": "Proven by Research"
+        },
+        {
+        "type": "textarea",
+        "id": "paragraph",
+        "label": "Paragraph",
+        "default": "Get customized online solutions to help you live a longer, healthier life."
+        }
+    ]
 }
 {% endschema %}
