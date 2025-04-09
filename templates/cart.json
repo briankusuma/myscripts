@@ -1,14 +1,14 @@
 {
     "sections": {
-        "cart": {
-            "type": "cart"
+        "main-cart-items": {
+            "type": "main-cart-items",
         },
         "you-may": {
-            "type": "you-may"
+            "type": "you-may",
         },
     },
     "order": [
-    "cart",
+    "main-cart-items",
     "you-may"
     ]
 }

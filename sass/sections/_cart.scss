@@ -33,7 +33,17 @@
                 border: solid 1px #ED1C24;
                 background-color: #F7F7F7;
             }
-            
+            .cart-content-items{
+                @include flex-box(row, space-between, start, 64px);
+                .cart-summary{
+                    max-width: 300px;
+                    width: 100%;
+                }
+
+            }
+            form{
+                width: 100%;
+            }
 
             .t-body{
                 border-radius: 20px;

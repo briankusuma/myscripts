@@ -1,0 +1,111 @@
+<section class="cart section-full">
+    <div class="container">
+        <div class="cart-content">
+        <div class="cart-head">
+            <h1 class="cart-title">You Cart</h1>
+        </div>
+        {% form 'cart', cart %}
+            <div class="cart-content-items">
+            {% if cart.empty? %}
+                <span class="text-empty">Cart is empty</span>
+            {% else %}
+                <div class="cart-main">
+                <div class="cart-block head">
+                    <div class="cart-block-title">
+                    <span class="txt-500 fs-14 cl-black-50 uppercase">Your Selections</span>
+                    </div>
+                    <div class="cart-block-quantity">
+                    <span class="txt-500 fs-14 cl-black-50 uppercase">Quantity</span>
+                    </div>
+                    <div class="cart-block-total">
+                    <span class="txt-500 fs-14 cl-black-50 uppercase">Total</span>
+                    </div>
+                </div>
+
+                {% for item in cart.items %}
+                    <div class="cart-block">
+                    <div class="cart-block-title">
+                        <img src="{{ item.image | image_url: width: 60 }}" alt="{{ item.product.title }}">
+                        <div class="cart-block-details">
+                        <span class="txt-500 fs-14 cl-black">{{ item.product.title }}</span>
+                        <span class="txt-400 fs-12 cl-black-50">{{ item.final_price | money }}</span>
+                        <span class="txt-400 fs-12 cl-black-50 uppercase">{{ item.variant.title }}</span>
+                        </div>
+                    </div>
+                    <div class="cart-block-quantity">
+                        <div class="product-quantity">
+                        <button type="button" class="decrement" data-key="{{ item.key }}">
+                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.5 10.5H15.5" stroke="#111111" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <input class="quantity-input" name="updates[{{ item.key }}]" value="{{ item.quantity }}" min="0">
+                        <button type="button" class="increment" data-key="{{ item.key }}">
+                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.5 10.5H15.5" stroke="#111111" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10.5 15.5V5.5" stroke="#111111" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        </div>
+
+                        <!-- ✅ TOMBOL REMOVE -->
+                        <button type="submit" name="updates[{{ item.key }}]" value="0" class="txt-400 fs-12 cl-black-50 underline" style="margin-top: 8px; background: none; border: none; cursor: pointer; padding: 0;">
+                        Remove
+                        </button>
+                    </div>
+                    <div class="cart-block-total">
+                        <p class="txt-400 fs-14 cl-black">{{ item.final_line_price | money }}</p>
+                    </div>
+                    </div>
+                {% endfor %}
+                </div>
+
+                <div class="cart-summary">
+                <div class="cart-summary-head">
+                    <span class="txt-500 fs-16 cl-black">Summary</span>
+                </div>
+                <div class="cart-summary-main">
+                    <div class="cart-summary-item">
+                    <span>Subtotal</span>
+                    <span>{{ cart.original_total_price | money }}</span>
+                    </div>
+                    <div class="cart-summary-item">
+                    <span>Discount</span>
+                    <span>{{ cart.total_discount | money }}</span>
+                    </div>
+                    <div class="cart-summary-item">
+                    <span>Indicative Total</span>
+                    <span>{{ cart.items_subtotal_price | money }}</span>
+                    </div>
+                    <div class="cart-summary-item">
+                    <span>VAT</span>
+                    <span>{{ cart.total_price | money }}</span>
+                    </div>
+                    <p class="txt-400 fs-12 cl-black-50">Your account will be charged at the time of delivery, except for DIY products where you will have to pay the full amount at the time of purchase.</p>
+                </div>
+
+                <button type="submit" class="btn-primary">Update Cart</button>
+                <button type="submit" name="checkout" class="btn-primary">Checkout</button>
+                </div>
+            {% endif %}
+            </div>
+        {% endform %}
+        </div>
+    </div>
+</section>
+
+<script src="{{ "cart.js" | asset_url }}"></script>
+
+
+{% schema %}
+    {
+    "name": "Cart Section",
+    "tag": "section",
+    "class": "cart",
+    "settings": [
+        
+    ],
+    "blocks": [
+    ]
+    }
+    {% endschema %}
