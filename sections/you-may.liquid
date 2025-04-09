@@ -1,18 +1,11 @@
 <div class="container">
     <div class="begin-content">
         <div class="begin-content_text">
-            <span class="begin-content_text_bedge">
-                {% if section.settings.heading != blank %}
-                    {{ section.settings.heading }}
-                {% else %}
-                    How it works
-                {% endif %}
-                </span>
             <h1 class="begin-content_text_title">
                 {% if section.settings.title != blank %}
                     {{ section.settings.title }}
                 {% else %}
-                    Begin your weight loss journey
+                You may also like
                 {% endif %}
             </h1>
         </div>
@@ -33,18 +26,13 @@
                     <h2>{{ product.title }}</h2>
                     <p>Starting {{ product.price | money }}/mo</p>
                     <div class="begin_button-wrapper">
-
-                        {% comment %} <button class="button btn-black is-small is-fullwidth">Get Started</button>
-                        <a class="button btn-outline is-small is-fullwidth" 
-                        href="{{ product.url | within: collection }}">Learn more</a> {% endcomment %}
-
+                        {% comment %} <button class="button btn-black is-small is-fullwidth">Get Started</button> {% endcomment %}
                         <form class="form-btn_card" method="post" action="/cart/add">
-                        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                        <button type="submit" class="button btn-black is-small is-fullwidth">Add to Cart</button>
-                    </form>
-                    {% comment %} <button class="button btn-black is-small is-fullwidth">Get Started</button> {% endcomment %}
-                    <a class="button btn-outline is-small is-fullwidth" 
-                    href="{{ product.url | within: collection }}">Learn more</a>
+                            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                            <button type="submit" class="button btn-black is-small is-fullwidth">Add to Cart</button>
+                        </form>
+                        <a class="button btn-outline is-small is-fullwidth" 
+                        href="{{ product.url | within: collection }}">Learn more</a>
                 </div>
 
                 </div>
@@ -57,21 +45,15 @@
 
 {% schema %}
 {
-    "name": "How it works Home Section",
+    "name": "you may also like Section",
     "tag": "section",
-    "class": "begin section-full",
+    "class": "you-may section-full",
     "settings": [
-        {
-            "type": "text",
-            "label": "Section Heading",
-            "id": "heading",
-            "default": "How it works"
-        },
         {
             "type": "text",
             "label": "Main Title",
             "id": "title",
-            "default": "Begin your weight loss journey"
+            "default": "You may also like"
         }
     ]
 }

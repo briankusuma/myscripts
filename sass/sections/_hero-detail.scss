@@ -52,6 +52,11 @@
                             }
                         }
                     }
+                    &_button-wrapper{
+                        @include flex-box(row, space-between, center, 8px);
+                        width: 100%;
+                        max-width: 350px;
+                    }
                 }
                 .tag_detail{
                     color: #FFF;
@@ -65,6 +70,7 @@
                     background: #26D743;
                     padding: 8px 12px;
                 }
+                
                 }
                 &-image{
                 @include flex-box(column, start, flex-start, 16px);

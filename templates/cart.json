@@ -1,0 +1,14 @@
+{
+    "sections": {
+        "cart": {
+            "type": "cart"
+        },
+        "you-may": {
+            "type": "you-may"
+        },
+    },
+    "order": [
+    "cart",
+    "you-may"
+    ]
+}
