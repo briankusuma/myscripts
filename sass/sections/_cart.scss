@@ -475,7 +475,22 @@
     z-index: 999999;
 
     @include flex-box(column, flex-start, stretch, 0px);
-    
+    .text-empty{
+        color: #274250;
+        font-family: Poppins;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 120%; /* 48px */
+        letter-spacing: -0.4px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px 120px;
+        border-radius: 20px;
+        border: solid 1px #ED1C24;
+        background-color: #F7F7F7;
+        margin-top: 12rem;
+    }
     &-header {
         @include flex-box(row, space-between, flex-end, 80px);
         padding: 24px;
@@ -485,6 +500,7 @@
         .close-drawer {
         border: none;
         background-color: #ffffff;
+        cursor: pointer;
         }
     }
     &-main {
