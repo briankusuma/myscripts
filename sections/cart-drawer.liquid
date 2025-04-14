@@ -8,7 +8,7 @@
     </button>
     </div>
     {% if cart.item_count == 0 %}
-    <span class="text-empty">Cart is empty</span>
+        <span class="text-empty">Cart is empty</span>
     {% else %}
 
     {% form 'cart', cart %}
@@ -77,7 +77,8 @@
             </div>
             <div class="cart-button">
                 <button type="submit" name="checkout" class="button is-small btn-primary">Proceed to checkout</button>
-                <a href="{{ routes.cart_url }}" class="button is-small btn-outline">View Cart</a>
+                <a href="{{ routes.cart_url }}" class="button is-small btn-outline go-to-cart">View Cart</a>
+                {% comment %} <a href="/cart" class="button is-small btn-outline">View Cart</a> {% endcomment %}
             </div>
         </div>
     {% endform %}

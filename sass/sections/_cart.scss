@@ -493,7 +493,9 @@
     }
     &-header {
         @include flex-box(row, space-between, flex-end, 80px);
-        padding: 24px;
+        // padding: 24px;
+        margin: 24px;
+        padding-bottom: 24px;
         border-bottom: 1px solid #d9d9d9;
         flex-shrink: 0;
 
@@ -511,6 +513,7 @@
     }
     &-footer {
         padding: 24px;
+        padding-top: 0px!important;
         min-height: 120px;
         // border-top: 1px solid #d9d9d9;
         @include flex-box(column, flex-start, stretch, 0px);
@@ -527,11 +530,13 @@
         height: 100vh;
     }
     &-cart-items {
-        @include flex-box(row, space-between, center, 16px);
+        @include flex-box(row, space-between, center, 24px);
         padding: 16px 0;
     }
     &-cart-action {
         @include flex-box(column, flex-start, flex-start, 6px);
+        max-width: 250px;
+        width: 100%;
     }
     img {
         height: 100%;
