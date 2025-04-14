@@ -1,17 +1,51 @@
 <!-- /templates/customers/activate_account.liquid -->
-{% form 'activate_customer_password' %}
+
+<!-- {% form 'activate_customer_password' %}
 {{ form.errors | default_errors }}
-<div class="password">
-  <label for="password">Password</label>
-  <input type="password" name="customer[password]" />
-</div>
-<div class="password_confirm">
-  <label for="password_confirmation">Password Confirmation</label>
-  <input type="password" name="customer[password_confirmation]" />
-</div>
-<div class="action_bottom">
-  <input type="submit" value="Activate Account" />
-  <span>or</span>
-  <input type="submit" name="decline" value="Decline Invitation" />
-</div>
-{% endform %}
+  <div class="password">
+    <label for="password">Password</label>
+    <input type="password" name="customer[password]" />
+  </div>
+  <div class="password_confirm">
+    <label for="password_confirmation">Password Confirmation</label>
+    <input type="password" name="customer[password_confirmation]" />
+  </div>
+  <div class="action_bottom">
+    <input type="submit" value="Activate Account" />
+    <span>or</span>
+    <input type="submit" name="decline" value="Decline Invitation" />
+  </div>
+{% endform %} -->
+
+    <!-- /templates/customers/register.liquid -->
+    <section class="section-customer section-full">
+        <div class="container">
+            <div class="form-content">
+                <h1>Activate Account</h1>
+                
+                  {% form 'activate_customer_password' %}
+                
+                    {{ form.errors | default_errors }}
+                    <div class="form-layout">
+
+                      <label for="password">Password</label>
+                      <input type="password" name="customer[password]" />
+                    
+                      <label for="password_confirmation">Password Confirmation</label>
+                      <input type="password" name="customer[password_confirmation]" />
+    
+                        <input class="button btn-primary is-small is-fullwidth submit" type="submit" value="Create" />
+                        <div class="text-layout">
+                            <span class="dont-have-account">By continuing, you agree to our <a href="/pages/term-and-conditions">Terms and Privacy Policy</a></span>
+                        </div>
+                        <div class="action_bottom">
+                          <input class="button btn-primary is-small is-fullwidth submit" type="submit" value="Activate Account" />
+                          <span>or</span>
+                          <input class="button btn-outline is-small is-fullwidth submit" type="submit" name="decline" value="Decline Invitation" />
+                        </div>
+                    </div>
+                
+                    {% endform %}
+            </div>
+        </div>
+    </section>

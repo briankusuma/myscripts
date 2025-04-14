@@ -1,0 +1,121 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+@use "../layout" as *;
+
+.section-customer{
+    .container{
+        padding-top: 80px!important;
+        .form-content{
+            @include flex-box(column, center, center, 16px);
+            h1{
+                width: 500px;
+                color: #274250;
+                font-family: Poppins;
+                font-size: 40px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 120%;
+                letter-spacing: -0.4px;
+            }
+            form{
+                width: 100%;
+                @include flex-box(column, center, center, 16px);
+            }
+            .form-layout{
+                @include flex-box(column, start, flex-start, 8px);
+                max-width: 500px;
+                width: 100%;
+                margin-top: 40px;
+                label{
+                    color: #274250;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 100%; /* 14px */
+                    letter-spacing: -0.14px;
+                    margin-left: 8px;
+                }
+                .input{
+                    display: flex;
+                    height: 56px;
+                    padding: 18px 24px;
+                    justify-content: space-between;
+                    align-items: center;
+                    align-self: stretch;
+                    border-radius: 40px;
+                    background: #F7F7F7;
+                    backdrop-filter: blur(8px);
+                    border: none;
+                    margin-bottom: 16px;
+                }
+                .submit{
+                    margin-block: 24px;
+                }
+                .text-layout{
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    .dont-have-account{
+                        color: #274250;
+                        text-align: center;
+                        font-family: Poppins;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 140%; /* 19.6px */
+                        letter-spacing: -0.14px;
+                        width: 280px;
+                        a{
+                            color: #0050F0;
+                            font-family: Poppins;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 140%;
+                            letter-spacing: -0.14px;
+                            text-decoration-line: underline;
+                            text-decoration-style: solid;
+                            text-decoration-skip-ink: none;
+                            text-decoration-thickness: auto;
+                            text-underline-offset: auto;
+                            text-underline-position: from-font;
+                        }
+                    }
+                }
+                .password-forgot{
+                    color: #274250;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 140%; /* 19.6px */
+                    letter-spacing: -0.14px;
+                    text-decoration-line: underline;
+                    text-decoration-style: solid;
+                    text-decoration-skip-ink: none;
+                    text-decoration-thickness: auto;
+                    text-underline-offset: auto;
+                    text-underline-position: from-font;
+                    margin-left: 8px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.form-active {
+    display: flex!important;
+}
+.membership-cont{
+    @include flex-box(column, flex-start, center, 0px);
+    max-width: 500px;
+    width: 100%;
+    display: none;
+}
+.membership-form{
+    max-width: 500px;
+    width: 100%;
+}

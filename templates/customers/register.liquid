@@ -1,6 +1,6 @@
 <!-- /templates/customers/register.liquid -->
 
-{% form 'create_customer' %}
+{% comment %} {% form 'create_customer' %}
 
 {{ form.errors | default_errors }}
 
@@ -18,4 +18,31 @@
 
 <input type="submit" value="Create" />
 
-{% endform %}
+{% endform %} {% endcomment %}
+
+    <!-- /templates/customers/register.liquid -->
+    <section class="section-customer section-full">
+        <div class="container">
+            <div class="form-content">
+                <h1>Create Account</h1>
+                
+                {% form 'create_customer' %}
+                
+                    {{ form.errors | default_errors }}
+                    <div class="form-layout">
+                        <label for="customer_email">Email</label>
+                        <input placeholder="Enter your email address" class="input" type="email" value="" name="customer[email]" />
+                    
+                        <label for="customer_password">Password</label>
+                        <input placeholder="Enter your password" class="input" type="password" value="" name="customer[password]" />
+    
+                        <input class="button btn-primary is-small is-fullwidth submit" type="submit" value="Create" />
+                        <div class="text-layout">
+                            <span class="dont-have-account">By continuing, you agree to our <a href="/pages/term-and-conditions">Terms and Privacy Policy</a></span>
+                        </div>
+                    </div>
+                
+                    {% endform %}
+            </div>
+        </div>
+    </section>
