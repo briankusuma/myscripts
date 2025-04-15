@@ -119,3 +119,11 @@
     max-width: 500px;
     width: 100%;
 }
+
+@media(max-width: 768px) {
+    .form-content{
+        h1{
+            width: 100%!important;
+        }
+    }
+}

@@ -60,6 +60,9 @@
 }
 
 @media(max-width: 768px) {
+    .cart_menus{
+        margin-left: auto!important;
+    }
     .navbar_menus{
         display: none!important;
         // display: flex;
@@ -83,6 +86,7 @@
     }
     .navbar_menus.active{
         display: flex!important;
+        z-index: 999;
     }
     .navbar_button{
         display: block!important;
