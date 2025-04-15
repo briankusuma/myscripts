@@ -4,30 +4,73 @@
         <div class="clinicaly-content_text">
             <h2 class="clinicaly-content_text-title">Achieving your weight loss goal is simpler than you might expect</h2>
             <span class="clinicaly-content_text-lose">Lose up to 15% of your bodyweight</span>
-            <p class="clinicaly-content_text-dsc">People lost an average of 12% (up to 15%) bodyweight in a year clinical study of Wegovy®. *</p>
+            {% comment %} <p class="clinicaly-content_text-dsc">People lost an average of 12% (up to 15%) bodyweight in a year clinical study of Wegovy®. *</p> {% endcomment %}
         </div>
         <div class="clinicaly-content_cta">
             <div class="clinicaly-content_text-weightcal">
                 <div class="card">
                     <div class="card-weight_head">
                         <div class="title">Your current weight</div>
-                        <div class="weight">252 <span class="unit">lbs</span></div>
+                        <div class="weight" id="current-weight-display">252 <span class="unit">lbs</span></div>
                     </div>
 
                     <div class="slider-container">
-                        <input type="range" min="0" max="100" value="40" step="5" class="slider" disabled>
+                        <input type="range" min="100" max="400" value="250" step="1" class="slider" id="weight-slider">
                     </div>
 
                     <div class="card-weight_head">
                         <div class="title">Weight you could lose</div>
-                        <div class="weight">50 <span class="unit">lbs</span></div>
+                        <div class="weight" id="potential-loss-display">50 <span class="unit">lbs</span></div>
                     </div>
+                    <p class="calculator-disclaimer" style="font-size: 0.8em; color: #6B7280; margin-top: 1em; padding: 0 1em 1em;">People lost an average of 15% (up to 20%) bodyweight in a 68-week clinical study of Wegovy<sup>&reg;</sup>. *</p>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const weightSlider = document.getElementById('weight-slider');
+    const currentWeightDisplay = document.getElementById('current-weight-display');
+    const potentialLossDisplay = document.getElementById('potential-loss-display');
+    
+    // Check if elements exist before proceeding
+    if (!weightSlider || !currentWeightDisplay || !potentialLossDisplay) {
+      console.error('Calculator elements not found.');
+      return;
+    }
+
+    // Extract units safely
+    const currentWeightUnitEl = currentWeightDisplay.querySelector('.unit');
+    const potentialLossUnitEl = potentialLossDisplay.querySelector('.unit');
+    const currentWeightUnit = currentWeightUnitEl ? currentWeightUnitEl.textContent : 'lbs';
+    const potentialLossUnit = potentialLossUnitEl ? potentialLossUnitEl.textContent : 'lbs';
+
+    const calculateAndUpdate = () => {
+      const currentWeight = parseInt(weightSlider.value, 10);
+      const potentialLoss = Math.round(currentWeight * 0.20); // Using 20%
+
+      currentWeightDisplay.innerHTML = `${currentWeight} <span class="unit">${currentWeightUnit}</span>`;
+      potentialLossDisplay.innerHTML = `${potentialLoss} <span class="unit">${potentialLossUnit}</span>`;
+
+      // Update slider background fill
+      const min = parseInt(weightSlider.min, 10);
+      const max = parseInt(weightSlider.max, 10);
+      const percentage = ((currentWeight - min) / (max - min)) * 100;
+      const trackFillColor = '#EF4444'; // Red color for the fill
+      const trackBgColor = '#E5E7EB';   // Background color for the unfilled part
+      weightSlider.style.background = `linear-gradient(to right, ${trackFillColor} ${percentage}%, ${trackBgColor} ${percentage}%)`;
+    };
+
+    // Initial calculation and style update on load
+    calculateAndUpdate();
+
+    // Update on slider change
+    weightSlider.addEventListener('input', calculateAndUpdate);
+  });
+</script>
 
 {% schema %}
 {
