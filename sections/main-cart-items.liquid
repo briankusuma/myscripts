@@ -148,73 +148,7 @@
 </section>
 
 <script src="{{ "cart.js" | asset_url }}"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all increment and decrement buttons
-    const incrementButtons = document.querySelectorAll('.increment');
-    const decrementButtons = document.querySelectorAll('.decrement');
-    console.log("hallo from cart")
-    // Add event listeners to increment buttons
-    incrementButtons.forEach(button => {
-        button.addEventListener('click', function() {
-        const key = this.getAttribute('data-key');
-        const inputField = this.parentNode.querySelector('.quantity-input');
-        let currentValue = parseInt(inputField.value);
-        
-        // Increment the value
-        currentValue += 1;
-        
-        // Update the input field
-        inputField.value = currentValue;
-        
-        // Update the cart
-        updateCart(key, currentValue);
-        });
-    });
-    
-    // Add event listeners to decrement buttons
-    decrementButtons.forEach(button => {
-        button.addEventListener('click', function() {
-        const key = this.getAttribute('data-key');
-        const inputField = this.parentNode.querySelector('.quantity-input');
-        let currentValue = parseInt(inputField.value);
-        
-        // Ensure the value doesn't go below 1
-        if (currentValue > 1) {
-            currentValue -= 1;
-            
-            // Update the input field
-            inputField.value = currentValue;
-            
-            // Update the cart
-            updateCart(key, currentValue);
-        }
-        });
-    });
-    
-    // Function to update the cart
-    function updateCart(key, quantity) {
-        // Create a form data object
-        const formData = new FormData();
-        formData.append('updates[' + key + ']', quantity);
-        formData.append('sections', 'cart-items');
-        
-        // Send the update request
-        fetch('/cart/update.js', {
-        method: 'POST',
-        body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-        // Refresh the page to show updated cart
-        window.location.reload();
-        })
-        .catch(error => {
-        console.error('Error updating cart:', error);
-        });
-    }
-    });
-</script>
+
 
 
 {% schema %}
