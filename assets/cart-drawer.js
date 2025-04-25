@@ -171,7 +171,7 @@
 
 // addCartDrawerListeners(); 
 
-// Cache DOM selectors for better performance
+// Cache DOM selectors
 const cartDrawerSelectors = {
   drawer: () => document.querySelector('.cart-drawer'),
   closeButtons: () => document.querySelectorAll('.close-drawer, .cart-drawer'),
@@ -182,46 +182,112 @@ const cartDrawerSelectors = {
   variantButtons: () => document.querySelectorAll('.variant-button')
 };
 
+// Request management to prevent too many requests
+const requestManager = {
+  queue: [],
+  processing: false,
+  cooldownPeriod: 500, // ms between requests
+  lastRequestTime: 0,
+  
+  // Add a request to the queue
+  enqueue(ajaxOptions) {
+    return new Promise((resolve, reject) => {
+      this.queue.push({ ajaxOptions, resolve, reject });
+      this.processQueue();
+    });
+  },
+  
+  // Process the next request in queue
+  async processQueue() {
+    if (this.processing || this.queue.length === 0) return;
+    
+    this.processing = true;
+    
+    // Ensure minimum time between requests
+    const now = Date.now();
+    const timeElapsed = now - this.lastRequestTime;
+    if (timeElapsed < this.cooldownPeriod) {
+      await new Promise(resolve => setTimeout(resolve, this.cooldownPeriod - timeElapsed));
+    }
+    
+    const { ajaxOptions, resolve, reject } = this.queue.shift();
+    
+    try {
+      this.lastRequestTime = Date.now();
+      
+      // Execute the AJAX request
+      $.ajax({
+        ...ajaxOptions,
+        success: function(data) {
+          resolve(data);
+        },
+        error: function(xhr, status, error) {
+          reject(error);
+        }
+      });
+    } catch (error) {
+      reject(error);
+      this.processing = false;
+      this.processQueue(); // Process next request
+    }
+  }
+};
+
 // Cart drawer state management
 const cartDrawer = {
+  updatePending: false,
+  
+  // Original open method as requested
   open() {
     cartDrawerSelectors.drawer().classList.add('open');
   },
   
+  // Original close method as requested
   close() {
     cartDrawerSelectors.drawer().classList.remove('open');
+  },
+  
+  // Schedule an update to prevent multiple updates in quick succession
+  scheduleUpdate() {
+    if (this.updatePending) return;
+    
+    this.updatePending = true;
+    setTimeout(() => {
+      this.update();
+      this.updatePending = false;
+    }, 300);
   },
   
   async update() {
     try {
       const drawer = cartDrawerSelectors.drawer();
-      
-      // Add loading state
       drawer.classList.add('loading');
       
-      const response = await fetch('/?section_id=cart-drawer');
-      if (!response.ok) throw new Error('Failed to fetch cart drawer content');
+      // Use jQuery AJAX to fetch cart drawer content
+      const html = await requestManager.enqueue({
+        url: '/?section_id=cart-drawer',
+        type: 'GET',
+        dataType: 'html'
+      });
       
-      const text = await response.text();
-      const html = document.createElement('div');
-      html.innerHTML = text;
+      // Create a temporary div to parse the HTML
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
       
-      const newContent = html.querySelector('.cart-drawer').innerHTML;
+      const newContent = tempDiv.querySelector('.cart-drawer').innerHTML;
       drawer.innerHTML = newContent;
       
-      // Setup event listeners on the new content
       this.setupEventListeners();
     } catch (error) {
       console.error('Error updating cart drawer:', error);
     } finally {
-      // Remove loading state
       cartDrawerSelectors.drawer().classList.remove('loading');
     }
   }
 };
 
-// Debounce function to prevent excessive API calls
-function debounce(func, wait = 300) {
+// Improved debounce with longer wait time
+function debounce(func, wait = 800) {
   let timeout;
   return function(...args) {
     clearTimeout(timeout);
@@ -229,69 +295,52 @@ function debounce(func, wait = 300) {
   };
 }
 
-// Cart API operations
+// Cart API operations with request management
 const cartAPI = {
   async updateLineItem(key, quantity) {
-    try {
-      const response = await fetch('/cart/update.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          updates: {[key]: quantity}
-        }),
-      });
-      
-      if (!response.ok) throw new Error('Failed to update cart');
-      return await response.json();
-    } catch (error) {
-      console.error('Error updating cart:', error);
-      throw error;
-    }
+    return requestManager.enqueue({
+      url: '/cart/update.js',
+      type: 'POST',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        updates: {[key]: quantity}
+      })
+    });
   },
   
   async addItem(formData) {
-    try {
-      const response = await fetch('/cart/add.js', {
-        method: 'POST',
-        body: formData,
-      });
-      
-      if (!response.ok) throw new Error('Failed to add item to cart');
-      return await response.json();
-    } catch (error) {
-      console.error('Error adding item to cart:', error);
-      throw error;
-    }
+    return requestManager.enqueue({
+      url: '/cart/add.js',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: 'json'
+    });
   },
   
   async addVariant(variantId, quantity = 1) {
-    try {
-      const response = await fetch('/cart/add.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: variantId,
-          quantity: quantity,
-        }),
-      });
-      
-      if (!response.ok) throw new Error('Failed to add variant to cart');
-      return await response.json();
-    } catch (error) {
-      console.error('Error adding variant to cart:', error);
-      throw error;
-    }
+    return requestManager.enqueue({
+      url: '/cart/add.js',
+      type: 'POST',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        id: variantId,
+        quantity: quantity
+      })
+    });
   }
 };
 
-// Event handlers
+// Optimized event handlers to reduce API calls
 const eventHandlers = {
-  // Use event delegation for quantity buttons
-  async handleQuantityButtonClick(event) {
+  // Track quantity changes to batch updates
+  quantityChanges: new Map(),
+  
+  // Use event delegation with improved throttling
+  handleQuantityButtonClick: debounce(async (event) => {
     const button = event.target.closest('.drawer-cart-product-quantity button');
     if (!button) return;
     
@@ -303,18 +352,20 @@ const eventHandlers = {
       const isIncrease = button.classList.contains('increase-quantity');
       const newQuantity = isIncrease ? currentQuantity + 1 : Math.max(0, currentQuantity - 1);
       
-      // Update UI immediately for better UX
+      // Update UI immediately
       quantityInput.value = newQuantity;
       
-      await cartAPI.updateLineItem(key, newQuantity);
-      await cartDrawer.update();
+      // Store the change but don't update yet
+      eventHandlers.quantityChanges.set(key, newQuantity);
+      
+      // Schedule batch update
+      eventHandlers.scheduleCartUpdate();
     } catch (error) {
-      // UI will be reset by the cart update if there's an error
       console.error('Error handling quantity change:', error);
     }
-  },
+  }, 300),
   
-  // Debounced handler for quantity input changes
+  // Heavily debounced handler for quantity input
   handleQuantityInputChange: debounce(async (event) => {
     const input = event.target;
     if (!input.matches('.drawer-cart-product-quantity input')) return;
@@ -324,33 +375,69 @@ const eventHandlers = {
       const key = rootItem.getAttribute('data-line-item-key');
       const newQuantity = Math.max(0, parseInt(input.value) || 0);
       
-      await cartAPI.updateLineItem(key, newQuantity);
-      await cartDrawer.update();
+      // Store the change but don't update yet
+      eventHandlers.quantityChanges.set(key, newQuantity);
+      
+      // Schedule batch update
+      eventHandlers.scheduleCartUpdate();
     } catch (error) {
       console.error('Error handling quantity input change:', error);
     }
-  }, 500),
+  }, 800),
+  
+  // Batch update cart with all pending quantity changes
+  updateTimeout: null,
+  scheduleCartUpdate: function() {
+    if (this.updateTimeout) clearTimeout(this.updateTimeout);
+    
+    this.updateTimeout = setTimeout(async () => {
+      if (this.quantityChanges.size === 0) return;
+      
+      try {
+        const updates = {};
+        this.quantityChanges.forEach((quantity, key) => {
+          updates[key] = quantity;
+        });
+        
+        // Single API call for all quantity updates using jQuery AJAX
+        await requestManager.enqueue({
+          url: '/cart/update.js',
+          type: 'POST',
+          dataType: 'json',
+          contentType: 'application/json',
+          data: JSON.stringify({ updates })
+        });
+        
+        // Clear pending changes
+        this.quantityChanges.clear();
+        
+        // Update cart drawer once for all changes
+        cartDrawer.update();
+      } catch (error) {
+        console.error('Error updating cart:', error);
+      }
+    }, 1000); // Wait 1 second after last change before updating
+  },
   
   async handleAddToCartSubmit(event) {
     event.preventDefault();
     const form = event.target;
     
     try {
-      // Add loading state to the submit button
       const submitButton = form.querySelector('[type="submit"]');
       if (submitButton) {
         submitButton.disabled = true;
         submitButton.classList.add('loading');
       }
       
+      // Use jQuery AJAX to add item to cart
       await cartAPI.addItem(new FormData(form));
-      await cartDrawer.update();
+      cartDrawer.update();
       cartDrawer.open();
     } catch (error) {
       console.error('Error adding to cart:', error);
       alert('Error adding to cart. Please try again.');
     } finally {
-      // Remove loading state
       if (submitButton) {
         submitButton.disabled = false;
         submitButton.classList.remove('loading');
@@ -364,19 +451,17 @@ const eventHandlers = {
     if (!button) return;
     
     try {
-      // Add loading state
       button.disabled = true;
       button.classList.add('loading');
       
       const variantId = button.getAttribute('data-variant-id');
       await cartAPI.addVariant(variantId);
-      await cartDrawer.update();
+      cartDrawer.update();
       cartDrawer.open();
     } catch (error) {
       console.error('Error adding variant to cart:', error);
       alert('Error adding to cart. Please try again.');
     } finally {
-      // Remove loading state
       button.disabled = false;
       button.classList.remove('loading');
     }
@@ -385,50 +470,41 @@ const eventHandlers = {
 
 // Initialize cart drawer functionality
 function initCartDrawer() {
-  // Setup initial event listeners
+  // Setup event listeners with delegation to reduce number of listeners
   cartDrawer.setupEventListeners = function() {
     // Use event delegation for quantity changes
-    document.addEventListener('click', eventHandlers.handleQuantityButtonClick);
-    document.addEventListener('input', eventHandlers.handleQuantityInputChange);
+    $(document).on('click', '.drawer-cart-product-quantity button', eventHandlers.handleQuantityButtonClick);
+    $(document).on('input', '.drawer-cart-product-quantity input', eventHandlers.handleQuantityInputChange);
     
     // Close drawer events
-    cartDrawerSelectors.closeButtons().forEach(button => {
-      button.addEventListener('click', cartDrawer.close);
+    $(document).on('click', '.close-drawer, .cart-drawer', function() {
+      cartDrawer.close();
     });
     
     // Prevent drawer content clicks from closing the drawer
-    const drawerContent = cartDrawerSelectors.drawerContent();
-    if (drawerContent) {
-      drawerContent.addEventListener('click', e => e.stopPropagation());
-    }
+    $(document).on('click', '.drawer', function(e) {
+      e.stopPropagation();
+    });
     
     // Go to cart page
-    cartDrawerSelectors.goToCartButtons().forEach(button => {
-      button.addEventListener('click', e => {
-        e.preventDefault();
-        window.location.href = "/cart";
-      });
+    $(document).on('click', '.go-to-cart', function(e) {
+      e.preventDefault();
+      window.location.href = "/cart";
     });
   };
   
   // Setup global event listeners (only need to be set once)
   function setupGlobalEventListeners() {
-    // Add to cart forms
-    cartDrawerSelectors.addToCartForms().forEach(form => {
-      form.addEventListener('submit', eventHandlers.handleAddToCartSubmit);
-    });
+    // Add to cart forms - use jQuery delegation
+    $(document).on('submit', 'form[action="/cart/add"]', eventHandlers.handleAddToCartSubmit);
     
-    // Variant buttons
-    cartDrawerSelectors.variantButtons().forEach(button => {
-      button.addEventListener('click', eventHandlers.handleVariantButtonClick);
-    });
+    // Variant buttons - use jQuery delegation
+    $(document).on('click', '.variant-button', eventHandlers.handleVariantButtonClick);
     
-    // Cart links
-    cartDrawerSelectors.cartLinks().forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        cartDrawer.open();
-      });
+    // Cart links - use jQuery delegation
+    $(document).on('click', 'a[href="/cart"]', function(e) {
+      e.preventDefault();
+      cartDrawer.open();
     });
   }
   
@@ -438,4 +514,4 @@ function initCartDrawer() {
 }
 
 // Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', initCartDrawer);
+$(document).ready(initCartDrawer);
