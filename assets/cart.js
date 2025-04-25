@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".product-quantity input").forEach(input => {
     input.addEventListener("input", function () {
       console.log('quantity changed');
-      this.closest("form").submit();
+      // this.closest("form").submit();
     });
   });
 });
