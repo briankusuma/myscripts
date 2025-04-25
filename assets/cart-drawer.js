@@ -21,79 +21,79 @@ async function updateCartDrawer() {
   addCartDrawerListeners();
 }
 
-// function addCartDrawerListeners() {
-//   // Update quantity with button click
-//   document.querySelectorAll('.drawer-cart-product-quantity button').forEach((button) => {
+function addCartDrawerListeners() {
+  // Update quantity with button click
+  // document.querySelectorAll('.drawer-cart-product-quantity button').forEach((button) => {
 
-//     button.addEventListener('click', async () => {
-//       // Get line item key
-//       const rootItem = button.parentElement.parentElement.parentElement;
-//       console.log(rootItem)
-//       const key = rootItem.getAttribute('data-line-item-key');
+  //   button.addEventListener('click', async () => {
+  //     // Get line item key
+  //     const rootItem = button.parentElement.parentElement.parentElement;
+  //     console.log(rootItem)
+  //     const key = rootItem.getAttribute('data-line-item-key');
 
-//       // Get new quantity
-//       const currentQuantity = Number(button.parentElement.querySelector('input').value);
-//       const isUp = button.classList.contains('increase-quantity');
+  //     // Get new quantity
+  //     const currentQuantity = Number(button.parentElement.querySelector('input').value);
+  //     const isUp = button.classList.contains('increase-quantity');
 
-//       const newQuantity = isUp? currentQuantity + 1 : currentQuantity - 1;
+  //     const newQuantity = isUp? currentQuantity + 1 : currentQuantity - 1;
 
-//       // Ajax update
-//       const res = await fetch('/cart/update.js', {
-//         method: 'post',
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           updates: {[key]: newQuantity}
-//         }),
-//       });
+  //     // Ajax update
+  //     const res = await fetch('/cart/update.js', {
+  //       method: 'post',
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         updates: {[key]: newQuantity}
+  //       }),
+  //     });
 
-//       // Update cart
-//       updateCartDrawer();
-//     })
+  //     // Update cart
+  //     updateCartDrawer();
+  //   })
 
     
-//   })
+  // })
 
-//   // Update quantity with manual input 
-//   document.querySelectorAll('.drawer-cart-product-quantity input').forEach((input) => {
-//     input.addEventListener('input', async () => {
+  // Update quantity with manual input 
+  // document.querySelectorAll('.drawer-cart-product-quantity input').forEach((input) => {
+  //   input.addEventListener('input', async () => {
 
-//       // Get line item key
-//       const rootItem = input.parentElement.parentElement.parentElement;
-//       console.log(rootItem);
-//       const key = rootItem.getAttribute('data-line-item-key');
+  //     // Get line item key
+  //     const rootItem = input.parentElement.parentElement.parentElement;
+  //     console.log(rootItem);
+  //     const key = rootItem.getAttribute('data-line-item-key');
 
-//       // Get new quantity
-//       const newQuantity = input.value;
+  //     // Get new quantity
+  //     const newQuantity = input.value;
 
-//       // Ajax update
-//       const res = await fetch('/cart/update.js', {
-//         method: 'post',
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           updates: {[key]: newQuantity}
-//         }),
-//       });
+  //     // Ajax update
+  //     const res = await fetch('/cart/update.js', {
+  //       method: 'post',
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         updates: {[key]: newQuantity}
+  //       }),
+  //     });
 
-//       // Update cart
-//       updateCartDrawer();
+  //     // Update cart
+  //     updateCartDrawer();
 
-//     })
+  //   })
 
-//   })
+  // })
 
-//   document.querySelectorAll('.close-drawer, .cart-drawer').forEach((x) => {
-//     x.addEventListener('click', () => {
-//       closeCartDrawer();
-//     })
-//   });
-//   document.querySelector('.drawer').addEventListener('click', (e) => {
-//     e.stopPropagation();
-//   })
-// }
+  document.querySelectorAll('.close-drawer, .cart-drawer').forEach((x) => {
+    x.addEventListener('click', () => {
+      closeCartDrawer();
+    })
+  });
+  document.querySelector('.drawer').addEventListener('click', (e) => {
+    e.stopPropagation();
+  })
+}
 
 
 // Add to cart button
