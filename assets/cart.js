@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const decrementButtons = document.querySelectorAll(".decrement");
-  const incrementButtons = document.querySelectorAll(".increment");
+  const decrementButtons = document.querySelectorAll(".decrements");
+  const incrementButtons = document.querySelectorAll(".increments");
 
   decrementButtons.forEach(button => {
     button.addEventListener("click", function () {
@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
         input.value = currentValue - 1;
         input.dispatchEvent(new Event("input")); // Trigger the input event
       }
-      for (const dec of decrementButtons) {
-        dec.style.pointerEvents = 'none'
-      }
-      for (const inc of incrementButtons) {
-        inc.style.pointerEvents = 'none'
-      }
+      // for (const dec of decrementButtons) {
+      //   dec.style.pointerEvents = 'none'
+      // }
+      // for (const inc of incrementButtons) {
+      //   inc.style.pointerEvents = 'none'
+      // }
     });
   });
 
@@ -25,12 +25,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const currentValue = parseInt(input.value, 10) || 1;
       input.value = currentValue + 1;
       input.dispatchEvent(new Event("input")); // Trigger the input event
-      for (const dec of decrementButtons) {
-        dec.style.pointerEvents = 'none'
-      }
-      for (const inc of incrementButtons) {
-        inc.style.pointerEvents = 'none'
-      }
+      // for (const dec of decrementButtons) {
+      //   dec.style.pointerEvents = 'none'
+      // }
+      // for (const inc of incrementButtons) {
+      //   inc.style.pointerEvents = 'none'
+      // }
     });
   });
 

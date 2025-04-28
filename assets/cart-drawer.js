@@ -1,517 +1,568 @@
+/**
+ * Optimized Cart Implementation
+ * - Works for both cart drawer and cart page
+ * - Synchronizes updates between cart drawer and cart page
+ */
 
-// function openCartDrawer() {
-//   document.querySelector('.cart-drawer').classList.add('open');
-// }
-
-// function closeCartDrawer() {
-//   document.querySelector('.cart-drawer').classList.remove('open');
-// }
-
-// async function updateCartDrawer() {
-//   const res = await fetch('/?section_id=cart-drawer')
-//   const text = await res.text()
-
-//   const html = document.createElement('div')
-//   html.innerHTML = text;
-
-//   const newBox = html.querySelector('.cart-drawer').innerHTML;
-//   document.querySelector('.cart-drawer').innerHTML = newBox;
-
-//   console.log(html)
-
-//   addCartDrawerListeners();
-// }
-
-// function addCartDrawerListeners() {
-//   // Update quantity with button click
-//   document.querySelectorAll('.drawer-cart-product-quantity button').forEach((button) => {
-
-//     button.addEventListener('click', async () => {
-//       // Get line item key
-//       const rootItem = button.parentElement.parentElement.parentElement;
-//       console.log(rootItem)
-//       const key = rootItem.getAttribute('data-line-item-key');
-
-//       // Get new quantity
-//       const currentQuantity = Number(button.parentElement.querySelector('input').value);
-//       const isUp = button.classList.contains('increase-quantity');
-
-//       const newQuantity = isUp? currentQuantity + 1 : currentQuantity - 1;
-
-//       // Ajax update
-//       const res = await fetch('/cart/update.js', {
-//         method: 'post',
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           updates: {[key]: newQuantity}
-//         }),
-//       });
-
-//       // Update cart
-//       updateCartDrawer();
-//     })
-
-    
-//   })
-
-//   // Update quantity with manual input 
-//   document.querySelectorAll('.drawer-cart-product-quantity input').forEach((input) => {
-//     input.addEventListener('input', async () => {
-
-//       // Get line item key
-//       const rootItem = input.parentElement.parentElement.parentElement;
-//       console.log(rootItem);
-//       const key = rootItem.getAttribute('data-line-item-key');
-
-//       // Get new quantity
-//       const newQuantity = input.value;
-
-//       // Ajax update
-//       const res = await fetch('/cart/update.js', {
-//         method: 'post',
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           updates: {[key]: newQuantity}
-//         }),
-//       });
-
-//       // Update cart
-//       updateCartDrawer();
-
-//     })
-
-//   })
-
-//   document.querySelectorAll('.close-drawer, .cart-drawer').forEach((x) => {
-//     x.addEventListener('click', () => {
-//       closeCartDrawer();
-//     })
-//   });
-//   document.querySelector('.drawer').addEventListener('click', (e) => {
-//     e.stopPropagation();
-//   })
-// }
-
-
-// // Add to cart button
-// document.querySelectorAll('form[action="/cart/add"]').forEach((form) => {
-//   form.addEventListener('submit', async (e) => {
-//     e.preventDefault();
-
-//     // Submit form with ajax
-//     await fetch("/cart/add.js", {
-//       method: "POST",
-//       body: new FormData(form),
-//     });
-
-//     // Update cart
-//     await updateCartDrawer();
-
-//     // Open cart Drawer
-//     openCartDrawer();
-//   })
-// })
-
-
-// // Select all variant buttons
-// document.querySelectorAll(".variant-button").forEach((button) => {
-//   button.addEventListener("click", function (e) {
-//     const variantId = this.getAttribute("data-variant-id");
-//     e.preventDefault();
-
-//     // Add variant to cart using Shopify AJAX API
-//     fetch("/cart/add.js", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         id: variantId,
-//         quantity: 1,
-//       }),
-//     })
-//       .then((response) => {
-//         if (response.ok) {
-//           // Redirect to the cart page
-//           // Update cart
-//           updateCartDrawer();
-
-//           // Open cart Drawer
-//           openCartDrawer();
-//         } else {
-//           alert("Error adding to cart. Please try again.");
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error:", error);
-//       });
-//   });
-// });
-
-
-
-// // Open cart drawer from nav icon
-// document.querySelectorAll('a[href="/cart"]').forEach((a) => {
-//   a.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     openCartDrawer();
-//   })
-// })
-
-// document.querySelectorAll('.go-to-cart').forEach((a) => {
-//   a.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     window.location.href = "/cart"
-//   })
-// })
-
-// addCartDrawerListeners(); 
-
-// Cache DOM selectors
-const cartDrawerSelectors = {
-  drawer: () => document.querySelector('.cart-drawer'),
-  closeButtons: () => document.querySelectorAll('.close-drawer, .cart-drawer'),
-  drawerContent: () => document.querySelector('.drawer'),
-  cartLinks: () => document.querySelectorAll('a[href="/cart"]'),
-  goToCartButtons: () => document.querySelectorAll('.go-to-cart'),
-  addToCartForms: () => document.querySelectorAll('form[action="/cart/add"]'),
-  variantButtons: () => document.querySelectorAll('.variant-button')
-};
-
-// Request management to prevent too many requests
-const requestManager = {
-  queue: [],
-  processing: false,
-  cooldownPeriod: 500, // ms between requests
-  lastRequestTime: 0,
-  
-  // Add a request to the queue
-  enqueue(ajaxOptions) {
-    return new Promise((resolve, reject) => {
-      this.queue.push({ ajaxOptions, resolve, reject });
-      this.processQueue();
-    });
-  },
-  
-  // Process the next request in queue
-  async processQueue() {
-    if (this.processing || this.queue.length === 0) return;
-    
-    this.processing = true;
-    
-    // Ensure minimum time between requests
-    const now = Date.now();
-    const timeElapsed = now - this.lastRequestTime;
-    if (timeElapsed < this.cooldownPeriod) {
-      await new Promise(resolve => setTimeout(resolve, this.cooldownPeriod - timeElapsed));
-    }
-    
-    const { ajaxOptions, resolve, reject } = this.queue.shift();
-    
-    try {
-      this.lastRequestTime = Date.now();
-      
-      // Execute the AJAX request
-      $.ajax({
-        ...ajaxOptions,
-        success: function(data) {
-          resolve(data);
-        },
-        error: function(xhr, status, error) {
-          reject(error);
-        }
-      });
-    } catch (error) {
-      reject(error);
-      this.processing = false;
-      this.processQueue(); // Process next request
-    }
-  }
-};
-
-// Cart drawer state management
-const cartDrawer = {
-  updatePending: false,
-  
-  // Original open method as requested
-  open() {
-    cartDrawerSelectors.drawer().classList.add('open');
-  },
-  
-  // Original close method as requested
-  close() {
-    cartDrawerSelectors.drawer().classList.remove('open');
-  },
-  
-  // Schedule an update to prevent multiple updates in quick succession
-  scheduleUpdate() {
-    if (this.updatePending) return;
-    
-    this.updatePending = true;
-    setTimeout(() => {
-      this.update();
-      this.updatePending = false;
-    }, 300);
-  },
-  
-  async update() {
-    try {
-      const drawer = cartDrawerSelectors.drawer();
-      drawer.classList.add('loading');
-      
-      // Use jQuery AJAX to fetch cart drawer content
-      const html = await requestManager.enqueue({
-        url: '/?section_id=cart-drawer',
-        type: 'GET',
-        dataType: 'html'
-      });
-      
-      // Create a temporary div to parse the HTML
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = html;
-      
-      const newContent = tempDiv.querySelector('.cart-drawer').innerHTML;
-      drawer.innerHTML = newContent;
-      
-      this.setupEventListeners();
-    } catch (error) {
-      console.error('Error updating cart drawer:', error);
-    } finally {
-      cartDrawerSelectors.drawer().classList.remove('loading');
-    }
-  }
-};
-
-// Improved debounce with longer wait time
-function debounce(func, wait = 800) {
-  let timeout;
-  return function(...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), wait);
-  };
+// Original open/close functions
+function openCartDrawer() {
+  document.querySelector(".cart-drawer").classList.add("open");
 }
 
-// Cart API operations with request management
-const cartAPI = {
-  async updateLineItem(key, quantity) {
-    return requestManager.enqueue({
-      url: '/cart/update.js',
-      type: 'POST',
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        updates: {[key]: quantity}
-      })
-    });
-  },
+function closeCartDrawer() {
+  document.querySelector(".cart-drawer").classList.remove("open");
+}
+
+// Update cart count badges
+function updateCartItemCounts(count) {
+  document.querySelectorAll(".cart-count").forEach((el) => {
+    el.textContent = count;
+  });
+}
+
+// Check if we're on the cart page
+function isCartPage() {
+  return window.location.pathname === '/cart' || 
+        window.location.pathname.includes('/cart');
+}
+
+// Refresh the cart page content if we're on the cart page
+async function refreshCartPage() {
+  if (!isCartPage()) return;
   
-  async addItem(formData) {
-    return requestManager.enqueue({
-      url: '/cart/add.js',
-      type: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-      dataType: 'json'
-    });
-  },
+  console.log("Refreshing cart page...");
   
-  async addVariant(variantId, quantity = 1) {
-    return requestManager.enqueue({
-      url: '/cart/add.js',
-      type: 'POST',
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        id: variantId,
-        quantity: quantity
-      })
+  try {
+    // This will reload just the cart form content without a full page refresh
+    const response = await fetch('?section_id=main-cart');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    
+    const html = await response.text();
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    
+    // Find the cart form in the fetched HTML
+    const newCartForm = tempDiv.querySelector('form[action="/cart"]');
+    if (!newCartForm) {
+      console.error("Could not find cart form in the fetched HTML");
+      return;
+    }
+    
+    // Replace the current cart form with the new one
+    const currentCartForm = document.querySelector('form[action="/cart"]');
+    if (currentCartForm) {
+      currentCartForm.innerHTML = newCartForm.innerHTML;
+      console.log("Cart page refreshed successfully");
+      
+      // Re-attach event listeners to the new elements
+      setupCartPageListeners();
+    } else {
+      console.error("Could not find current cart form to update");
+    }
+  } catch (error) {
+    console.error("Error refreshing cart page:", error);
+  }
+}
+
+// Simplified cart drawer update function
+async function updateCartDrawer() {
+  console.log("Updating cart drawer...");
+  try {
+    const res = await fetch("/?section_id=cart-drawer");
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+    
+    const text = await res.text();
+    const html = document.createElement("div");
+    html.innerHTML = text;
+
+    const newContent = html.querySelector(".cart-drawer")?.innerHTML;
+    if (newContent) {
+      document.querySelector(".cart-drawer").innerHTML = newContent;
+      console.log("Cart drawer updated successfully");
+      addCartDrawerListeners();
+    } else {
+      console.error("Could not find .cart-drawer in the fetched HTML");
+    }
+  } catch (error) {
+    console.error("Error updating cart drawer:", error);
+  }
+}
+
+// Update both cart drawer and cart page
+async function updateAllCarts() {
+  await updateCartDrawer();
+  await refreshCartPage();
+}
+
+// Update quantity with optimized approach - works for both cart drawer and cart page
+async function updateQuantity(key, quantity) {
+  if (!key) {
+    console.error('Missing line item key for quantity update');
+    return;
+  }
+  
+  console.log(`Updating quantity for ${key} to ${quantity}`);
+  
+  // Show loading state on all elements with this key
+  document.querySelectorAll(`[data-key="${key}"], [data-line-item-key="${key}"]`).forEach(el => {
+    el.classList.add('updating');
+  });
+  
+  try {
+    // Update cart
+    const res = await fetch("/cart/update.js", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ updates: { [key]: quantity } })
+    });
+    
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Update quantity response not OK:", res.status, errorText);
+      throw new Error(`Error ${res.status}: ${errorText}`);
+    }
+    
+    const cart = await res.json();
+    console.log("Cart updated:", cart);
+    
+    // Update cart count badges
+    updateCartItemCounts(cart.item_count);
+    
+    // Update both cart drawer and cart page
+    await updateAllCarts();
+    
+    return cart;
+  } catch (error) {
+    console.error('Failed to update quantity:', error);
+    alert("Gagal mengubah jumlah produk: " + error.message);
+  } finally {
+    // Remove loading state
+    document.querySelectorAll(`[data-key="${key}"], [data-line-item-key="${key}"]`).forEach(el => {
+      el.classList.remove('updating');
     });
   }
-};
+}
 
-// Optimized event handlers to reduce API calls
-const eventHandlers = {
-  // Track quantity changes to batch updates
-  quantityChanges: new Map(),
+// Simplified add to cart function
+async function addToCart(form) {
+  console.log("Adding to cart...", form);
   
-  // Use event delegation with improved throttling
-  handleQuantityButtonClick: debounce(async (event) => {
-    const button = event.target.closest('.drawer-cart-product-quantity button');
-    if (!button) return;
+  // Disable submit button
+  const submitButton = form.querySelector('[type="submit"]');
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.classList.add('loading');
+  }
+  
+  try {
+    // Create FormData from the form
+    const formData = new FormData(form);
     
-    try {
-      const rootItem = button.closest('[data-line-item-key]');
-      const key = rootItem.getAttribute('data-line-item-key');
-      const quantityInput = button.parentElement.querySelector('input');
-      const currentQuantity = Number(quantityInput.value);
-      const isIncrease = button.classList.contains('increase-quantity');
-      const newQuantity = isIncrease ? currentQuantity + 1 : Math.max(0, currentQuantity - 1);
-      
-      // Update UI immediately
-      quantityInput.value = newQuantity;
-      
-      // Store the change but don't update yet
-      eventHandlers.quantityChanges.set(key, newQuantity);
-      
-      // Schedule batch update
-      eventHandlers.scheduleCartUpdate();
-    } catch (error) {
-      console.error('Error handling quantity change:', error);
+    // Log form data for debugging
+    console.log("Form data entries:");
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
     }
-  }, 300),
-  
-  // Heavily debounced handler for quantity input
-  handleQuantityInputChange: debounce(async (event) => {
-    const input = event.target;
-    if (!input.matches('.drawer-cart-product-quantity input')) return;
     
-    try {
-      const rootItem = input.closest('[data-line-item-key]');
-      const key = rootItem.getAttribute('data-line-item-key');
-      const newQuantity = Math.max(0, parseInt(input.value) || 0);
-      
-      // Store the change but don't update yet
-      eventHandlers.quantityChanges.set(key, newQuantity);
-      
-      // Schedule batch update
-      eventHandlers.scheduleCartUpdate();
-    } catch (error) {
-      console.error('Error handling quantity input change:', error);
+    // Use /cart/add.js
+    const response = await fetch("/cart/add.js", {
+      method: "POST",
+      body: formData
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Add to cart response not OK:", response.status, errorText);
+      throw new Error(`Error ${response.status}: ${errorText}`);
     }
-  }, 800),
-  
-  // Batch update cart with all pending quantity changes
-  updateTimeout: null,
-  scheduleCartUpdate: function() {
-    if (this.updateTimeout) clearTimeout(this.updateTimeout);
     
-    this.updateTimeout = setTimeout(async () => {
-      if (this.quantityChanges.size === 0) return;
+    const result = await response.json();
+    console.log("Add to cart successful:", result);
+    
+    // Get updated cart count
+    const cartResponse = await fetch("/cart.js");
+    const cart = await cartResponse.json();
+    console.log("Updated cart:", cart);
+    updateCartItemCounts(cart.item_count);
+    
+    // Update both cart drawer and cart page
+    await updateAllCarts();
+    
+    // Open cart drawer
+    openCartDrawer();
+    
+    return true;
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    alert("Gagal menambahkan produk ke keranjang: " + error.message);
+    return false;
+  } finally {
+    // Re-enable submit button
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.classList.remove('loading');
+    }
+  }
+}
+
+// Handle quantity buttons (works for both cart drawer and cart page)
+function handleQuantityButton(button) {
+  console.log("Quantity button clicked:", button.className);
+  
+  // Disable button during processing
+  button.disabled = true;
+  
+  try {
+    // Get key from data-key attribute
+    const key = button.getAttribute("data-key");
+    if (!key) {
+      console.error('Missing data-key attribute on button');
+      return;
+    }
+    
+    console.log("Item key from button:", key);
+    
+    // Find the quantity input
+    let input;
+    
+    // Try different approaches to find the input
+    // 1. Look in the same product-quantity container
+    const quantityContainer = button.closest('.product-quantity');
+    if (quantityContainer) {
+      input = quantityContainer.querySelector('.quantity-input');
+    }
+    
+    // 2. If not found, look for input with name="updates[key]"
+    if (!input) {
+      input = document.querySelector(`input[name="updates[${key}]"]`);
+    }
+    
+    // 3. If still not found, look for any nearby input
+    if (!input) {
+      const parentItem = button.closest('[data-line-item-key], [data-key]');
+      if (parentItem) {
+        input = parentItem.querySelector('input[type="number"], input.quantity-input');
+      }
+    }
+    
+    if (!input) {
+      console.error('Could not find quantity input');
+      return;
+    }
+    
+    const currentQuantity = Number(input.value) || 0;
+    const isIncrement = button.classList.contains("increment");
+    const newQuantity = Math.max(0, isIncrement ? currentQuantity + 1 : currentQuantity - 1);
+    
+    console.log(`Updating quantity from ${currentQuantity} to ${newQuantity}`);
+    
+    // Update UI immediately for better UX
+    input.value = newQuantity;
+    
+    // Update cart
+    updateQuantity(key, newQuantity);
+  } catch (error) {
+    console.error('Error handling quantity change:', error);
+    alert("Gagal mengubah jumlah produk: " + error.message);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+// Setup event listeners for cart drawer
+function addCartDrawerListeners() {
+  console.log("Setting up cart drawer listeners");
+  
+  // Handle increment/decrement buttons in cart drawer
+  document.querySelectorAll(".cart-drawer .increment, .cart-drawer .decrement").forEach((button) => {
+    button.addEventListener("click", () => handleQuantityButton(button));
+  });
+  
+  // Handle quantity input changes in cart drawer
+  document.querySelectorAll(".cart-drawer .quantity-input").forEach((input) => {
+    input.addEventListener("change", async () => {
+      try {
+        // Get key from input name or nearby button
+        let key;
+        
+        // Try to get from name attribute: updates[key]
+        const nameMatch = input.name.match(/updates\[(.*?)\]/);
+        if (nameMatch && nameMatch[1]) {
+          key = nameMatch[1];
+        } else {
+          // Try to get from nearby button
+          const nearbyButton = input.closest('.product-quantity')?.querySelector('[data-key]');
+          if (nearbyButton) {
+            key = nearbyButton.getAttribute('data-key');
+          }
+        }
+        
+        if (!key) {
+          console.error('Could not determine item key for quantity input');
+          return;
+        }
+        
+        console.log("Item key for input:", key);
+        
+        const newQuantity = Math.max(0, Number(input.value) || 0);
+        
+        // Update cart
+        updateQuantity(key, newQuantity);
+      } catch (error) {
+        console.error('Error handling quantity input change:', error);
+      }
+    });
+  });
+  
+  // Handle remove links in cart drawer
+  document.querySelectorAll(".cart-drawer .cart-remove").forEach((link) => {
+    link.addEventListener("click", async (e) => {
+      e.preventDefault();
+      console.log("Remove link clicked");
       
       try {
-        const updates = {};
-        this.quantityChanges.forEach((quantity, key) => {
-          updates[key] = quantity;
-        });
+        // Try different approaches to get the key
+        let key;
         
-        // Single API call for all quantity updates using jQuery AJAX
-        await requestManager.enqueue({
-          url: '/cart/update.js',
-          type: 'POST',
-          dataType: 'json',
-          contentType: 'application/json',
-          data: JSON.stringify({ updates })
-        });
+        // 1. Try to get from parent element
+        const parentItem = link.closest('[data-line-item-key]');
+        if (parentItem) {
+          key = parentItem.getAttribute('data-line-item-key');
+        } 
+        // 2. Try to get from nearby button
+        else {
+          const nearbyButton = link.closest('.drawer-cart-items')?.querySelector('[data-key]');
+          if (nearbyButton) {
+            key = nearbyButton.getAttribute('data-key');
+          }
+        }
         
-        // Clear pending changes
-        this.quantityChanges.clear();
+        if (!key) {
+          console.error('Could not determine item key for remove link');
+          // Fallback to href
+          window.location.href = link.getAttribute('href');
+          return;
+        }
         
-        // Update cart drawer once for all changes
-        cartDrawer.update();
+        console.log("Removing item with key:", key);
+        
+        // Remove item by setting quantity to 0
+        updateQuantity(key, 0);
       } catch (error) {
-        console.error('Error updating cart:', error);
+        console.error('Error removing item:', error);
+        alert("Gagal menghapus produk: " + error.message);
       }
-    }, 1000); // Wait 1 second after last change before updating
-  },
-  
-  async handleAddToCartSubmit(event) {
-    event.preventDefault();
-    const form = event.target;
-    
-    try {
-      const submitButton = form.querySelector('[type="submit"]');
-      if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.classList.add('loading');
-      }
-      
-      // Use jQuery AJAX to add item to cart
-      await cartAPI.addItem(new FormData(form));
-      cartDrawer.update();
-      cartDrawer.open();
-    } catch (error) {
-      console.error('Error adding to cart:', error);
-      alert('Error adding to cart. Please try again.');
-    } finally {
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.classList.remove('loading');
-      }
-    }
-  },
-  
-  async handleVariantButtonClick(event) {
-    event.preventDefault();
-    const button = event.target.closest('.variant-button');
-    if (!button) return;
-    
-    try {
-      button.disabled = true;
-      button.classList.add('loading');
-      
-      const variantId = button.getAttribute('data-variant-id');
-      await cartAPI.addVariant(variantId);
-      cartDrawer.update();
-      cartDrawer.open();
-    } catch (error) {
-      console.error('Error adding variant to cart:', error);
-      alert('Error adding to cart. Please try again.');
-    } finally {
-      button.disabled = false;
-      button.classList.remove('loading');
-    }
-  }
-};
-
-// Initialize cart drawer functionality
-function initCartDrawer() {
-  // Setup event listeners with delegation to reduce number of listeners
-  cartDrawer.setupEventListeners = function() {
-    // Use event delegation for quantity changes
-    $(document).on('click', '.drawer-cart-product-quantity button', eventHandlers.handleQuantityButtonClick);
-    $(document).on('input', '.drawer-cart-product-quantity input', eventHandlers.handleQuantityInputChange);
-    
-    // Close drawer events
-    $(document).on('click', '.close-drawer, .cart-drawer', function() {
-      cartDrawer.close();
     });
-    
-    // Prevent drawer content clicks from closing the drawer
-    $(document).on('click', '.drawer', function(e) {
+  });
+  
+  // Close drawer with close button
+  const closeButton = document.getElementById('close-drawer');
+  if (closeButton) {
+    closeButton.addEventListener("click", () => {
+      console.log("Close button clicked");
+      closeCartDrawer();
+    });
+  } else {
+    console.warn("Close button not found");
+  }
+  
+  // Prevent drawer content clicks from closing the drawer
+  const drawer = document.querySelector('.drawer');
+  if (drawer) {
+    drawer.addEventListener('click', e => {
       e.stopPropagation();
     });
-    
-    // Go to cart page
-    $(document).on('click', '.go-to-cart', function(e) {
-      e.preventDefault();
-      window.location.href = "/cart";
-    });
-  };
-  
-  // Setup global event listeners (only need to be set once)
-  function setupGlobalEventListeners() {
-    // Add to cart forms - use jQuery delegation
-    $(document).on('submit', 'form[action="/cart/add"]', eventHandlers.handleAddToCartSubmit);
-    
-    // Variant buttons - use jQuery delegation
-    $(document).on('click', '.variant-button', eventHandlers.handleVariantButtonClick);
-    
-    // Cart links - use jQuery delegation
-    $(document).on('click', 'a[href="/cart"]', function(e) {
-      e.preventDefault();
-      cartDrawer.open();
-    });
+  } else {
+    console.warn("Drawer content element not found");
   }
-  
-  // Initialize
-  cartDrawer.setupEventListeners();
-  setupGlobalEventListeners();
 }
 
-// Initialize when DOM is ready
-$(document).ready(initCartDrawer);
+// Setup event listeners for cart page
+function setupCartPageListeners() {
+  console.log("Setting up cart page listeners");
+  
+  // Handle increment/decrement buttons on cart page
+  document.querySelectorAll("form[action='/cart'] .increment, form[action='/cart'] .decrement").forEach((button) => {
+    button.addEventListener("click", () => handleQuantityButton(button));
+  });
+  
+  // Handle quantity input changes on cart page
+  document.querySelectorAll("form[action='/cart'] .quantity-input").forEach((input) => {
+    input.addEventListener("change", async () => {
+      try {
+        // Get key from input name or nearby button
+        let key;
+        
+        // Try to get from name attribute: updates[key]
+        const nameMatch = input.name.match(/updates\[(.*?)\]/);
+        if (nameMatch && nameMatch[1]) {
+          key = nameMatch[1];
+        } else {
+          // Try to get from nearby button
+          const nearbyButton = input.closest('.product-quantity')?.querySelector('[data-key]');
+          if (nearbyButton) {
+            key = nearbyButton.getAttribute('data-key');
+          }
+        }
+        
+        if (!key) {
+          console.error('Could not determine item key for quantity input');
+          return;
+        }
+        
+        console.log("Item key for input:", key);
+        
+        const newQuantity = Math.max(0, Number(input.value) || 0);
+        
+        // Update cart
+        updateQuantity(key, newQuantity);
+      } catch (error) {
+        console.error('Error handling quantity input change:', error);
+      }
+    });
+  });
+  
+  // Handle remove links on cart page
+  document.querySelectorAll("form[action='/cart'] .cart-remove").forEach((link) => {
+    link.addEventListener("click", async (e) => {
+      e.preventDefault();
+      console.log("Remove link clicked on cart page");
+      
+      try {
+        // Try different approaches to get the key
+        let key;
+        
+        // 1. Try to get from parent element
+        const parentItem = link.closest('[data-line-item-key]');
+        if (parentItem) {
+          key = parentItem.getAttribute('data-line-item-key');
+        } 
+        // 2. Try to get from nearby button
+        else {
+          const nearbyButton = link.closest('tr, .cart-item')?.querySelector('[data-key]');
+          if (nearbyButton) {
+            key = nearbyButton.getAttribute('data-key');
+          }
+        }
+        
+        if (!key) {
+          console.error('Could not determine item key for remove link');
+          // Fallback to href
+          window.location.href = link.getAttribute('href');
+          return;
+        }
+        
+        console.log("Removing item with key:", key);
+        
+        // Remove item by setting quantity to 0
+        updateQuantity(key, 0);
+      } catch (error) {
+        console.error('Error removing item:', error);
+        alert("Gagal menghapus produk: " + error.message);
+      }
+    });
+  });
+}
+
+// Setup global event listeners
+function setupGlobalEventListeners() {
+  console.log("Setting up global event listeners");
+  
+  // Add to cart forms
+  document.querySelectorAll('form[action="/cart/add"]').forEach((form) => {
+    console.log("Found add to cart form:", form);
+    
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      console.log("Form submitted:", e.target);
+      
+      await addToCart(form);
+    });
+  });
+  
+  // Cart links
+  document.querySelectorAll('a[href="/cart"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      // Only prevent default if we're not already on the cart page
+      if (!isCartPage()) {
+        e.preventDefault();
+        console.log("Cart link clicked");
+        openCartDrawer();
+      }
+    });
+  });
+}
+
+// Add CSS for loading states
+function addLoadingStyles() {
+  if (document.getElementById('cart-drawer-styles')) return;
+  
+  const style = document.createElement('style');
+  style.id = 'cart-drawer-styles';
+  style.textContent = `
+    .cart-drawer--active {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading, .updating {
+      opacity: 0.7;
+      pointer-events: none;
+      position: relative;
+    }
+    
+    .loading::after, .updating::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: cart-spinner 0.6s linear infinite;
+    }
+    
+    @keyframes cart-spinner {
+      to { transform: rotate(360deg); }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// Initialize
+function initCart() {
+  console.log("Initializing cart system");
+  addLoadingStyles();
+  
+  // Setup listeners for both cart drawer and cart page
+  addCartDrawerListeners();
+  setupCartPageListeners();
+  setupGlobalEventListeners();
+  
+  // Get initial cart count
+  fetch('/cart.js')
+    .then(res => res.json())
+    .then(cart => {
+      console.log('Initial cart state:', cart);
+      updateCartItemCounts(cart.item_count);
+    })
+    .catch(err => console.error('Error fetching initial cart state:', err));
+}
+
+// Run initialization when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCart);
+} else {
+  initCart();
+}
