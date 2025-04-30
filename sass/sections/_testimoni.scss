@@ -168,6 +168,22 @@
     .testimoni-content{
         overflow: hidden;
     }
+    .testimoni-content_title{
+        display: flex;
+        flex-direction: column!important;
+    }
+    .button-slider_wrap{
+        width: 100%!important;
+        margin-top: 40px;
+        .button-slider{
+            &_next{
+                left: 40px!important;
+            }
+            &_prev{
+                right: 40px!important;
+            }
+        }
+    }
 }
 .button-slider_wrap{
     width: 120px;
