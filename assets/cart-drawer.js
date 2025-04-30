@@ -498,6 +498,9 @@ function setupGlobalEventListeners() {
       }
     });
   });
+
+
+  
 }
 
 // Add CSS for loading states
@@ -566,3 +569,10 @@ if (document.readyState === 'loading') {
 } else {
   initCart();
 }
+
+document.querySelectorAll('.go-to-cart').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = "/cart"
+  })
+})

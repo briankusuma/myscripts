@@ -56,7 +56,7 @@
                     {% comment %} <p class="txt-400 fs-16">Total: <span id="cart-total">{{ cart.total_price | money }}</span></p> {% endcomment %}
                     {% comment %} <a href="{{ routes.cart_url }}" class="button fs-12 cl-black-60 underline go-to-cart">Go to cart</a> {% endcomment %}
                     <div class="cart-summary-main">
-                        <div class="cart-summary-item">
+                        {% comment %} <div class="cart-summary-item">
                             <div class="drawer_total">
                                 <div class="drawer_total-item">
                                     <span>Discount</span>
@@ -67,17 +67,17 @@
                                     <span>{{ cart.original_total_price | money }}</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                         <div class="cart-summary-item">
-                        <span>Indicative Total</span>
+                        <span>Total</span>
                         <span>{{ cart.items_subtotal_price | money }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="cart-button">
                     <button type="submit" name="checkout" class="button is-small btn-primary">Proceed to checkout</button>
-                    <a href="{{ routes.cart_url }}" class="button is-small btn-outline go-to-cart">View Cart</a>
-                    {% comment %} <a href="/cart" class="button is-small btn-outline">View Cart</a> {% endcomment %}
+                    {% comment %} <a href="{{ routes.cart_url }}" class="button is-small btn-outline go-to-cart">View Cart</a> {% endcomment %}
+                    <a href="/cart" class="go-to-cart button is-small btn-outline">View Cart</a>
                 </div>
             </div>
         {% endform %}
