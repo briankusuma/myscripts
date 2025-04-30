@@ -133,6 +133,14 @@
         border: solid 1px #E6E6E6;
         border-radius: 100%;
         cursor: pointer;
+        &:hover{
+            border: solid 1px #ED1C24;
+            svg{
+                path{
+                    fill:#ED1C24;
+                }
+            }
+        }
     }
 }
 
