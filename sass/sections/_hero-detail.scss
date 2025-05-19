@@ -26,13 +26,24 @@
                     }
                     }
                     &_paragraft{
-                        color: rgba(39, 66, 80, 0.80);
+                        p{
+                            color: rgba(39, 66, 80, 0.80);
+                            font-family: Poppins;
+                            font-size: 18px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 140%; /* 25.2px */
+                            letter-spacing: -0.18px;
+                        }
+                    }
+                    &_price{
+                        color: #274250;
                         font-family: Poppins;
-                        font-size: 18px;
+                        font-size: 20px;
                         font-style: normal;
-                        font-weight: 400;
-                        line-height: 140%; /* 25.2px */
-                        letter-spacing: -0.18px;
+                        font-weight: 500;
+                        line-height: 140%; /* 28px */
+                        letter-spacing: -0.2px;
                     }
                     &_benefit{
                         @include flex-box(column, start, flex-start, 16px);
@@ -133,4 +144,7 @@
             }
         }
     }
+}
+.detail-product-page_txt{
+    max-width: 591px;
 }
