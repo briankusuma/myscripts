@@ -142,3 +142,6 @@
         bottom: -40px!important;
     }
 }
+.footer_socialmedia{
+    @include flex-box(row, center, center, 24px);
+}

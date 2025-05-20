@@ -9,7 +9,7 @@
         padding-top: 80px;
         .detail-content{
             &_wrapper{
-                @include flex-box(row, space-between, center, 8px);
+                @include flex-box(row, space-between, flex-start, 8px);
                 &-text{
                 @include flex-box(column, start, flex-start, 24px);
                 .detail-display{
