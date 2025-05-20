@@ -3,12 +3,12 @@
       "product-main": {
           "type": "product-main"
       },
-      "transform":{
-        "type": "transform"
-    },
-    "boost":{
-        "type": "boost"
-    },
+    //   "transform":{
+    //     "type": "transform"
+    // },
+    // "boost":{
+    //     "type": "boost"
+    // },
     "testimoni": {
         "type": "testimoni"
     },
@@ -18,8 +18,8 @@
   },
   "order": [
     "product-main",
-    "transform",
-    "boost",
+    // "transform",
+    // "boost",
     "testimoni",
     "faq"
   ]

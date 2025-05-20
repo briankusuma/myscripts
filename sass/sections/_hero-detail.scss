@@ -147,4 +147,97 @@
 }
 .detail-product-page_txt{
     max-width: 591px;
+    .dropdown {
+        width: 100%;
+        user-select: none;
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        border-block: 1px solid #ccc;
+        overflow: hidden;
+    }
+
+    .dropdown-toggle {
+    padding: 12px;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    .text-toggle{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        h3{
+            color: #274250;
+            font-family: Poppins;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%; /* 22.4px */
+            letter-spacing: -0.16px;
+        }
+    }
+    }
+
+    .dropdown-options {
+    display: none;
+    flex-direction: column;
+    }
+
+    .dropdown-option {
+        padding: 10px 12px 20px 12px;
+        cursor: pointer;
+        transition: background 0.2s;
+        p{
+            color: #274250;
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%; /* 14px */
+            letter-spacing: -0.14px;
+        }
+    }
+
+
+    .dropdown.active .dropdown-options {
+    display: flex;
+    }
+
+    svg {
+    flex-shrink: 0;
+    }
+    .stock_container{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: flex-start;
+        p{
+            
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 100%; /* 14px */
+            letter-spacing: -0.14px;
+        }
+        .in-stock{
+            color: #00AC22;
+        }
+        .out-stock{
+            color: #9C0C11;
+        }
+        .in-coast{
+            color: #274250;
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%; /* 14px */
+            letter-spacing: -0.14px;
+        }
+    }
 }
