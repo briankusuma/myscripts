@@ -39,12 +39,11 @@
             @include flex-box(row, space-between, flex-start, 16px);
             margin-block: 96px;
             .footer-menus_wrapper{
-                @include flex-box(row, space-between, flex-start, 16px);
+                @include flex-box(row, flex-end, flex-start, 16px);
                 width: 100%;
-                max-width: 900px;
             }
             .footer-menu-list{
-                @include flex-box(column, space-between, flex-start, 20px);
+                @include flex-box(row, space-between, flex-start, 100px);
                 .list-lang{
                     @include flex-box(row, space-between, center, 16px);
                     color: var(--Text-Light-Primary, #FFF);
@@ -56,6 +55,7 @@
                 }
                 .list-footer{
                     @include flex-box(column, space-between, flex-start, 24px);
+                    max-width: 180px;
                     li{
                         span{
                             color: var(--Text-Light-Primary, #FFF);
@@ -73,6 +73,7 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: 100%; /* 16px */
+                            max-width: 165px;
                         }
                     }
                 }

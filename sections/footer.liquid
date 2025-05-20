@@ -1,3 +1,8 @@
+{% assign footer_menu = linklists.footer %}
+{% assign links = footer_menu.links %}
+{% assign total = links.size %}
+{% assign group_size = total | divided_by: 2 | ceil %}
+
 <div class="container">
     {% comment %} <div class="footer_layout">
         <div class="footer-brand_wrapper">
@@ -104,26 +109,25 @@
         </div> {% endcomment %}
         <div class="footer-menus_wrapper">
 
-        <div class="footer-menu-list">
+        {% comment %} <div class="footer-menu-list">
             <ul class="list-footer">
-                <li><span>Shopping</span></li>
-                <li><a href="#">Delivery options</a></li>
-                <li><a href="#">Payment options</a></li>
-                <li><a href="/pages/return-policy">Returns Policy</a></li>
-                <li><a href="/pages/term-and-conditions">Terms and Conditions</a></li>
-                <li><a href="#">Overview of services</a></li>
-                <li><a href="#">Advertising terms</a></li>
-                <li><a href="#">Fraud and security</a></li>
-            </ul>
-        </div>
-        <div class="footer-menu-list">
-            <ul class="list-footer">
-                {% for link in linklists[block.settings.menu].links %}
+                {% for link in footer_menu.links %}
                     <li><a href="{{ link.url }}">{{ link.title }}</a></li>
                 {% endfor %}
             </ul>
+        </div> {% endcomment %}
+
+        <div class="footer-menu-list">
+            {% for group_index in (0..2) %}
+            <ul class="list-footer">
+                {% assign start = group_index | times: group_size %}
+                {% assign sliced_links = links | slice: start, group_size %}
+                {% for link in sliced_links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
         </div>
-        
         
     </div>
 
