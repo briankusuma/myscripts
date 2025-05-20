@@ -43,7 +43,7 @@
                 width: 100%;
             }
             .footer-menu-list{
-                @include flex-box(row, space-between, flex-start, 100px);
+                @include flex-box(row, space-between, flex-start, 50px);
                 .list-lang{
                     @include flex-box(row, space-between, center, 16px);
                     color: var(--Text-Light-Primary, #FFF);
@@ -55,7 +55,6 @@
                 }
                 .list-footer{
                     @include flex-box(column, space-between, flex-start, 24px);
-                    max-width: 180px;
                     li{
                         span{
                             color: var(--Text-Light-Primary, #FFF);
