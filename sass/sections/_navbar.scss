@@ -17,9 +17,12 @@
             }
             .navbar_menus{
                 @include flex-box(row, space-between, center, 16px);
+                position: relative;
                 width: 100%;
                 &-left{
                     @include flex-box(row, space-between, center, 32px);
+                    margin-left: auto;
+                    margin-right: auto;
                     a{
                         color: #2E4653;
                         font-family: Poppins;
@@ -50,21 +53,75 @@
                         line-height: 100%; /* 14px */
                         letter-spacing: -0.14px;
                     }
+
+                }
+                .navbar-search{
+                    position: absolute;
+                    right: 40px;
+                    border-radius: 102px;
+                    background: #F5F5F5;
+                    display: flex;
+                    padding: 8px 12px 8px 12px;
+                    align-items: center;
+                    gap: 8px;
+                    form{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        
+                        input{
+                            height: 30px;
+                            border-color: transparent;
+                            background-color: transparent;
+                            width: 80px;
+                            padding-left: 8px;
+                            transition: width 0.4s ease, background-color 0.3s ease;
+                            &:focus-visible {
+                                width: 310px;
+                                background-color: white;
+                            }
+                        }
+
+                        button{
+                            border-color: transparent;
+                            background-color: transparent;
+                        }
+                    }
                 }
             }
             .navbar_button{
                 display: none;
+            }
+            .navbar-search_mobile{
+                border-radius: 100%;
+                background: transparent;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                a{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
             }
         }
     }
 }
 
 @media(max-width: 768px) {
-    .cart_menus{
-        margin-left: auto!important;
+    .navbar-search{
+        display: none!important;
+    }
+    .navbar-search_mobile{
+        display: flex!important;
+        margin-left: auto !important;
+    }
+    .navbar_brand{
+        margin-left: auto !important;
     }
     .navbar_menus{
         display: none!important;
+
         // display: flex;
         flex-direction: column!important;
         align-items: center;
