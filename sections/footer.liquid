@@ -7,11 +7,13 @@
     <div class="footer_layout-menu">
         <div class="footer-menu-list">
             <div class="footer_brand">
-                {% if section.settings.logo_brand %}
-                <img class="logo-brand" src="{{ section.settings.logo_brand | image_url: width: 150 }}" alt="Logo Brand" width="150" height="30">
-            {% else %}
-                <img class="logo-brand" src="{{ 'Logo-myscripts.svg' | asset_url }}" alt="Logo Brand" width="150" height="30">
-            {% endif %}
+                <a href="/">
+                    {% if section.settings.logo_brand %}
+                        <img class="logo-brand" src="{{ section.settings.logo_brand | image_url: width: 150 }}" alt="Logo Brand" width="150" height="30">
+                    {% else %}
+                        <img class="logo-brand" src="{{ 'Logo-myscripts.svg' | asset_url }}" alt="Logo Brand" width="150" height="30">
+                    {% endif %}
+                </a>
             </div>
         </div>
         <div class="footer-menus_wrapper">
