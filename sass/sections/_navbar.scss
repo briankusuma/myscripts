@@ -86,6 +86,10 @@
                         button{
                             border-color: transparent;
                             background-color: transparent;
+                            cursor: pointer;
+                            :hover{
+                                transform: translate(-1px, -2px);
+                            }
                         }
                     }
                 }
