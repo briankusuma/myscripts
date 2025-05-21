@@ -162,7 +162,21 @@
 // serach style page
 
 .search{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     .container{
+        h1{
+            color: #274250;
+            font-family: Poppins;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 120%; /* 28.8px */
+            letter-spacing: -0.24px;
+            margin-bottom: 24px;
+        }
         .search-content{
             display: flex;
             flex-direction: column;
@@ -178,7 +192,75 @@
             align-items: flex-start;
             justify-content: center;
             gap: 24px;
-            padding-top: 60px;
+            .header-card-search{
+                font-size: 20px;
+            }
         }
+        .search-page-input{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 102px;
+            background: #FFF;
+            padding: 8px 20px 8px 12px;
+            gap: 8px;
+            
+            input{
+                height: 48px;
+                border-color: transparent;
+                background-color: transparent;
+                width: 100%;
+                padding-left: 8px;
+            }
+
+            button{
+                border-color: transparent;
+                background-color: transparent;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                :hover{
+                    transform: translate(-1px, -2px);
+                }
+            }
+        }
+
+    }
+}
+.bg-search{
+    background: linear-gradient(180deg, rgba(250, 241, 242, 0.00) 0%, #FAF1F2 100%), #FFF;
+}
+.search-result{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+}
+
+.search-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: padding 0.3s ease;
+}
+
+.search-content.has-results {
+    padding-top: 80px;
+    padding-bottom: 120px;
+}
+.search-summary{
+    max-width: 1282px;
+    width: 100%;
+    margin: auto;
+    padding-bottom: 32px;
+    padding-inline: 80px;
+    p{
+        color: #2E4653;
+        font-family: Poppins;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 100%; /* 14px */
+        letter-spacing: -0.14px;
     }
 }

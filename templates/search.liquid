@@ -1,55 +1,62 @@
-<div class="search section-full">
+<div class="search bg-search section-full">
   <div class="container">
-    <div class="search-content">
-      <h1>Search Result</h1>
-      {% paginate search.results by 10 %}
-        <form action="/search" method="get" role="search">
-          <input type="search" name="q" value="{{ search.terms | escape }}">
-          <button type="submit">search</button>
-        </form>
-      <div class="search-result">
-        {% if search.performed %}
-          {% for item in search.results %}
+    <h1>Search</h1>
+    {% paginate search.results by 10 %}
+      <form class="search-page-input" action="/search" method="get" role="search">
+      <button type="submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M21.5318 20.4694L16.8378 15.7763C18.1983 14.1429 18.8767 12.0478 18.7319 9.92694C18.5871 7.80607 17.6302 5.82268 16.0603 4.38935C14.4904 2.95602 12.4284 2.18311 10.3031 2.23141C8.17785 2.27971 6.15303 3.1455 4.64986 4.64867C3.14669 6.15184 2.2809 8.17666 2.2326 10.3019C2.1843 12.4272 2.95721 14.4892 4.39054 16.0591C5.82387 17.629 7.80726 18.5859 9.92813 18.7307C12.049 18.8755 14.144 18.1971 15.7774 16.8366L20.4706 21.5306C20.5403 21.6003 20.623 21.6556 20.714 21.6933C20.8051 21.731 20.9026 21.7504 21.0012 21.7504C21.0997 21.7504 21.1973 21.731 21.2884 21.6933C21.3794 21.6556 21.4621 21.6003 21.5318 21.5306C21.6015 21.4609 21.6568 21.3782 21.6945 21.2872C21.7322 21.1961 21.7516 21.0985 21.7516 21C21.7516 20.9015 21.7322 20.8039 21.6945 20.7128C21.6568 20.6218 21.6015 20.5391 21.5318 20.4694ZM3.75119 10.5C3.75119 9.16498 4.14707 7.85993 4.88877 6.7499C5.63047 5.63987 6.68468 4.77471 7.91808 4.26381C9.15148 3.75292 10.5087 3.61925 11.8181 3.8797C13.1274 4.14015 14.3302 4.78303 15.2742 5.72703C16.2182 6.67103 16.861 7.87377 17.1215 9.18314C17.3819 10.4925 17.2483 11.8497 16.7374 13.0831C16.2265 14.3165 15.3613 15.3707 14.2513 16.1124C13.1413 16.8541 11.8362 17.25 10.5012 17.25C8.71159 17.248 6.99585 16.5362 5.73041 15.2708C4.46497 14.0053 3.75318 12.2896 3.75119 10.5Z" fill="#274250"/>
+        </svg>
+      </button>
+        <input type="search" name="q" value="{{ search.terms | escape }}">
+      </form>
+    {% endpaginate %}
+  </div>
+</div>
 
-            {% comment %} {% if item.featured_image %}
-              <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
-                {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
-              </a>
-            {% endif %}
-            <h5>{{ item.title | link_to: item.url }}</h5>
-            <p>{{ item.content | strip_html | truncatewords: 50 }}</p> {% endcomment %}
 
-            <div class="begin_info-items" >
-                <div class="begin_bedge">{{ item.type }}</div>
 
-                {% if item.featured_image %}
-                  <a class="begin-card_image" href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
-                    {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
-                  </a>
-                {% endif %}
-
-                <h2>{{ item.title | link_to: item.url }}</h2>
-
-                <p>Starting {{ item.price | money }}/mo</p>
-
-                <p>{{ item.content | strip_html | truncatewords: 20 }}</p>
-
-                <div class="begin_button-wrapper">
-                    {% comment %} <button class="button btn-black is-small is-fullwidth">Get Started</button> {% endcomment %}
-                    <a class="button btn-outline is-small is-fullwidth" 
-                    href="{{ item.url | within: collection }}">Learn more</a>
-                </div>
-            </div>
-
-          {% else %}
-            no results
-          {% endfor %}
+<div class="search-content{% if search.results.size > 0 %} has-results{% endif %}">
+  {% paginate search.results by 10 %}
+    {% if search.performed %}
+      <div class="search-summary">
+        {% if search.results.size > 0 %}
+          <p>{{ search.results.size }} result{% if search.results.size > 1 %}s{% endif %} found for <strong>"{{ search.terms }}"</strong></p>
+        {% else %}
+          <p>No results found for <strong>"{{ search.terms }}"</strong></p>
         {% endif %}
       </div>
+    {% endif %}
+    <div class="search-result">
       
-        {% if paginate.pages > 1 %}{{ paginate | default_pagination }}{% endif %}
-      {% endpaginate %}
+      {% if search.performed %}
+
+        {% for item in search.results %}
+          <div class="begin_info-items ">
+              <div class="begin_bedge">{{ item.type }}</div>
+
+              {% if item.featured_image %}
+                <a class="begin-card_image" href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
+                  {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
+                </a>
+              {% endif %}
+
+              <h2 class="header-card-search">{{ item.title | link_to: item.url }}</h2>
+
+              <p>Starting {{ item.price | money }}/mo</p>
+
+              <div class="begin_button-wrapper">
+                  <a class="button btn-outline is-small is-fullwidth" 
+                  href="{{ item.url | within: collection }}">Learn more</a>
+              </div>
+          </div>
+        {% else %}
+          no results
+        {% endfor %}
+      {% endif %}
     </div>
-  </div>
+  
+    {% if paginate.pages > 1 %}{{ paginate | default_pagination }}{% endif %}
+  {% endpaginate %}
 </div>
 
