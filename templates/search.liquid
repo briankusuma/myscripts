@@ -7,20 +7,45 @@
           <input type="search" name="q" value="{{ search.terms | escape }}">
           <button type="submit">search</button>
         </form>
-      
+      <div class="search-result">
         {% if search.performed %}
           {% for item in search.results %}
-            {% if item.featured_image %}
+
+            {% comment %} {% if item.featured_image %}
               <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
                 {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
               </a>
             {% endif %}
             <h5>{{ item.title | link_to: item.url }}</h5>
-            <p>{{ item.content | strip_html | truncatewords: 50 }}</p>
+            <p>{{ item.content | strip_html | truncatewords: 50 }}</p> {% endcomment %}
+
+            <div class="begin_info-items" >
+                <div class="begin_bedge">{{ item.type }}</div>
+
+                {% if item.featured_image %}
+                  <a class="begin-card_image" href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
+                    {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
+                  </a>
+                {% endif %}
+
+                <h2>{{ item.title | link_to: item.url }}</h2>
+
+                <p>Starting {{ item.price | money }}/mo</p>
+
+                <p>{{ item.content | strip_html | truncatewords: 20 }}</p>
+
+                <div class="begin_button-wrapper">
+                    {% comment %} <button class="button btn-black is-small is-fullwidth">Get Started</button> {% endcomment %}
+                    <a class="button btn-outline is-small is-fullwidth" 
+                    href="{{ item.url | within: collection }}">Learn more</a>
+                </div>
+            </div>
+
           {% else %}
             no results
           {% endfor %}
         {% endif %}
+      </div>
       
         {% if paginate.pages > 1 %}{{ paginate | default_pagination }}{% endif %}
       {% endpaginate %}

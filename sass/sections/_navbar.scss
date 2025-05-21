@@ -172,5 +172,13 @@
                 margin-bottom: 64px;
             }
         }
+        .search-result{
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 24px;
+            padding-top: 60px;
+        }
     }
 }
