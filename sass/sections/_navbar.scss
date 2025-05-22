@@ -79,7 +79,11 @@
                             transition: width 0.4s ease, background-color 0.3s ease;
                             &:focus-visible {
                                 width: 310px;
-                                background-color: white;
+                                background-color: transparent;
+                                outline: none;
+                            }
+                            &:focus{
+                                background-color: transparent;
                             }
                         }
 
@@ -213,6 +217,14 @@
                 background-color: transparent;
                 width: 100%;
                 padding-left: 8px;
+                    &:focus-visible {
+                        background-color: transparent;
+                        outline: none;
+                    }
+                    &:focus{
+                        background-color: transparent;
+                    }
+    
             }
 
             button{
