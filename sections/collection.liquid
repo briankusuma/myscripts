@@ -1,4 +1,4 @@
-<!-- Row untuk Judul Koleksi -->
+<!-- Row title Product -->
 <div class="container">
     <div class="collections-titles">
     {% for collection in collections %}
@@ -22,7 +22,8 @@
         {% endfor %}
         </div>
         
-    <!-- Row untuk Card Produk -->
+    <!-- Row Card Product -->
+
     <div class="collections-products collections-products_layout">
     {% for collection in collections %}
         {% unless collection.handle == 'frontpage' %}
@@ -31,7 +32,7 @@
             {% assign is_default = true %}
         {% endif %}
 
-        {% for product in collection.products limit:6 %}
+        {% for product in collection.products %}
             <div class="begin_info-items" 
                 data-collection="{{ collection.handle }}" 
                 style="display: {% if is_default %}block{% else %}none{% endif %};">

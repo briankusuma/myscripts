@@ -144,12 +144,14 @@
             align-items: center!important;
             justify-content: center!important;
             gap: 20px!important;
+            padding: unset!important;
         }
     }
     .navbar_menus.active{
         display: flex!important;
         z-index: 999;
         top: 80px;
+        position: absolute!important;
     }
     .navbar_button{
         display: block!important;
@@ -224,7 +226,6 @@
                 }
             }
         }
-
     }
 }
 .bg-search{
@@ -233,6 +234,7 @@
 .search-result{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
     gap: 24px;
@@ -242,18 +244,53 @@
     padding-top: 0;
     padding-bottom: 0;
     transition: padding 0.3s ease;
+    .container{
+        .search-header{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            .sort-wrapper{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                gap: 8px;
+                align-items: center;
+                label{
+                    color: #2E4653;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%; /* 14px */
+                    letter-spacing: -0.14px;
+                }
+                select{
+                    color: #2E4653;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 100%;
+                    letter-spacing: -0.14px;
+                    border: none;
+                    width: 100px;
+                }
+                
+            }
+        }
+    }
 }
 
 .search-content.has-results {
     padding-top: 80px;
     padding-bottom: 120px;
+    .container{
+        padding-inline: 100px;
+    }
 }
 .search-summary{
-    max-width: 1282px;
-    width: 100%;
-    margin: auto;
-    padding-bottom: 32px;
-    padding-inline: 80px;
     p{
         color: #2E4653;
         font-family: Poppins;
