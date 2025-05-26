@@ -1,9 +1,17 @@
 <div class="container">
     <div class="clinicaly-content">
-        {% comment %} <img class="image-clinicaly" src="{{ 'clinicaly-image.png' | asset_url }}" alt="Icon" width="1376" height="814"> {% endcomment %}
         <div class="clinicaly-content_text">
-            <span class="clinicaly-content_text-bedge">Wegovy</span>
-            <h1 class="clinicaly-content_text-title">Lose up to <span>20%</span> of your bodyweight</h1>
+
+            <span class="clinicaly-content_text-bedge">
+                {{ section.settings.badge | escape }}
+            </span>
+            <h1 class="clinicaly-content_text-title">
+                {{ section.settings.lose | escape }} <span>{{ section.settings.number | escape }}</span> {{ section.settings.bodyweight | escape }}
+            </h1>
+
+            {% comment %} <span class="clinicaly-content_text-bedge">Wegovy</span>
+            <h1 class="clinicaly-content_text-title">Lose up to <span>20%</span> of your bodyweight</h1> {% endcomment %}
+            
             <div class="clinicaly-content_text-weightcal">
                 <span>Weight calculator</span>
                 <div class="card">
@@ -32,15 +40,15 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const weightSlider = document.getElementById('weight-slider');
     const currentWeightDisplay = document.getElementById('current-weight-display');
     const potentialLossDisplay = document.getElementById('potential-loss-display');
     
     // Check if elements exist before proceeding
     if (!weightSlider || !currentWeightDisplay || !potentialLossDisplay) {
-      console.error('Calculator elements not found.');
-      return;
+        console.error('Calculator elements not found.');
+        return;
     }
 
     // Extract units safely
@@ -50,33 +58,64 @@
     const potentialLossUnit = potentialLossUnitEl ? potentialLossUnitEl.textContent : 'lbs';
 
     const calculateAndUpdate = () => {
-      const currentWeight = parseInt(weightSlider.value, 10);
-      const potentialLoss = Math.round(currentWeight * 0.20); // Using 20%
+    const currentWeight = parseInt(weightSlider.value, 10);
+    const potentialLoss = Math.round(currentWeight * 0.20); // Using 20%
 
-      currentWeightDisplay.innerHTML = `${currentWeight} <span class="unit">${currentWeightUnit}</span>`;
-      potentialLossDisplay.innerHTML = `${potentialLoss} <span class="unit">${potentialLossUnit}</span>`;
+    currentWeightDisplay.innerHTML = `${currentWeight} <span class="unit">${currentWeightUnit}</span>`;
+    potentialLossDisplay.innerHTML = `${potentialLoss} <span class="unit">${potentialLossUnit}</span>`;
 
-      // Update slider background fill
-      const min = parseInt(weightSlider.min, 10);
-      const max = parseInt(weightSlider.max, 10);
-      const percentage = ((currentWeight - min) / (max - min)) * 100;
-      const trackFillColor = '#EF4444'; // Red color for the fill
-      const trackBgColor = '#E5E7EB';   // Background color for the unfilled part
-      weightSlider.style.background = `linear-gradient(to right, ${trackFillColor} ${percentage}%, ${trackBgColor} ${percentage}%)`;
-    };
+    // Update slider background fill
+    const min = parseInt(weightSlider.min, 10);
+    const max = parseInt(weightSlider.max, 10);
+    const percentage = ((currentWeight - min) / (max - min)) * 100;
+    const trackFillColor = '#EF4444'; // Red color for the fill
+    const trackBgColor = '#E5E7EB';   // Background color for the unfilled part
+    weightSlider.style.background = `linear-gradient(to right, ${trackFillColor} ${percentage}%, ${trackBgColor} ${percentage}%)`;
+};
 
-    // Initial calculation and style update on load
-    calculateAndUpdate();
+// Initial calculation and style update on load
+calculateAndUpdate();
 
-    // Update on slider change
-    weightSlider.addEventListener('input', calculateAndUpdate);
-  });
+// Update on slider change
+weightSlider.addEventListener('input', calculateAndUpdate);
+});
 </script>
 
 {% schema %}
 {
     "name": "Clinicaly Home Section",
     "tag": "section",
-    "class": "clinicaly section-full"
+    "class": "clinicaly section-full",
+    "settings": [
+    {
+        "type": "text",
+        "id": "badge",
+        "label": "Badge Text",
+        "default": "Ozempic"
+    },
+    {
+        "type": "text",
+        "id": "lose",
+        "label": "Title - Before Span",
+        "default": "Lose up to"
+    },
+    {
+        "type": "text",
+        "id": "number",
+        "label": "Title - Highlighted (Inside <span>)",
+        "default": "20%"
+    },
+        {
+        "type": "text",
+        "id": "bodyweight",
+        "label": "Title - After Span",
+        "default": "of your bodyweight"
+        }
+    ],
+    "presets": [
+        {
+        "name": "Clinicaly Text"
+        }
+    ]
 }
 {% endschema %}

@@ -1,16 +1,11 @@
 <div class="container">
   <div class="home-content_wrapper">
     <div class="home-content_wrapper-text">
-      {% comment %} <h1 class="home-display_title">
-        Prescriptions Made Simple <br>
-        <span>Delivered Discreetly & Fast</span>
-      </h1> {% endcomment %}
       <h1 class="home-display_title">
         {{ section.settings.title | escape }}<br>
         <span>{{ section.settings.subtitle | escape }}</span>
       </h1>
       <p class="home-display_paragraft">
-        {% comment %} Get prescribed treatments online with licensed providers. Your medication shipped fast and discreetly. {% endcomment %}
         {{ section.settings.description | escape }}
       </p>
       <div class="home-display_button-wrapper">
