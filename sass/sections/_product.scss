@@ -147,9 +147,14 @@
 @media(max-width: 768px) {
     .product-content_wrapper-card,
     .card-product{
-        flex-direction: column!important;
+        flex-direction: column-reverse!important;
         width: 100%;
-        padding: 48px 10px 20px 10px!important;
+        padding: 20px 10px 30px 10px!important;
+        .card-product_image{
+            width: 100%!important;
+            height: auto!important;
+            max-width: 200px!important;
+        }
     }
     .card-product_text{
         justify-content: center!important;

@@ -177,11 +177,15 @@
             padding-inline: 16px!important;
         }
     }
+    .clinicaly-content_text-title{
+        font-size: 28px!important;
+    }
     .clinicaly-content_cta-img{
         position: relative!important;
         right: 0px!important;
         width: 400px!important;
         height: 400px!important;
+        display: none;
     }
     .clinicaly-content{
         flex-direction: column!important;
@@ -194,9 +198,15 @@
     }
     .clinicaly-content_text-weightcal{
         margin-top: 40px!important;
+        .card{
+            padding: 20px!important;
+            .title{
+                font-size: 14px!important;
+            }
+        }
     }
     .clinicaly-content_text {
-        padding: 48px 20px 0px 20px!important;
+        padding: 20px 20px 20px 20px!important;
     }
     .weight{
         display: flex;
@@ -205,6 +215,8 @@
         justify-content: center;
         gap: 16px;
         line-height: 100%!important; /* 67.2px */
+        color: #FFF;
+        font-size: 32px!important;
         .unit{
             margin-left: 0px;
         }
