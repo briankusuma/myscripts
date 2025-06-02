@@ -56,8 +56,10 @@
     }
     .cta-content{
         flex-direction: column!important;
-        padding: 30px 20px 0px 20px!important;
+        padding: 30px 20px 20px 20px!important;
         overflow: hidden;
+        border-radius: 28px!important;
+        
     }
     .cta-content_image{
         margin-top: 0px!important;
