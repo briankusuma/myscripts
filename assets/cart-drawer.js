@@ -34,7 +34,7 @@ async function refreshCartPage() {
   
   try {
     // This will reload just the cart form content without a full page refresh
-    const response = await fetch('?section_id=main-cart');
+    const response = await fetch('?section_id=main-cart-items');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
