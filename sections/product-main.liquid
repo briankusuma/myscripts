@@ -12,7 +12,7 @@
             <span class="detail-display_paragraft">
                 {{ product.description }}
             </span>
-            <div class="dropdown" id="myDropdown">
+            {% comment %} <div class="dropdown" id="myDropdown">
                 <div class="dropdown-toggle">
                     <span class="text-toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 25" fill="none">
@@ -39,11 +39,11 @@
                     {% endif %}
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
                 {%- for block in section.blocks -%}
                     {%- if block.type == 'collapsible' -%}
-                        <details class="dropdown" id="myDropdown">
-                            <summary>
+                        <details class="dropdown active" id="myDropdown">
+                            <summary aria-expanded="false">
                                 <div class="dropdown-toggle">
                                     <span class="text-toggle">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 25" fill="none">
@@ -71,7 +71,7 @@
                         </details>
                     {%- endif -%}
                 {%- endfor -%}
-                
+
             <form class="form-btn_card" method="post" action="/cart/add">
             <input type="hidden" name="id" value="{{ product.variants.first.id }}">
             <button type="submit"
