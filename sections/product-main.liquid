@@ -65,12 +65,34 @@
                                 <div class="dropdown-option">
                                     <p class="how-to-take">
                                         {{ block.settings.collapsible_content }}
+                                        {{ product.metafields.custom.rich_text_content }}
                                     </p>
                                 </div>
                             </div>
                         </div>
                     {%- endif -%}
                 {%- endfor -%}
+
+                <div class="collapsible-content-section">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                        {% when 'collapsible_row' %}
+                            <details class="collapsible-row" {{ block.shopify_attributes }}>
+                            {% if block.settings.heading != blank %}
+                                <summary class="collapsible-heading">
+                                {{ block.settings.heading }}
+                                </summary>
+                            {% endif %}
+                            
+                            {% if block.settings.row_content != blank %}
+                                <div class="collapsible-content">
+                                {{ block.settings.row_content }}
+                                </div>
+                            {% endif %}
+                            </details>
+                        {% endcase %}
+                    {% endfor %}
+                </div>
 
             <form class="form-btn_card" method="post" action="/cart/add">
             <input type="hidden" name="id" value="{{ product.variants.first.id }}">
@@ -166,41 +188,26 @@
         "class": "hero-detail section-full",
         "blocks": [
                 {
-                "type": "collapsible",
-                "name": "collapsible",
+                "type": "collapsible_row",
+                "name": "Collapsible Row",
                 "settings": [
                     {
                     "type": "text",
                     "id": "heading",
-                    "default": "collapsible heading",
-                    "label": "collapsible heading"
+                    "label": "Heading"
                     },
                     {
                     "type": "richtext",
-                    "id": "collapsible_content",
-                    "label": "collapsible content"
+                    "id": "row_content",
+                    "label": "Content"
                     }
                 ]
                 }
             ],
             "presets": [
-                {
-                "name": "collapsible content",
-                "blocks": [
                     {
-                    "type": "collapsible"
-                    },
-                    {
-                    "type": "collapsible"
-                    },
-                    {
-                    "type": "collapsible"
-                    },
-                    {
-                    "type": "collapsible"
+                    "name": "Collapsible Content"
                     }
                 ]
-                }
-            ]
     }
 {% endschema %}
