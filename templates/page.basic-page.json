@@ -1,0 +1,14 @@
+{
+    "sections": {
+        "basic-header": {
+            "type": "basic-header"
+        },
+        "basic-desc": {
+            "type": "basic-desc"
+        }
+    },
+    "order": [
+        "basic-header",
+        "basic-desc"
+]
+}
