@@ -64,7 +64,7 @@
                             <div class="dropdown-options">
                                 <div class="dropdown-option">
                                     <p class="how-to-take">
-                                        {{ block.settings.collapsible_content | json | escape }}
+                                        {{ block.settings.collapsible_content }}
                                     </p>
                                 </div>
                             </div>
@@ -172,14 +172,13 @@
                     {
                     "type": "text",
                     "id": "heading",
-                    "default": "how it work",
+                    "default": "collapsible heading",
                     "label": "collapsible heading"
                     },
                     {
                     "type": "richtext",
                     "id": "collapsible_content",
-                    "label": "collapsible content",
-                    "default":"asdadadas"
+                    "label": "collapsible content"
                     }
                 ]
                 }
