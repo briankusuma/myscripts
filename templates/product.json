@@ -15,8 +15,7 @@
         "collapsible_XF8eq3": {
           "type": "collapsible",
           "settings": {
-            "heading": "How to take",
-            "collapsible_content": "<p>{{ product.metafields.custom.how_it_take | metafield_tag }}</p>"
+            "heading": "How to take"
           }
         }
       },
