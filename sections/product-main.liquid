@@ -24,6 +24,8 @@
                     <path d="M13.354 6.85372L8.35403 11.8537C8.30759 11.9002 8.25245 11.9371 8.19175 11.9623C8.13105 11.9874 8.06599 12.0004 8.00028 12.0004C7.93457 12.0004 7.86951 11.9874 7.80881 11.9623C7.74811 11.9371 7.69296 11.9002 7.64653 11.8537L2.64653 6.85372C2.55271 6.7599 2.5 6.63265 2.5 6.49997C2.5 6.36729 2.55271 6.24004 2.64653 6.14622C2.74035 6.0524 2.8676 5.99969 3.00028 5.99969C3.13296 5.99969 3.26021 6.0524 3.35403 6.14622L8.00028 10.7931L12.6465 6.14622C12.693 6.09977 12.7481 6.06292 12.8088 6.03778C12.8695 6.01263 12.9346 5.99969 13.0003 5.99969C13.066 5.99969 13.131 6.01263 13.1917 6.03778C13.2524 6.06292 13.3076 6.09977 13.354 6.14622C13.4005 6.19268 13.4373 6.24783 13.4625 6.30852C13.4876 6.36922 13.5006 6.43428 13.5006 6.49997C13.5006 6.56567 13.4876 6.63072 13.4625 6.69142C13.4373 6.75212 13.4005 6.80727 13.354 6.85372Z" fill="#274250"/>
                 </svg>
             </div>
+
+
             <div class="dropdown-options">
                 <div class="dropdown-option">
 
@@ -38,6 +40,32 @@
                 {% endif %}
                 </div>
             </div>
+
+            {%- for block in section.blocks -%}
+                {%- if block.type == 'collapsible_row' -%}
+                <div class="accordion__item" {{ block.shopify_attributes }}>
+                    <details id="Details-{{ block.id }}-{{ section.id }}">
+                    <summary>
+                        <div class="summary__title">
+                        <h2 class="accordion__heading h4">{{ block.settings.heading }}</h2>
+                        </div>
+                    </summary>
+            
+                    <div class="accordion__content rte" id="AccordionContent-{{ block.id }}-{{ section.id }}">
+                        {%- if block.settings.row_content != blank -%}
+                        {{ block.settings.row_content }}
+                        {%- endif -%}
+            
+                        {%- if block.settings.page != blank and block.settings.page.content != blank -%}
+                        {{ block.settings.page.content }}
+                        {%- endif -%}
+                    </div>
+                    </details>
+                </div>
+                {%- endif -%}
+            {%- endfor -%}
+            
+
             </div>
             {% comment %} <form class="form-btn_card" method="post" action="/cart/add">
                 <input type="hidden" name="id" value="{{ product.variants.first.id }}">
@@ -115,18 +143,18 @@
     </div>
 </div>
 <script>
-const dropdown = document.getElementById('myDropdown');
-const toggle = dropdown.querySelector('.dropdown-toggle');
+    const dropdown = document.getElementById('myDropdown');
+    const toggle = dropdown.querySelector('.dropdown-toggle');
 
-toggle.addEventListener('click', () => {
-    dropdown.classList.toggle('active');
-});
+    toggle.addEventListener('click', () => {
+        dropdown.classList.toggle('active');
+    });
 
-document.addEventListener('click', (e) => {
-    if (!dropdown.contains(e.target)) {
-    dropdown.classList.remove('active');
-    }
-});
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('active');
+        }
+    });
 </script>
 
 
@@ -134,6 +162,49 @@ document.addEventListener('click', (e) => {
     {
         "name": "Product detail Section",
         "tag": "section",
-        "class": "hero-detail section-full"
+        "class": "hero-detail section-full",
+        "blocks": [
+                {
+                "type": "collapsible_row",
+                "name": "t:sections.collapsible_content.blocks.collapsible_row.name",
+                "settings": [
+                    {
+                    "type": "text",
+                    "id": "heading",
+                    "default": "t:sections.collapsible_content.blocks.collapsible_row.settings.heading.default",
+                    "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.heading.label"
+                    },
+                    {
+                    "type": "richtext",
+                    "id": "row_content",
+                    "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.row_content.label"
+                    },
+                    {
+                    "type": "page",
+                    "id": "page",
+                    "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.page.label"
+                    }
+                ]
+                }
+            ],
+            "presets": [
+                {
+                "name": "t:sections.collapsible_content.presets.name",
+                "blocks": [
+                    {
+                    "type": "collapsible_row"
+                    },
+                    {
+                    "type": "collapsible_row"
+                    },
+                    {
+                    "type": "collapsible_row"
+                    },
+                    {
+                    "type": "collapsible_row"
+                    }
+                ]
+                }
+            ]
     }
 {% endschema %}
