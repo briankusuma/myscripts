@@ -64,7 +64,7 @@
                             <div class="dropdown-options">
                                 <div class="dropdown-option">
                                     <p class="how-to-take">
-                                        {{ block.settings.collapsible_content | html }}
+                                        {{ block.settings.collapsible_content | json | escape }}
                                     </p>
                                 </div>
                             </div>
