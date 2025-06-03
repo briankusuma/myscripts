@@ -12,9 +12,11 @@
             position: relative;
             @include flex-box(row, space-between, center, 16px);
             border-radius: 48px;
-            padding-inline: 80px;
-            background: linear-gradient(180deg, #111D23 0%, #223C4A 100%);
-            // background: url('background-clinicaly.png') center/cover no-repeat; 
+            padding-left: 80px;
+            background: 
+            url('ornament-weighloss.png') right / contain no-repeat,
+            linear-gradient(180deg, #111D23 0%, #223C4A 100%);
+        
             &_text{
                 &-title{
                     color: #FFF;
@@ -24,7 +26,7 @@
                     font-weight: 500;
                     line-height: 120%; /* 48px */
                     letter-spacing: -0.4px;
-                    max-width: 405px;
+                    max-width: 575px;
                     span{
                         color: rgba(255, 255, 255, 0.60);
                     }
@@ -56,10 +58,12 @@
     }
     .cta-content{
         flex-direction: column!important;
-        padding: 30px 20px 20px 20px!important;
+        padding: 40px 24px 40px 24px!important;
         overflow: hidden;
         border-radius: 28px!important;
+        background: url(ornament-weighloss.png) bottom / contain no-repeat, linear-gradient(180deg, #111D23 0%, #223C4A 100%)!important;
         
+    
     }
     .cta-content_image{
         margin-top: 0px!important;
@@ -74,6 +78,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         .cta-content_text-title{
             color: #FFF;
             text-align: center;
