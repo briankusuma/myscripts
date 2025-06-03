@@ -42,8 +42,6 @@
             </div>
                 {%- for block in section.blocks -%}
                     {%- if block.type == 'collapsible' -%}
-
-                    <div class="" {{ block.shopify_attributes }}>
                         <details class="dropdown" id="myDropdown">
                             <summary>
                                 <div class="dropdown-toggle">
@@ -62,7 +60,7 @@
                             {% comment %} <div class="accordion__content rte" id="AccordionContent-{{ block.id }}-{{ section.id }}">
                                     {{ block.settings.collapsible-content }}
                             </div> {% endcomment %}
-                            
+
                             <div class="dropdown-options">
                                 <div class="dropdown-option">
                                     <p class="how-to-take">
@@ -71,14 +69,9 @@
                                 </div>
                             </div>
                         </details>
-                    </div>
-                    
                     {%- endif -%}
                 {%- endfor -%}
-            {% comment %} <form class="form-btn_card" method="post" action="/cart/add">
-                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                <button type="submit" class="button btn-primary is-big is-fullwidth">Add to Cart</button>
-            </form> {% endcomment %}
+                
             <form class="form-btn_card" method="post" action="/cart/add">
             <input type="hidden" name="id" value="{{ product.variants.first.id }}">
             <button type="submit"
