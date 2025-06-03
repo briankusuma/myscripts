@@ -15,7 +15,8 @@
         "collapsible_XF8eq3": {
           "type": "collapsible",
           "settings": {
-            "heading": "How to take"
+            "heading": "How to take",
+            "collapsible_content": "<p>{{ product.vendor }}</p>"
           }
         }
       },
