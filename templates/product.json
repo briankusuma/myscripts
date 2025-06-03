@@ -16,7 +16,7 @@
           "type": "collapsible",
           "settings": {
             "heading": "How to take",
-            "collapsible-content": "<p>{{ product.metafields.custom.how_it_take | metafield_tag }}</p>"
+            "collapsible_content": "<p>{{ product.metafields.custom.how_it_take | metafield_tag }}</p>"
           }
         }
       },
