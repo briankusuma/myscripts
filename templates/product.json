@@ -12,16 +12,16 @@
     "product-main": {
       "type": "product-main",
       "blocks": {
-        "collapsible_XF8eq3": {
-          "type": "collapsible",
+        "collapsible_row_hqGxhB": {
+          "type": "collapsible_row",
           "settings": {
-            "heading": "How to take",
-            "collapsible_content": "<p>{{ product.vendor }}</p>"
+            "heading": "how to take",
+            "row_content": "<p>{{ product.metafields.custom.how_it_take | metafield_tag }}</p>"
           }
         }
       },
       "block_order": [
-        "collapsible_XF8eq3"
+        "collapsible_row_hqGxhB"
       ],
       "settings": {}
     },
