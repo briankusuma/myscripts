@@ -116,7 +116,7 @@
 
 <style>
     .detail-product-page{
-        flex-direction: {{ section.settings.flex_direction }};
+        flex-direction: {{ section.settings.flex_direction }}!important;
     }
 </style>
 
@@ -130,10 +130,10 @@
             {
             "type": "select",
             "id": "flex_direction",
-            "label": "image product",
+            "label": "Image Product",
             "options": [
-                { "value": "row", "label": "image right" },
-                { "value": "row-reverse", "label": "image left" },
+                { "value": "row", "label": "right" },
+                { "value": "row-reverse", "label": "left" },
             ],
             "default": "row"
             }
