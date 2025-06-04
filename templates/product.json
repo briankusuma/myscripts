@@ -12,18 +12,22 @@
     "product-main": {
       "type": "product-main",
       "blocks": {
-        "collapsible_row_hqGxhB": {
+        "collapsible_row_Twtbyr": {
           "type": "collapsible_row",
           "settings": {
             "heading": "how to take",
-            "row_content": "<p>{{ product.metafields.custom.how_it_take | metafield_tag }}</p>"
+            "row_content": "<p>{{ product.metafields.custom.how_to_take_2 | metafield_tag }}</p>"
           }
         }
       },
       "block_order": [
-        "collapsible_row_hqGxhB"
+        "collapsible_row_Twtbyr"
       ],
-      "settings": {}
+      "settings": {
+        "flex_direction": "row",
+        "display_tag": "none",
+        "price_tag": "32px"
+      }
     },
     "testimoni": {
       "type": "testimoni",
