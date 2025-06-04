@@ -16,7 +16,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "how to take",
-            "row_content": "<p>{{ product.metafields.custom.how_to_take_3 | metafield_tag }}</p>"
+            "row_content": "<p>{{ product.metafields.custom.how_it_take | metafield_tag }}</p>"
           }
         }
       },
@@ -24,9 +24,9 @@
         "collapsible_row_AYaaff"
       ],
       "settings": {
-        "flex_direction": "row-reverse",
-        "display_tag": "block",
-        "price_tag": "40px"
+        "flex_direction": "row",
+        "display_tag": "none",
+        "price_tag": "20px"
       }
     },
     "testimoni": {
