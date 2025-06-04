@@ -4,7 +4,7 @@
 <div class="container">
     <div class="detail-content_wrapper detail-product-page">
         <div class="detail-content_wrapper-text detail-product-page_txt">
-            {% comment %} <div class="tag_detail">{{ product.type }}</div> {% endcomment %}
+            <div class="tag_detail show-tag">{{ product.type }}</div>
             <h1 class="detail-display_title">
                 {{ product.title }}
             </h1>
@@ -118,6 +118,9 @@
     .detail-product-page{
         flex-direction: {{ section.settings.flex_direction }}!important;
     }
+    .show-tag{
+        display: {{ section.settings.display_tag }}!important;;
+    }
 </style>
 
 
@@ -141,6 +144,23 @@
         "presets": [
             {
             "name": "Flex Layout"
+            }
+        ],
+        "settings": [
+            {
+            "type": "select",
+            "id": "display_tag",
+            "label": "Badge Product",
+            "options": [
+                { "value": "block", "label": "Show" },
+                { "value": "none", "label": "Hide" },
+            ],
+            "default": "none"
+            }
+        ],
+        "presets": [
+            {
+            "name": "Badge Product"
             }
         ],
         "blocks": [
