@@ -38,6 +38,8 @@
                 flex-direction: row;
                 gap: 16px;
                 max-width: 100%;
+                flex-wrap: wrap;
+                justify-content: center;
                 .begin_info-items{
                     position: relative;
                     display: flex;

@@ -7,7 +7,7 @@
     .container{
         padding-top: 120px!important;
         padding-bottom: 80px!important;
-        padding-inline: 120px!important;
+        // padding-inline: 120px!important;
         .faq-content{
             @include flex-box(column, start, flex-start, 24px);
             &_title{
@@ -148,5 +148,15 @@
         button{
             width: 100%!important;
         }
+    }
+}
+
+@media(max-width: 1024px) {
+    .faq-content_stillhave{
+        padding: 40px 20px 40px 20px!important;
+        max-width: 400px;
+    }
+    .faq-container{
+        max-width: 600px!important;
     }
 }

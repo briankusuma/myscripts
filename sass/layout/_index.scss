@@ -23,13 +23,13 @@
 @media(max-width: 768px) {
   .section {
     width: 100%;
-    padding: 40px 16px;
+    padding: 24px 16px;
   
     &-full {
       padding: 0 0px;
 
       .container {
-        padding: 40px 16px;
+        padding: 24px 16px;
   
         &.no-padding {
           padding: 0;
@@ -38,6 +38,16 @@
     }
   }
 }
+@media(max-width: 1024px) {
+  .section-full {
+    .container{
+      width: 100%;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+}
+
 .container {
   width: 100%;
   max-width: 1392px;

@@ -49,6 +49,18 @@
         }
     }
 }
+
+@media(max-width: 1024px) {
+    .cta-content{
+        padding-left: 40px!important;
+    }
+    .cta-content_images{
+        width: 425px;
+        height: 480px;
+    }
+}
+
+
 @media(max-width: 768px) {
     .cta{
         .container{
