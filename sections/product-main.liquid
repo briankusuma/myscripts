@@ -119,7 +119,10 @@
         flex-direction: {{ section.settings.flex_direction }}!important;
     }
     .show-tag{
-        display: {{ section.settings.display_tag }}!important;;
+        display: {{ section.settings.display_tag }}!important;
+    }
+    .detail-display_price{
+        font-size: {{ section.settings.price_tag }}!important;;
     }
 </style>
 
@@ -149,6 +152,17 @@
                 { "value": "none", "label": "Hide" },
             ],
             "default": "none"
+            },
+            {
+            "type": "select",
+            "id": "price_tag",
+            "label": "Price font Product",
+            "options": [
+                { "value": "20px", "label": "Small" },
+                { "value": "32px", "label": "Medium" },
+                { "value": "40px", "label": "Big" },
+            ],
+            "default": "20px"
             }
         ],
         "presets": [
