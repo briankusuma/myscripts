@@ -8,40 +8,68 @@
  * ------------------------------------------------------------
  */
 {
-    "sections": {
-        "home-hero": {
-            "type": "home-hero"
-        },
-        "product-page": {
-            "type": "product-page"
-        },
-        "howitwork": {
-            "type": "howitwork"
-        },
-        "clinicaly": {
-            "type": "clinicaly"
-        },
-        "begin": {
-            "type": "begin"
-        },
-        "testimoni": {
-            "type": "testimoni"
-        },
-        "faq": {
-            "type": "faq"
-        },
-        "cta": {
-            "type": "cta"
-        }
+  "sections": {
+    "home-hero": {
+      "type": "home-hero",
+      "settings": {
+        "title": "Prescriptions Made Simple",
+        "subtitle": "Delivered Discreetly & Fast",
+        "description": "Get prescribed treatments online with licensed providers. Your medication shipped fast and discreetly."
+      }
     },
-    "order": [
-        "home-hero",
-        "product-page",
-        "howitwork",
-        "clinicaly",
-        "begin",
-        "testimoni",
-        "faq",
-        "cta"
-]
+    "product-page": {
+      "type": "product-page",
+      "settings": {}
+    },
+    "howitwork": {
+      "type": "howitwork",
+      "settings": {}
+    },
+    "clinicaly": {
+      "type": "clinicaly",
+      "settings": {
+        "badge": "Ozempic",
+        "lose": "Lose up to",
+        "number": "20%",
+        "bodyweight": "of your bodyweight"
+      }
+    },
+    "begin": {
+      "type": "begin",
+      "settings": {
+        "heading": "How it works",
+        "title": "Begin your weight loss journey"
+      }
+    },
+    "testimoni": {
+      "type": "testimoni",
+      "disabled": true,
+      "settings": {
+        "badge_text": "Testimonial",
+        "title": "What they said about us"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {}
+    },
+    "cta": {
+      "type": "cta",
+      "settings": {
+        "title": "Easy Online Care. Medication Delivered.",
+        "description": "Consult with licensed providers online. Receive prescribed treatments discreetly at your home address.",
+        "button_text": "Get Started"
+      }
+    }
+  },
+  "order": [
+    "home-hero",
+    "product-page",
+    "howitwork",
+    "clinicaly",
+    "begin",
+    "testimoni",
+    "faq",
+    "cta"
+  ]
 }
