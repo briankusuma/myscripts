@@ -31,6 +31,7 @@
     },
     "testimoni": {
       "type": "testimoni",
+      "disabled": true,
       "settings": {
         "badge_text": "Testimonial",
         "title": "What they said about us"
