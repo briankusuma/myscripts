@@ -12,12 +12,11 @@
                 &-card{
                     @include flex-box(row, start, center, 16px);
                     .card-product{
-                            @include flex-box(row, start, center, 0px);
+                            @include flex-box(row, space-around, center, 0px);
+                            width: 100%;
                             border-radius: 28px;
                             background: #F7F7F7;
-                            // display: flex;
                             padding: 20px 0px 20px 48px;
-                            // align-items: center;
                             gap: 4px;
                             transition: All 0.3s ease;
                             &:hover{
@@ -29,7 +28,8 @@
                             // height: 321px;
                         }
                         &_text{
-                            @include flex-box(column, start, flex-start, 24px);
+                            @include flex-box(column, center, flex-start, 24px);
+                            height: 350px;
                             &-title{
                                 color: rgba(39, 66, 80, 0.60);
                                 font-family: Poppins;
