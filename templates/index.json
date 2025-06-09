@@ -28,10 +28,20 @@
             "button_url": "shopify://collections",
             "button_text": "Get Started"
           }
+        },
+        "card_kDYUrt": {
+          "type": "card",
+          "settings": {
+            "title": "Weight Loss Designed",
+            "span": "Around Your Lifestyle",
+            "button_url": "shopify://collections",
+            "button_text": "Get Started"
+          }
         }
       },
       "block_order": [
-        "card_zCL8Em"
+        "card_zCL8Em",
+        "card_kDYUrt"
       ],
       "settings": {
         "slider_show": "row",
