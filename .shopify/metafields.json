@@ -10,16 +10,6 @@
   "page": [],
   "product": [
     {
-      "key": "how_to_take",
-      "namespace": "custom",
-      "name": "How to take",
-      "description": "how to take",
-      "type": {
-        "name": "multi_line_text_field",
-        "category": "TEXT"
-      }
-    },
-    {
       "key": "age-group",
       "namespace": "shopify",
       "name": "Age group",
@@ -27,6 +17,26 @@
       "type": {
         "name": "list.metaobject_reference",
         "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "how_it_take",
+      "namespace": "custom",
+      "name": "How to take",
+      "description": "Ozempic® is taken once a week by injection. If prescribed, your licensed provider will include detai",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "how_to_take_3",
+      "namespace": "custom",
+      "name": "how to take-3",
+      "description": "lorem ipsum",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
       }
     }
   ],
