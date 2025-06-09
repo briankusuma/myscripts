@@ -19,6 +19,30 @@
     },
     "product-page": {
       "type": "product-page",
+      "blocks": {
+        "card_UfgFUB": {
+          "type": "card",
+          "settings": {
+            "title": "Weight Loss Designed",
+            "span": "Around Your Lifestyle",
+            "button_url": "shopify://collections",
+            "button_text": "Get Started"
+          }
+        },
+        "card_khfKAD": {
+          "type": "card",
+          "settings": {
+            "title": "Weight Loss Designed",
+            "span": "Around Your Lifestyle",
+            "button_url": "shopify://collections",
+            "button_text": "Get Started"
+          }
+        }
+      },
+      "block_order": [
+        "card_UfgFUB",
+        "card_khfKAD"
+      ],
       "settings": {}
     },
     "howitwork": {
