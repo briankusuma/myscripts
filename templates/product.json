@@ -11,18 +11,6 @@
   "sections": {
     "product-main": {
       "type": "product-main",
-      "blocks": {
-        "collapsible_row_AYaaff": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "how to take",
-            "row_content": "<p>{{ product.metafields.custom.how_it_take | metafield_tag }}</p>"
-          }
-        }
-      },
-      "block_order": [
-        "collapsible_row_AYaaff"
-      ],
       "settings": {
         "flex_direction": "row",
         "display_tag": "none",
