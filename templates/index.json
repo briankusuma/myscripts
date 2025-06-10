@@ -23,17 +23,17 @@
         "card_zCL8Em": {
           "type": "card",
           "settings": {
-            "title": "Weight Loss Designed",
+            "title": "Weight Loss On Your Schedule",
             "span": "Around Your Lifestyle",
-            "button_url": "shopify://collections",
+            "button_url": "shopify://collections/weight-loss",
             "button_text": "Get Started"
           }
         },
         "card_kDYUrt": {
           "type": "card",
           "settings": {
-            "title": "Weight Loss Designed",
-            "span": "Around Your Lifestyle",
+            "title": "Stay Youthful, Feel Strong",
+            "span": "Daily support for skin and vitality.",
             "button_url": "shopify://collections",
             "button_text": "Get Started"
           }
