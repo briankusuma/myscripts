@@ -649,9 +649,9 @@ async function refreshCartItems() {
     if (summaryItems.length >= 3) {
       // Format currency based on Shopify's money format
       const formatMoney = (cents) => {
-        return (cents/100).toLocaleString('id-ID', {
+        return (cents/100).toLocaleString('en-US', {
           style: 'currency',
-          currency: 'IDR',
+          currency: 'USD',
           minimumFractionDigits: 0
         });
       };
