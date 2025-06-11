@@ -124,7 +124,7 @@
     }
     .footer_layout-menu{
         flex-direction: column!important;
-        margin-block: 40px!important;
+        margin-block: 10px!important;
         flex-direction: column!important;
         justify-content: center!important;
         align-items:center!important;
@@ -140,7 +140,7 @@
     .footer_layout-allright{
         flex-direction: column!important;
         margin-bottom: -40px!important;
-        margin-top: 128px!important;
+        margin-top: 80px!important;
     }
     .img-oranament{
         bottom: -40px!important;
@@ -149,6 +149,7 @@
         display: flex!important;
         flex-direction: column!important;
         align-items: center!important;
+        gap: 25px!important;
         .list-footer{
             align-items: center!important;
         }
