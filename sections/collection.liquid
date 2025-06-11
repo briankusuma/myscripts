@@ -1,68 +1,77 @@
+
+{% assign default_collection = blank %}
+{% for collection in collections %}
+{% unless collection.handle == 'frontpage' %}
+    {% assign default_collection = collection %}
+    {% break %}
+{% endunless %}
+{% endfor %}
+
 <!-- Row title Product -->
 <div class="container">
-    <div class="collections-titles">
+<div class="collections-titles">
     {% for collection in collections %}
-        {% unless collection.handle == 'frontpage' %}
-        <a class="collection-title {% if collection.title == "Anti-Aging" %}active{% endif %}" 
-            data-collection="{{ collection.handle }}">
-            {{ collection.title | escape }}
+    {% unless collection.handle == 'frontpage' %}
+        <a class="collection-title {% if collection.handle == default_collection.handle %}active{% endif %}" 
+        data-collection="{{ collection.handle }}">
+        {{ collection.title | escape }}
         </a>
-        {% endunless %}
+    {% endunless %}
     {% endfor %}
-    </div>
+</div>
 
-    <div class="collections-titles">
-        {% for collection in collections %}
-            {% unless collection.handle == 'frontpage' %}
-            <h2 class="tab-content-title" data-collection="{{ collection.handle }}"
-                style="display: {% if is_default %}block{% else %}none{% endif %};"> 
-                {{ collection.description | escape }}
-            </h2>
-            {% endunless %}
-        {% endfor %}
-        </div>
-        
-    <!-- Row Card Product -->
-
-    <div class="collections-products collections-products_layout">
+<div class="collections-titles">
     {% for collection in collections %}
-        {% unless collection.handle == 'frontpage' %}
+    {% unless collection.handle == 'frontpage' %}
         {% assign is_default = false %}
-        {% if collection.title == "Anti-Aging" %}
-            {% assign is_default = true %}
+        {% if collection.handle == default_collection.handle %}
+        {% assign is_default = true %}
+        {% endif %}
+        <h2 class="tab-content-title" data-collection="{{ collection.handle }}"
+        style="display: {% if is_default %}block{% else %}none{% endif %};"> 
+        {{ collection.description | escape }}
+        </h2>
+    {% endunless %}
+    {% endfor %}
+</div>
+
+<!-- Row Card Product -->
+<div class="collections-products collections-products_layout">
+    {% for collection in collections %}
+    {% unless collection.handle == 'frontpage' %}
+        {% assign is_default = false %}
+        {% if collection.handle == default_collection.handle %}
+        {% assign is_default = true %}
         {% endif %}
 
         {% for product in collection.products %}
-            <div class="begin_info-items" 
-                data-collection="{{ collection.handle }}" 
-                style="display: {% if is_default %}block{% else %}none{% endif %};">
-                <div class="begin_bedge">{{ product.type }}</div>
-                <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'master' }}" 
-                    alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
-                <h2>{{ product.title }}</h2>
-                <p>Starting {{ product.price | money }}/mo</p>
-                <div class="begin_button-wrapper">
-                    <form class="form-btn_card" method="post" action="/cart/add">
-                        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                        <button type="submit" class="button btn-black is-small is-fullwidth">Add to Cart</button>
-                    </form>
-                    {% comment %} <button class="button btn-black is-small is-fullwidth">Get Started</button> {% endcomment %}
-                    <a class="button btn-outline is-small is-fullwidth" 
-                    href="{{ product.url | within: collection }}">Learn more</a>
-                </div>
+        <div class="begin_info-items" 
+            data-collection="{{ collection.handle }}" 
+            style="display: {% if is_default %}block{% else %}none{% endif %};">
+            <div class="begin_bedge">{{ product.type }}</div>
+            <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'master' }}" 
+            alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
+            <h2>{{ product.title }}</h2>
+            <p>Starting {{ product.price | money }}/mo</p>
+            <div class="begin_button-wrapper">
+            <form class="form-btn_card" method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <button type="submit" class="button btn-black is-small is-fullwidth">Add to Cart</button>
+            </form>
+            <a class="button btn-outline is-small is-fullwidth" 
+                href="{{ product.url | within: collection }}">Learn more</a>
             </div>
+        </div>
         {% endfor %}
-
-        {% endunless %}
+    {% endunless %}
     {% endfor %}
-    </div>
-
 </div>
-{% schema %}
-    {
-        "name": "collect Section",
-        "tag": "section",
-        "class": "collect section-full"
-    }
-{% endschema %}
+</div>
 
+{% schema %}
+{
+"name": "collect Section",
+"tag": "section",
+"class": "collect section-full"
+}
+{% endschema %}
