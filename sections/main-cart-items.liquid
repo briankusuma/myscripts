@@ -108,7 +108,7 @@
                         <span>{{ cart.items_subtotal_price | money }}</span>
                         </div>
                         <div class="term_layout">
-                            <p class="text-tax">{{ section.settings.costs_include | default: "Tax included and shipping calculated at checkout." }}</p>
+                            <p class="text-tax">{{ section.settings.tax_include | default: "Tax included and shipping calculated at checkout." }}</p>
                         </div>
                     </div>
                     <div class="cart-button">
