@@ -70,11 +70,14 @@
   }
 }
 
-@media(max-width: 768px) {
+@media(max-width: 820px) {
   .hero-homepage{
     .container{
       padding-top: 32px;
     }
+  }
+  .home-content_wrapper-text{
+    width: 100%!important;
   }
   .home-display_title{
     font-size: 36px!important;
