@@ -202,8 +202,9 @@
                         .term_layout{
                             display: flex;
                             flex-direction: column;
-                            gap: 24px;
-                            .text-tax{
+                            gap: 18px;
+                            .text-tax,
+                            p{
                                 color: rgba(17, 17, 17, 0.50);
                                 font-family: Poppins;
                                 font-size: 14px;
