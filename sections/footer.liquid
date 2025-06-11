@@ -98,57 +98,57 @@
 </div>
 
 {% schema %}
-{
-    "name": "Footer",
-    "tag": "section",
-    "class": "footer section-full",
-    "settings": [
-        {
-            "type": "link_list",
-            "id": "footer_menu",
-            "label": "Footer Menu"
-        },
-        {
-            "type": "image_picker",
-            "id": "logo_brand",
-            "label": "Logo Brand"
-        },
-        {
-            "type": "text",
-            "id": "copyright_text",
-            "label": "Copyright Text",
-            "default": "© 2024 Template · All Rights Reserved"
-        },
-        {
-            "type": "image_picker",
-            "id": "ornament_text",
-            "label": "ornament Text",
-        }
-    ],
-    "blocks": [
-        {
-        "type": "payment_icon",
-        "name": "Payment Icon",
+    {
+        "name": "Footer",
+        "tag": "section",
+        "class": "footer section-full",
         "settings": [
             {
+                "type": "link_list",
+                "id": "footer_menu",
+                "label": "Footer Menu"
+            },
+            {
                 "type": "image_picker",
-                "id": "icon",
-                "label": "Icon"
+                "id": "logo_brand",
+                "label": "Logo Brand"
             },
             {
                 "type": "text",
-                "id": "alt_text",
-                "label": "Alt Text",
-                "default": "Icon Payment"
+                "id": "copyright_text",
+                "label": "Copyright Text",
+                "default": "© 2024 Template · All Rights Reserved"
+            },
+            {
+                "type": "image_picker",
+                "id": "ornament_text",
+                "label": "ornament Text"
+            }
+        ],
+        "blocks": [
+            {
+            "type": "payment_icon",
+            "name": "Payment Icon",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "icon",
+                    "label": "Icon"
+                },
+                {
+                    "type": "text",
+                    "id": "alt_text",
+                    "label": "Alt Text",
+                    "default": "Icon Payment"
+                }
+            ]
+            }
+        ],
+        "max_blocks": 6,
+        "presets": [
+            {
+                "name": "Custom Footer"
             }
         ]
-        }
-    ],
-    "max_blocks": 6,
-    "presets": [
-        {
-            "name": "Custom Footer"
-        }
-    ]
-}
+    }
 {% endschema %}

@@ -79,7 +79,7 @@
                         <circle cx="1.5" cy="1.5" r="1.5" fill="#274250"/>
                         </svg>
 
-                        <p class="in-coast">{{ section.settings.tax_include }}</p>
+                        <p class="in-coast">{{ section.settings.tax_include | default: "Medication costs included." }}</p>
                         
                     </div>
                 {% else %}                    
@@ -97,7 +97,7 @@
                     <circle cx="1.5" cy="1.5" r="1.5" fill="#274250"/>
                     </svg>
 
-                    <p class="in-coast">{{ section.settings.tax_include }}</p>
+                    <p class="in-coast">{{ section.settings.tax_include | default: "Medication costs included." }}</p>
                     
                 </div>
                     
@@ -139,7 +139,7 @@
             "label": "Image Product",
             "options": [
                 { "value": "row", "label": "right" },
-                { "value": "row-reverse", "label": "left" },
+                { "value": "row-reverse", "label": "left" }
             ],
             "default": "row"
             },
@@ -149,7 +149,7 @@
             "label": "Badge Product",
             "options": [
                 { "value": "block", "label": "Show" },
-                { "value": "none", "label": "Hide" },
+                { "value": "none", "label": "Hide" }
             ],
             "default": "none"
             },
@@ -160,7 +160,7 @@
             "options": [
                 { "value": "20px", "label": "Small" },
                 { "value": "32px", "label": "Medium" },
-                { "value": "40px", "label": "Big" },
+                { "value": "40px", "label": "Big" }
             ],
             "default": "20px"
             },
@@ -168,12 +168,6 @@
                 "type": "richtext",
                 "id": "tax_include",
                 "label": "Tax Include",
-                "default": "Medication costs included."
-            },
-        ],
-        "presets": [
-            {
-            "name": "Product detail"
             }
         ],
         "blocks": [
@@ -197,6 +191,9 @@
             "presets": [
                     {
                     "name": "Collapsible Content"
+                    },
+                    {
+                    "name": "Product detail"
                     }
                 ]
     }
