@@ -49,17 +49,78 @@
         }
     }
 }
+@media(max-width: 1280px) {
+    .cta-content{
+        padding-left: 40px!important;
+    }
+    .cta-content_images{
+        width: 450px;
+        height: 480px;
+    }
+}
 
 @media(max-width: 1024px) {
     .cta-content{
         padding-left: 40px!important;
     }
     .cta-content_images{
-        width: 425px;
+        width: 450px;
         height: 480px;
     }
 }
 
+@media(max-width: 955px) {
+    .cta{
+        .container{
+            padding-inline: 10px!important;
+            padding-top: 40px !important;
+        }
+    }
+    .cta-content{
+        flex-direction: column!important;
+        padding: 40px 24px 40px 24px!important;
+        overflow: hidden;
+        border-radius: 28px!important;
+        background: url(ornament-weighloss.png) bottom / contain no-repeat, linear-gradient(180deg, #111D23 0%, #223C4A 100%)!important;
+        
+    
+    }
+    .cta-content_image{
+        margin-top: 0px!important;
+        .cta-content_images{
+            width: 340px!important;
+            height: 310px!important;
+            display: none;
+
+        }
+    }
+    .cta-content_text{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .cta-content_text-title{
+            color: #FFF;
+            text-align: center;
+            font-family: Poppins;
+            font-size: 32px!important;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 110%; /* 35.2px */
+            letter-spacing: -0.32px;
+        }
+        .cta-content_text-dsc{
+            color: rgba(255, 255, 255, 0.60);
+            text-align: center;
+            font-family: Poppins;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%; /* 22.4px */
+            letter-spacing: -0.16px;
+        }
+    }
+}
 
 @media(max-width: 768px) {
     .cta{
