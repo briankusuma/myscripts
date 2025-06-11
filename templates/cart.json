@@ -1,14 +1,29 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections": {
-        "main-cart-items": {
-            "type": "main-cart-items",
-        },
-        "you-may": {
-            "type": "you-may",
-        },
+  "sections": {
+    "main-cart-items": {
+      "type": "main-cart-items",
+      "settings": {
+        "tax_include": "<p>Tax included and shipping calculated at checkout</p>"
+      }
     },
-    "order": [
+    "you-may": {
+      "type": "you-may",
+      "settings": {
+        "title": "You may also like"
+      }
+    }
+  },
+  "order": [
     "main-cart-items",
     "you-may"
-    ]
+  ]
 }
