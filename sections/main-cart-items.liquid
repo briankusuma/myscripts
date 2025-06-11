@@ -108,14 +108,7 @@
                         <span>{{ cart.items_subtotal_price | money }}</span>
                         </div>
                         <div class="term_layout">
-                            <p class="text-tax">Tax included and shipping calculated at checkout</p>
-                            {% comment %} <div class="checkbox-layout">
-                                <input type="checkbox" id="term-codition" name="term-codition" value="term-codition">
-                                <label for="term-codition">
-                                    <p class="text-term">I agree with <a class="term-link" href="/term">Terms & Conditions</a></p>
-                                </label>
-                            </div> {% endcomment %}
-                            
+                            <p class="text-tax">{{ section.settings.costs_include | default: "Tax included and shipping calculated at checkout." }}</p>
                         </div>
                     </div>
                     <div class="cart-button">
@@ -137,6 +130,11 @@
     "tag": "section",
     "class": "cart",
     "settings": [
+            {
+                "type": "richtext",
+                "id": "tax_include",
+                "label": "Tax Include",
+            }
         
     ],
     "blocks": [

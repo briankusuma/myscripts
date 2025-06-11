@@ -79,7 +79,7 @@
                         <circle cx="1.5" cy="1.5" r="1.5" fill="#274250"/>
                         </svg>
 
-                        <p class="in-coast">{{ section.settings.tax_include | default: "Medication costs included." }}</p>
+                        <p class="in-coast">{{ section.settings.costs_include | default: "Medication costs included." }}</p>
                         
                     </div>
                 {% else %}                    
@@ -97,7 +97,7 @@
                     <circle cx="1.5" cy="1.5" r="1.5" fill="#274250"/>
                     </svg>
 
-                    <p class="in-coast">{{ section.settings.tax_include | default: "Medication costs included." }}</p>
+                    <p class="in-coast">{{ section.settings.costs_include | default: "Medication costs included." }}</p>
                     
                 </div>
                     
@@ -166,8 +166,8 @@
             },
             {
                 "type": "richtext",
-                "id": "tax_include",
-                "label": "Tax Include",
+                "id": "costs_include",
+                "label": "Costs Include",
             }
         ],
         "blocks": [
