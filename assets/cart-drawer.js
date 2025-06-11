@@ -1,7 +1,11 @@
+
+// new
+
 /**
  * Optimized Cart Implementation
  * - Works for both cart drawer and cart page
  * - Synchronizes updates between cart drawer and cart page
+ * - Preserves tax-include text when updating cart
  */
 
 // Original open/close functions
@@ -26,14 +30,26 @@ function isCartPage() {
         window.location.pathname.includes('/cart');
 }
 
-// Refresh the cart page content if we're on the cart page
-async function refreshCartPage() {
+// Refresh only cart items without affecting other elements like tax-include text
+async function refreshCartItems() {
   if (!isCartPage()) return;
   
-  console.log("Refreshing cart page...");
+  console.log("Refreshing cart items...");
   
   try {
-    // This will reload just the cart form content without a full page refresh
+    // Store tax-include text before updating
+    const taxIncludeElement = document.querySelector('.text-tax');
+    const taxIncludeText = taxIncludeElement ? taxIncludeElement.innerHTML : '';
+    console.log("Saved tax include text:", taxIncludeText);
+    
+    // Fetch updated cart data
+    const cartResponse = await fetch('/cart.js');
+    if (!cartResponse.ok) {
+      throw new Error(`HTTP error! Status: ${cartResponse.status}`);
+    }
+    const cart = await cartResponse.json();
+    
+    // Fetch updated cart section
     const response = await fetch('?section_id=main-cart-items');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -43,26 +59,53 @@ async function refreshCartPage() {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = html;
     
-    // Find the cart form in the fetched HTML
-    const newCartForm = tempDiv.querySelector('form[action="/cart"]');
-    if (!newCartForm) {
-      console.error("Could not find cart form in the fetched HTML");
-      return;
+    // Update cart items
+    const newCartMain = tempDiv.querySelector('.cart-main');
+    const cartMain = document.querySelector('.cart-main');
+    if (newCartMain && cartMain) {
+      cartMain.innerHTML = newCartMain.innerHTML;
     }
     
-    // Replace the current cart form with the new one
-    const currentCartForm = document.querySelector('form[action="/cart"]');
-    if (currentCartForm) {
-      currentCartForm.innerHTML = newCartForm.innerHTML;
-      console.log("Cart page refreshed successfully");
+    // Update summary totals without replacing the entire summary
+    const summaryItems = document.querySelectorAll('.cart-summary-item');
+    if (summaryItems.length >= 3) {
+      // Format currency based on Shopify's money format
+      const formatMoney = (cents) => {
+        return (cents/100).toLocaleString('id-ID', {
+          style: 'currency',
+          currency: 'IDR',
+          minimumFractionDigits: 0
+        });
+      };
       
-      // Re-attach event listeners to the new elements
-      setupCartPageListeners();
-    } else {
-      console.error("Could not find current cart form to update");
+      // Update subtotal
+      const subtotalElement = summaryItems[0].querySelector('span:last-child');
+      if (subtotalElement) subtotalElement.textContent = formatMoney(cart.original_total_price);
+      
+      // Update discount
+      const discountElement = summaryItems[1].querySelector('span:last-child');
+      if (discountElement) discountElement.textContent = formatMoney(cart.total_discount);
+      
+      // Update total
+      const totalElement = summaryItems[2].querySelector('span:last-child');
+      if (totalElement) totalElement.textContent = formatMoney(cart.items_subtotal_price);
     }
+    
+    // Restore tax-include text
+    if (taxIncludeText) {
+      const newTaxIncludeElement = document.querySelector('.text-tax');
+      if (newTaxIncludeElement) {
+        newTaxIncludeElement.innerHTML = taxIncludeText;
+        console.log("Restored tax include text");
+      }
+    }
+    
+    console.log("Cart items refreshed successfully");
+    
+    // Re-attach event listeners to the new elements
+    setupCartPageListeners();
   } catch (error) {
-    console.error("Error refreshing cart page:", error);
+    console.error("Error refreshing cart items:", error);
   }
 }
 
@@ -95,7 +138,8 @@ async function updateCartDrawer() {
 // Update both cart drawer and cart page
 async function updateAllCarts() {
   await updateCartDrawer();
-  await refreshCartPage();
+  // Use refreshCartItems instead of refreshCartPage to preserve tax-include text
+  await refreshCartItems();
 }
 
 // Update quantity with optimized approach - works for both cart drawer and cart page
@@ -490,17 +534,24 @@ function setupGlobalEventListeners() {
   // Cart links
   document.querySelectorAll('a[href="/cart"]').forEach((a) => {
     a.addEventListener("click", (e) => {
-      // Only prevent default if we're not already on the cart page
-      if (!isCartPage()) {
+      // Check if this is the View Cart button or go-to-cart link
+      const isViewCartButton = a.classList.contains('view-cart') || 
+                              a.classList.contains('go-to-cart') ||
+                              a.textContent?.trim().toLowerCase().includes('view cart') ||
+                              a.getAttribute('data-action') === 'view-cart';
+      
+      // If it's the View Cart button or we're already on the cart page, allow normal navigation
+      if (isViewCartButton || isCartPage()) {
+        console.log("View Cart button clicked or already on cart page - navigating to cart page");
+        return; // Allow default behavior (navigation to /cart)
+      } else {
+        // For other cart links, open the drawer
         e.preventDefault();
-        console.log("Cart link clicked");
+        console.log("Cart link clicked - opening drawer");
         openCartDrawer();
       }
     });
   });
-
-
-  
 }
 
 // Add CSS for loading states
@@ -570,6 +621,7 @@ if (document.readyState === 'loading') {
   initCart();
 }
 
+// Keep the existing go-to-cart handler
 document.querySelectorAll('.go-to-cart').forEach((a) => {
   a.addEventListener('click', (e) => {
     e.preventDefault();
