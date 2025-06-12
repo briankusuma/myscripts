@@ -9,48 +9,128 @@
                 {{ product.title }}
             </h1>
 
-{% comment %} subscrtion{% endcomment %}
-    {% assign subscription_options = '' %}
-    {% assign has_subscription = false %}
+{% comment %} subscription - dengan base price sebagai default {% endcomment %}
+            {% assign has_subscription = false %}
+            {% assign subscription_option_position = 0 %}
+            {% assign base_variant = null %}
+            {% assign base_price_formatted = '' %}
+            {% assign base_variant_id = '' %}
 
-    {% for variant in product.variants %}
-        {% if variant.option1 contains 'Month' or variant.option1 contains 'Monthly' %}
-        {% assign has_subscription = true %}
-        {% assign subscription_options = subscription_options | append: variant.option1 | append: '|' | append: variant.id | append: '|' | append: variant.price | append: ',' %}
-    {% endif %}
-    {% endfor %}
+            {% comment %} Cari posisi option "Subscription" dan variant base {% endcomment %}
+            {% for option in product.options_with_values %}
+                {% assign option_position = forloop.index %}
+                {% if option.name == 'Subscription' %}
+                    {% assign has_subscription = true %}
+                    {% assign subscription_option_position = option_position %}
+                    {% break %}
+                {% endif %}
+            {% endfor %}
 
-    {% assign subscription_array = subscription_options | split: ',' %}
-    {% assign current_variant = product.selected_or_first_available_variant %}
+            {% comment %} Cari variant dengan subscription "base" {% endcomment %}
+            {% for variant in product.variants %}
+                {% if variant.available %}
+                    {% assign subscription_value = '' %}
+                    {% if subscription_option_position == 1 %}
+                        {% assign subscription_value = variant.option1 %}
+                    {% elsif subscription_option_position == 2 %}
+                        {% assign subscription_value = variant.option2 %}
+                    {% elsif subscription_option_position == 3 %}
+                        {% assign subscription_value = variant.option3 %}
+                    {% endif %}
 
-    {% if has_subscription %}
-    <div id="subscription-buttons">
-        {% for item in subscription_array %}
-        {% assign parts = item | split: '|' %}
-        {% assign label = parts[0] %}
-        {% assign variant_id = parts[1] %}
-        {% assign price = parts[2] %}
-        {% if label != '' %}
-            <button
-            class="subscription-button"
-            data-variant-id="{{ variant_id }}"
-            data-price="{{ price | money_without_currency }}"
-            >
-            {{ label }}
-            </button>
-        {% endif %}
-        {% endfor %}
-    </div>
-    {% endif %}
+                    {% comment %} Cek apakah ini variant base {% endcomment %}
+                    {% assign subscription_lower = subscription_value | downcase %}
+                    {% if subscription_lower contains 'base' %}
+                        {% assign base_variant = variant %}
+                        {% assign base_price_formatted = variant.price | money %}
+                        {% assign base_variant_id = variant.id %}
+                        {% break %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
 
+            <div class="price-container">
+                <span id="priceDisplay" class="detail-display_price">
+                    {% if base_price_formatted != '' %}
+                        {{ base_price_formatted }}
+                    {% else %}
+                        {{ current_variant.price | money }}
+                    {% endif %}
+                </span>
+                {% if current_variant.compare_at_price > current_variant.price %}
+                    <span id="comparePriceDisplay" class="detail-compare_price">{{ current_variant.compare_at_price | money }}</span>
+                {% else %}
+                    <span id="comparePriceDisplay" class="detail-compare_price" style="display: none;"></span>
+                {% endif %}
+            </div>
 
-<input type="hidden" name="id" id="selected-variant-id" value="{{ current_variant.id }}">
-<p>Subscription Options Raw: {{ subscription_options }}</p>
+            {% if has_subscription %}
+            <div id="subscription-buttons" class="subscription-buttons-container">
+                <h3 class="subscription-title">Subscription</h3>
+                <div class="subscription-wrapper-items">
+                    {% for variant in product.variants %}
+                        {% if variant.available %}
+                            {% comment %} Ambil nilai subscription berdasarkan posisi option {% endcomment %}
+                            {% assign subscription_value = '' %}
+                            {% if subscription_option_position == 1 %}
+                                {% assign subscription_value = variant.option1 %}
+                            {% elsif subscription_option_position == 2 %}
+                                {% assign subscription_value = variant.option2 %}
+                            {% elsif subscription_option_position == 3 %}
+                                {% assign subscription_value = variant.option3 %}
+                            {% endif %}
 
-{% comment %} subscrtion{% endcomment %}
+                            {% comment %} Skip variant base - jangan tampilkan sebagai button {% endcomment %}
+                            {% assign subscription_lower = subscription_value | downcase %}
+                            {% unless subscription_lower contains 'base' %}
+                                {% if subscription_value != blank %}
+                                    <button
+                                        class="subscription-button"
+                                        data-variant-id="{{ variant.id }}"
+                                        data-price="{{ variant.price }}"
+                                        data-price-formatted="{{ variant.price | money }}"
+                                        data-compare-price="{{ variant.compare_at_price }}"
+                                        data-compare-price-formatted="{% if variant.compare_at_price != blank and variant.compare_at_price != '' %}{{ variant.compare_at_price | money }}{% endif %}"
+                                        data-subscription-type="{{ subscription_value }}"
+                                        type="button"
+                                    >
+                                        <div class="subscription-option">
+                                            <div class="subscription-info">
+                                                <div class="subscription-label">{{ subscription_value }}</div>
+                                                <div class="subscription-description">
+                                                    {% case subscription_value %}
+                                                        {% when 'Monthly' %}
+                                                            Regimen
+                                                        {% when '6 Months' %}
+                                                            Regimen
+                                                        {% when '12 Months' %}
+                                                            Regimen
+                                                        {% else %}
+                                                            {{ subscription_value }} subscription
+                                                    {% endcase %}
+                                                </div>
+                                            </div>
+                                            <div class="subscription-pricing">
+                                                <span class="subscription-price">{{ variant.price | money }}</span>
+                                                {% if variant.compare_at_price != blank and variant.compare_at_price != '' and variant.compare_at_price > variant.price %}
+                                                    <span class="subscription-compare-price">{{ variant.compare_at_price | money }}</span>
+                                                    {% assign savings = variant.compare_at_price | minus: variant.price %}
+                                                    <span class="subscription-savings">Save {{ savings | money }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </button>
+                                {% endif %}
+                            {% endunless %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
 
-            {% comment %} <span class="detail-display_price">{{ product.price | money }}</span> {% endcomment %}
-            <span class="detail-display_price">{{ current_variant.price | money }}</span>
+            </div>
+            {% endif %}
+
+{% comment %} subscription end {% endcomment %}
+
             <span class="detail-display_paragraft">
                 {{ product.description }}
             </span>
@@ -84,29 +164,29 @@
                 {% endfor %}
             </div>
 
-            <form class="form-btn_card" method="post" action="/cart/add">
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-            <button type="submit"
-                    class="button btn-primary is-big is-fullwidth {% unless product.available %}is-disabled{% endunless %}"
-                    {% unless product.available %}disabled 
-                    style="
-                        border-radius: 40px; 
-                        background: #C3C3C3; 
-                        color: #FFF;
-                        font-family: Poppins;
-                        font-size: 16px;
-                        font-style: normal;
-                        font-weight: 400;
-                        line-height: 100%;
-                        letter-spacing: -0.16px; 
-                        cursor: not-allowed;"
-                    {% endunless %}>
-                {% if product.available %}
-                Add to Cart
-                {% else %}
-                Add to cart
-                {% endif %}
-            </button>
+            <form class="form-btn_card" method="post" action="/cart/add" id="product-form">
+                <input type="hidden" name="id" id="variant-id-input" value="{% if base_variant_id != '' %}{{ base_variant_id }}{% else %}{{ current_variant.id }}{% endif %}">
+                <button type="submit"
+                        class="button btn-primary is-big is-fullwidth {% unless product.available %}is-disabled{% endunless %}"
+                        {% unless product.available %}disabled 
+                        style="
+                            border-radius: 40px; 
+                            background: #C3C3C3; 
+                            color: #FFF;
+                            font-family: Poppins;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 100%;
+                            letter-spacing: -0.16px; 
+                            cursor: not-allowed;"
+                        {% endunless %}>
+                    {% if product.available %}
+                    Add to Cart
+                    {% else %}
+                    Add to cart
+                    {% endif %}
+                </button>
             </form>
 
             <div>
@@ -164,35 +244,270 @@
         display: {{ section.settings.display_tag }}!important;
     }
     .detail-display_price{
-        font-size: {{ section.settings.price_tag }}!important;;
+        font-size: {{ section.settings.price_tag }}!important;
+    }
+    
+    /* Subscription Buttons Styling */
+    .subscription-buttons-container {
+        margin: 0px 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .subscription-wrapper-items{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px
+    }
+    
+    .subscription-title {
+        color: #274250;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%; /* 22.4px */
+        letter-spacing: -0.16px;
+        margin-bottom: 16px;
+    }
+    
+    .subscription-button {
+        display: block;
+        width: 100%;
+        padding: 16px 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+        width: 100%;
+        max-width: 280px;
+        background: transparent;
+
+        border-radius: 40px;
+        border: 1px solid rgba(17, 17, 17, 0.20);
+    }
+    
+    .subscription-button:hover {
+        border: 1px solid rgba(237, 28, 36, 0.20);
+        background-color: #f8fafc;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .subscription-button.active {
+        border-radius: 40px;
+        border: 1px solid rgba(237, 28, 36, 0.20);
+        background: #FAF1F2;
+    }
+    
+    .subscription-option {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .subscription-info {
+        display: flex;
+        flex-direction: row;
+        gap: 4px;
+    }
+    
+    .subscription-label {
+        color: #274250;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%; /* 16px */
+        letter-spacing: -0.16px;
+    }
+    
+    .subscription-description {
+        color: #274250;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%; /* 16px */
+        letter-spacing: -0.16px;
+    }
+    
+    .debug-info {
+        font-size: 10px;
+        color: #999;
+        margin-top: 4px;
+    }
+    
+    .subscription-pricing {
+        text-align: right;
+        flex-shrink: 0;
+    }
+    
+    .subscription-price {
+        color: #274250;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%; /* 16px */
+        letter-spacing: -0.16px;
+    }
+    
+    .subscription-compare-price {
+        display: block;
+        text-decoration: line-through;
+        color: #9ca3af;
+        font-size: 14px;
+        margin-top: 2px;
+    }
+    
+    .subscription-savings {
+        display: block;
+        color: #059669;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 2px;
+    }
+    
+    .price-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 20px 0;
+    }
+    
+    .detail-compare_price {
+        text-decoration: line-through;
+        color: #6b7280;
+        font-size: 0.9em;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .subscription-option {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .subscription-pricing {
+            text-align: left;
+            width: 100%;
+        }
     }
 </style>
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const buttons = document.querySelectorAll('.subscription-button');
-    const priceDisplay = document.querySelector('.detail-display_price');
-    const hiddenInput = document.querySelector('#selected-variant-id');
+document.addEventListener('DOMContentLoaded', function () {
+    const subscriptionButtons = document.querySelectorAll('.subscription-button');
+    const priceDisplay = document.getElementById('priceDisplay');
+    const comparePriceDisplay = document.getElementById('comparePriceDisplay');
+    const variantInput = document.getElementById('variant-id-input');
+    
+    // Simpan harga base dan variant ID base untuk digunakan saat toggle off
+    const basePrice = '{% if base_price_formatted != "" %}{{ base_price_formatted }}{% else %}{{ current_variant.price | money }}{% endif %}';
+    const baseVariantId = '{% if base_variant_id != "" %}{{ base_variant_id }}{% else %}{{ current_variant.id }}{% endif %}';
+    
+    console.log('Base price:', basePrice);
+    console.log('Base variant ID:', baseVariantId);
+    console.log('Subscription buttons found:', subscriptionButtons.length);
 
-    if (buttons.length > 0) {
-    buttons.forEach(button => {
-        button.addEventListener('click', function () {
-        const price = this.dataset.price;
-        const variantId = this.dataset.variantId;
-
-        // Update harga
-        priceDisplay.textContent = `$${parseFloat(price).toFixed(2)}`;
-
-        // Update hidden variant ID
-        hiddenInput.value = variantId;
-
-        // Toggle active class
-        buttons.forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
+    subscriptionButtons.forEach(button => {
+        // Debug: log semua data attributes
+        console.log('Button data:', {
+            variantId: button.dataset.variantId,
+            price: button.dataset.price,
+            priceFormatted: button.dataset.priceFormatted,
+            subscriptionType: button.dataset.subscriptionType
         });
-        
+
+        button.addEventListener('click', function () {
+            const variantId = this.dataset.variantId;
+            const priceFormatted = this.dataset.priceFormatted;
+            const comparePriceFormatted = this.dataset.comparePriceFormatted;
+            const subscriptionType = this.dataset.subscriptionType;
+            
+            // Cek apakah button ini sudah active
+            const isCurrentlyActive = this.classList.contains('active');
+
+            console.log('Button clicked:', {
+                variantId: variantId,
+                priceFormatted: priceFormatted,
+                comparePriceFormatted: comparePriceFormatted,
+                subscriptionType: subscriptionType,
+                isCurrentlyActive: isCurrentlyActive
+            });
+            
+            // Hapus active class dari semua button
+            subscriptionButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Jika button ini sudah active, kembalikan ke harga base (toggle off)
+            if (isCurrentlyActive) {
+                // Kembalikan ke harga base
+                if (priceDisplay) {
+                    priceDisplay.textContent = basePrice;
+                    console.log('Price reset to base:', basePrice);
+                }
+                
+                // Kembalikan ke variant base
+                if (variantInput) {
+                    variantInput.value = baseVariantId;
+                    console.log('Variant reset to base:', baseVariantId);
+                }
+                
+                // Hide compare price saat kembali ke base
+                if (comparePriceDisplay) {
+                    comparePriceDisplay.style.display = 'none';
+                }
+                
+                // Trigger custom event untuk reset
+                const resetEvent = new CustomEvent('subscriptionReset', {
+                    detail: {
+                        basePrice: basePrice,
+                        baseVariantId: baseVariantId
+                    }
+                });
+                document.dispatchEvent(resetEvent);
+            } else {
+                // Jika tidak active, set sebagai active dan update harga
+                this.classList.add('active');
+                
+                // Update harga yang ditampilkan
+                if (priceDisplay) {
+                    priceDisplay.textContent = priceFormatted;
+                    console.log('Price updated to:', priceFormatted);
+                }
+
+                // Update compare price
+                if (comparePriceDisplay) {
+                    if (comparePriceFormatted && comparePriceFormatted !== '') {
+                        comparePriceDisplay.textContent = comparePriceFormatted;
+                        comparePriceDisplay.style.display = 'inline';
+                    } else {
+                        comparePriceDisplay.style.display = 'none';
+                    }
+                }
+
+                // Update variant input untuk form
+                if (variantInput) {
+                    variantInput.value = variantId;
+                    console.log('Variant input updated to:', variantId);
+                }
+
+                // Trigger custom event
+                const event = new CustomEvent('subscriptionChanged', {
+                    detail: {
+                        variantId: variantId,
+                        price: priceFormatted,
+                        subscriptionType: subscriptionType
+                    }
+                });
+                document.dispatchEvent(event);
+            }
+        });
     });
-    }
-    console.log("hallo sermolin")
+
+    // Tidak perlu set default active button karena sekarang menggunakan base price sebagai default
 });
 </script>
 
