@@ -1,19 +1,44 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "category-hero": {
-      "type": "category-hero"
-  },
-      "collection": {
-          "type": "collection"
-      },
-      "banner-achieving": {
-        "type": "banner-achieving"
+      "type": "category-hero",
+      "settings": {
+        "heading_line": "Treatments,",
+        "heading_span": "Proven by Research",
+        "paragraph": "Get customized online solutions to help you live a longer, healthier life.",
+        "show_button": "none",
+        "url_page": ""
+      }
+    },
+    "collection": {
+      "type": "collection",
+      "settings": {}
+    },
+    "banner-achieving": {
+      "type": "banner-achieving",
+      "settings": {}
     },
     "testimoni": {
-        "type": "testimoni"
+      "type": "testimoni",
+      "settings": {
+        "badge_text": "Testimonial",
+        "title": "What they said about us"
+      }
     },
     "faq": {
-        "type": "faq"
+      "type": "faq",
+      "settings": {
+        "message_us_url": "mailto:jay@firsty.io"
+      }
     }
   },
   "order": [
