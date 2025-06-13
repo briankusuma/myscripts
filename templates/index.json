@@ -14,7 +14,8 @@
       "settings": {
         "title": "Prescriptions Made Simple",
         "subtitle": "Delivered Discreetly & Fast",
-        "description": "Get prescribed treatments online with licensed providers. Your medication shipped fast and discreetly."
+        "description": "Get prescribed treatments online with licensed providers. Your medication shipped fast and discreetly.",
+        "url_page": ""
       }
     },
     "product-page": {
@@ -87,7 +88,8 @@
       "settings": {
         "title": "Easy Online Care. Medication Delivered.",
         "description": "Consult with licensed providers online. Receive prescribed treatments discreetly at your home address.",
-        "button_text": "Get Started"
+        "button_text": "Get Started",
+        "url_page": "shopify://collections"
       }
     }
   },
