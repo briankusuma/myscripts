@@ -97,7 +97,7 @@
                                         <div class="subscription-option">
                                             <div class="subscription-info">
                                                 <div class="subscription-label">{{ subscription_value }}</div>
-                                                <div class="subscription-description">
+                                                {% comment %} <div class="subscription-description">
                                                     {% case subscription_value %}
                                                         {% when 'Monthly' %}
                                                             
@@ -108,16 +108,16 @@
                                                         {% else %}
                                                             {{ subscription_value }}
                                                     {% endcase %}
-                                                </div>
+                                                </div> {% endcomment %}
                                             </div>
-                                            <div class="subscription-pricing">
+                                            {% comment %} <div class="subscription-pricing">
                                                 <span class="subscription-price">{{ variant.price | money }}</span>
                                                 {% if variant.compare_at_price != blank and variant.compare_at_price != '' and variant.compare_at_price > variant.price %}
                                                     <span class="subscription-compare-price">{{ variant.compare_at_price | money }}</span>
                                                     {% assign savings = variant.compare_at_price | minus: variant.price %}
                                                     <span class="subscription-savings">Save {{ savings | money }}</span>
                                                 {% endif %}
-                                            </div>
+                                            </div> {% endcomment %}
                                         </div>
                                     </button>
                                 {% endif %}
