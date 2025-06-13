@@ -1,10 +1,14 @@
 {
     "sections": {
-        "home-hero": {
-            "type": "home-hero"
+        "basic-header": {
+            "type": "basic-header"
+        },
+        "basic-dsc": {
+            "type": "basic-dsc"
         }
     },
     "order": [
-    "home-hero"
+        "basic-header",
+        "basic-dsc",
 ]
 }
