@@ -78,7 +78,9 @@
     },
     "faq": {
       "type": "faq",
-      "settings": {}
+      "settings": {
+        "message_us_url": "mailto:jay@firsty.io"
+      }
     },
     "cta": {
       "type": "cta",

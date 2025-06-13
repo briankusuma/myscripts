@@ -1,14 +1,25 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections": {
-        "basic-header": {
-            "type": "basic-header"
-        },
-        "basic-dsc": {
-            "type": "basic-dsc"
-        }
+  "sections": {
+    "basic-header": {
+      "type": "basic-header",
+      "settings": {}
     },
-    "order": [
-        "basic-header",
-        "basic-dsc",
-]
+    "basic-dsc": {
+      "type": "basic-dsc",
+      "settings": {}
+    }
+  },
+  "order": [
+    "basic-header",
+    "basic-dsc"
+  ]
 }
