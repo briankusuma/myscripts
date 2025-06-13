@@ -1,2 +1,42 @@
-<h1>{{ 'general.404.title' | t }}</h1>
-<p>{{ 'general.404.subtext_html' | t }}</p>
+<div class="section section-full notfound-bg">
+    <div class="container notfound-page">
+        <h1>{{ 'general.404.title' | t }}</h1>
+        <p>{{ 'general.404.subtext_html' | t }}</p>
+        <a href="/" class="button btn-primary is-small">
+        Go back
+        </a>
+    </div>
+</div>
+<style>
+    .notfound-bg{
+        background: linear-gradient(180deg, rgba(250, 241, 242, 0.00) 0%, #FAF1F2 100%), #FFF;
+    }
+    .notfound-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    }
+    .notfound-page > h1{
+        color: #274250;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 64px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 110%; /* 70.4px */
+        letter-spacing: -0.64px;
+    }
+
+    .notfound-page > p{
+        color: rgba(39, 66, 80, 0.80);
+        text-align: center;
+        font-family: Poppins;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%; /* 25.2px */
+        letter-spacing: -0.18px;
+    }
+
+</style>
