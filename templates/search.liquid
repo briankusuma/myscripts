@@ -48,7 +48,10 @@
           {% if search.results.size > 0 %}
             {% for item in search.results %}
               <div class="begin_info-items">
-                <div class="begin_bedge">{{ item.type }}</div>
+                
+                {% if item.type != blank %}
+                  <div class="begin_bedge">{{ item.type }}</div>
+              {% endif %}
 
                 {% if item.featured_image %}
                   <a class="begin-card_image" href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">

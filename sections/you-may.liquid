@@ -11,32 +11,31 @@
         </div>
 
         <div class="begin-content_info-card">
-            {% assign collections_to_show = "weight-loss,anti-aging,peptides" | split: "," %}
-        
-            {% for collection_handle in collections_to_show %}
-            {% assign collection = collections[collection_handle] %}
+            {% assign collections_count = 0 %}
             
-            {% if collection %}
-                <div class="begin_info-items">
-                {% assign product = collection.products.first %}
-                
-                <div class="begin_bedge">{{ product.type }}</div>
-                    <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'medium' }}" 
-                        alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
-                    <h2>{{ product.title }}</h2>
-                    <p>Starting {{ product.price | money }}/mo</p>
-                    <div class="begin_button-wrapper">
-                        {% comment %} <button class="button btn-black is-small is-fullwidth">Get Started</button> {% endcomment %}
-                        <form class="form-btn_card" method="post" action="/cart/add">
-                            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                            <button type="submit" class="button btn-black is-small is-fullwidth">Add to Cart</button>
-                        </form>
-                        <a class="button btn-outline is-small is-fullwidth" 
-                        href="{{ product.url | within: collection }}">Learn more</a>
-                </div>
-
-                </div>
-            {% endif %}
+            {% for collection in collections %}
+                {% if collection.products.size > 0 and collections_count < 3 %}
+                    <div class="begin_info-items">
+                        {% assign product = collection.products.first %}
+                        
+                        {% if product.type != blank %}
+                            <div class="begin_bedge">{{ product.type }}</div>
+                        {% endif %}
+                        <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'medium' }}" 
+                            alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
+                        <h2>{{ product.title }}</h2>
+                        <p>Starting {{ product.price | money }}/mo</p>
+                        <div class="begin_button-wrapper">
+                            <form class="form-btn_card" method="post" action="/cart/add">
+                                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                                <button type="submit" class="button btn-black is-small is-fullwidth">Add to Cart</button>
+                            </form>
+                            <a class="button btn-outline is-small is-fullwidth" 
+                            href="{{ product.url | within: collection }}">Learn more</a>
+                        </div>
+                    </div>
+                    {% assign collections_count = collections_count | plus: 1 %}
+                {% endif %}
             {% endfor %}
         </div>
         
