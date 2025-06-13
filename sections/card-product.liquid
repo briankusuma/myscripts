@@ -2,7 +2,10 @@
     {% if section.blocks != blank %}
         {% for block in section.blocks %}
         <div class="begin_info-items">
-            <div class="begin_bedge">{{ block.settings.badge }}</div>
+            {% comment %} <div class="begin_bedge">{{ block.settings.badge }}</div> {% endcomment %}
+            {% if product.type != blank %}
+                <div class="begin_bedge">{{ product.type }}</div>
+            {% endif %}
             <img class="begin-card_image" src="{{ block.settings.image | image_url: 'medium' }}" alt="{{ block.settings.image_alt }}" width="250" height="250">
             <h2>{{ block.settings.card_title }}</h2>
             <p>{{ block.settings.card_price }}</p>

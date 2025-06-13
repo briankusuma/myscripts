@@ -27,7 +27,7 @@
                 <div class="begin_info-items">
                 {% assign product = collection.products.first %}
                 
-                <div class="begin_bedge">{{ product.type }}</div>
+                    <div class="begin_bedge">{{ product.type }}</div>
                     <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'medium' }}" 
                         alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
                     <h2>{{ product.title }}</h2>

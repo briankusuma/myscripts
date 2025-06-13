@@ -24,7 +24,10 @@
   <div class="collections-products_layout">
     {% for product in collection.products %}
       <div class="begin_info-items">
-        <div class="begin_bedge">{{ product.type }}</div>
+        {% comment %} <div class="begin_bedge">{{ product.type }}</div> {% endcomment %}
+        {% if product.type != blank %}
+            <div class="begin_bedge">{{ product.type }}</div>
+        {% endif %}
         <img class="begin-card_image" src="{{ product.featured_image.src | img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}" width="250" height="250">
         <h2>{{ product.title }}</h2>
         <p>Starting {{ product.price | money }}/mo</p>
