@@ -1,14 +1,56 @@
-<h1>{{ page.title }}</h1>
-{% form 'contact' %}
-  {% if form.posted_successfully? %} Thank you for your contact {% endif %}
-  {{ form.errors | default_errors }}
-  <label for="ContactFormName">name</label>
-  <input type="text" id="ContactFormName" name="contact[name]">
-  <label for="ContactFormEmail">email</label>
-  <input type="email" id="ContactFormEmail" name="contact[email]">
-  <label for="ContactFormPhone">phone</label>
-  <input type="tel" id="ContactFormPhone" name="contact[phone]">
-  <label for="ContactFormMessage">message</label>
-  <textarea rows="10" id="ContactFormMessage" name="contact[body]"></textarea>
-  <input type="submit" value="send">
-{% endform %}
+    <!-- /templates/customers/login.liquid -->
+    <section class="section-customer section-full">
+      <div class="container">
+          <div class="form-content">
+              <div id="login-cont" class="membership-cont form-active">
+                  <h1>Sign in</h1>
+                  
+                      {% form 'customer_login' %}
+                  
+                      {{ form.errors | default_errors }}
+                      <div class="form-layout">
+                          <label for="customer_email">Email</label>
+                          <input placeholder="Enter your email address" class="input" type="email" name="customer[email]" />
+                      
+                          <label for="customer_password">Password</label>
+                          <input placeholder="Enter your password" class="input" type="password" name="customer[password]" />
+      
+                          <span class="password-forgot" id="btn-recover">Forgot password?</span>
+                          <input class="button btn-primary is-small is-fullwidth submit" type="submit" value="Sign In" />
+                          <div class="text-layout">
+                              <span class="dont-have-account">Don’t have an account? <a href="{{ routes.account_register_url }}">Sign up</a></span>
+                          </div>
+                      </div>
+                  
+                      {% endform %}
+              </div>
+  {% comment %} recover-pass {% endcomment %}
+              <div id="recover-cont" class=" membership-cont ">
+                  <div class="membership-head">
+                      <h1 class="txt-500 fs-20 uppercase">Password Recovery</h1>
+                      <span class="txt-400 fs-14 cl-black-50">Enter the email you use for Myscripts</span>
+                  </div>
+                  <div class="membership-form ">
+                      {% form 'recover_customer_password' %}
+  
+                      {{ form.errors | default_errors }}
+                      
+                      <div class="form-layout">
+                          <label for="customer_email">Email</label>
+                          <input placeholder="Enter your email address" class="input" type="email" name="customer[email]" required />
+                          <input type="submit" value="Continue" class="button btn-primary is-small is-fullwidth submit"/>
+                          <div class="text-layout">
+                              <span class="dont-have-account">
+                              Back to 
+                              <a href="{{ routes.account_login_url }}">Sign up</a>
+                              </span>
+                          </div>
+                      </div>
+                      {% endform %}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  
+  <script src="{{ 'membership.js' |  asset_url }}"></script>
