@@ -18,6 +18,9 @@
             linear-gradient(180deg, #111D23 0%, #223C4A 100%);
         
             &_text{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
                 &-title{
                     color: #FFF;
                     font-family: Poppins;
@@ -98,7 +101,8 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: center!important;
+        
         .cta-content_text-title{
             color: #FFF;
             text-align: center;
