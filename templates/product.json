@@ -14,7 +14,9 @@
       "settings": {
         "flex_direction": "row",
         "display_tag": "none",
-        "price_tag": "20px"
+        "price_tag": "20px",
+        "show_stock": "flex",
+        "costs_include": "<p>Price includes $25 doctor's consultation</p>"
       }
     },
     "testimoni": {
@@ -27,7 +29,9 @@
     },
     "faq": {
       "type": "faq",
-      "settings": {}
+      "settings": {
+        "message_us_url": ""
+      }
     }
   },
   "order": [
