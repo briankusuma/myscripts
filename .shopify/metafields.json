@@ -38,6 +38,16 @@
         "name": "multi_line_text_field",
         "category": "TEXT"
       }
+    },
+    {
+      "key": "tax",
+      "namespace": "custom",
+      "name": "tax",
+      "description": "tax include",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
     }
   ],
   "variant": [],
